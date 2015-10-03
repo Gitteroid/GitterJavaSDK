@@ -20,15 +20,17 @@ public abstract class BaseApiClient {
         if (cause.getResponse() != null) {
           GitterApiErrorResponse errorResponse = (GitterApiErrorResponse) cause.getBodyAs(GitterApiErrorResponse.class);
 
-          returnThrowable = new GitterApiException(errorResponse);
-          returnThrowable.setStackTrace(cause.getStackTrace());
+          if (errorResponse != null) {
+            returnThrowable = new GitterApiException(errorResponse);
+            returnThrowable.setStackTrace(cause.getStackTrace());
+          }
         }
       }
 
       return returnThrowable;
     }
   };
-  
+
   protected RestAdapter.Builder adapterBuilder;
 
   public BaseApiClient() {
