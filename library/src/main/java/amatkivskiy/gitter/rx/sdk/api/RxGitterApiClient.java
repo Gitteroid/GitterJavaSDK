@@ -107,11 +107,19 @@ public class RxGitterApiClient {
     private String apiVersion = GITTER_API_ENDPOINT_VERSION;
 
     public Builder withAccountToken(String accountToken) {
+      if (accountToken == null || accountToken.isEmpty()) {
+        throw new IllegalArgumentException("accountToken shouldn't be null or empty");
+      }
+
       this.accountToken = accountToken;
       return this;
     }
 
     public Builder withApiVersion(String apiVersion) {
+      if (apiVersion == null || apiVersion.isEmpty()) {
+        throw new IllegalArgumentException("apiVersion shouldn't be null or empty");
+      }
+
       this.apiVersion = apiVersion;
       return this;
     }
@@ -122,6 +130,10 @@ public class RxGitterApiClient {
 
     @Override
     public RxGitterApiClient build() {
+      if (accountToken == null || accountToken.isEmpty()) {
+        throw new IllegalStateException("You should provide proper accountToken");
+      }
+
       Gson gson = new GsonBuilder()
           .registerTypeAdapter(UserResponse.class, new UserJsonDeserializer())
           .create();
