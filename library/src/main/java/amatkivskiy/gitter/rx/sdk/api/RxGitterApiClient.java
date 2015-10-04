@@ -1,7 +1,8 @@
 package amatkivskiy.gitter.rx.sdk.api;
 
 import amatkivskiy.gitter.rx.sdk.Constants;
-import amatkivskiy.gitter.rx.sdk.converter.UserConverter;
+import amatkivskiy.gitter.rx.sdk.api.builder.BaseApiBuilder;
+import amatkivskiy.gitter.rx.sdk.converter.UserJsonDeserializer;
 import amatkivskiy.gitter.rx.sdk.model.request.ChatMessagesRequestParams;
 import amatkivskiy.gitter.rx.sdk.model.request.UnreadRequestParam;
 import amatkivskiy.gitter.rx.sdk.model.response.OrgResponse;
@@ -18,57 +19,52 @@ import rx.Observable;
 import java.util.HashMap;
 import java.util.List;
 
-public class RxGitterApiClient extends BaseApiClient {
-  public RxGitterApiClient(final String token) {
-    RequestInterceptor requestInterceptor = new RequestInterceptor() {
-      @Override
-      public void intercept(RequestFacade requestFacade) {
-        requestFacade.addHeader(Constants.GitterRequestHeaderParams.AUTHORIZATION_REQUEST_HEADER, Constants.GitterRequestHeaderParams.BEARER_REQUEST_HEADER + " " + token);
-      }
-    };
-    adapterBuilder.setRequestInterceptor(requestInterceptor);
+import static amatkivskiy.gitter.rx.sdk.Constants.GitterEndpoints.GITTER_API_ENDPOINT;
+import static amatkivskiy.gitter.rx.sdk.Constants.GitterEndpoints.GITTER_API_ENDPOINT_VERSION;
+import static amatkivskiy.gitter.rx.sdk.Constants.GitterRequestHeaderParams.AUTHORIZATION_REQUEST_HEADER;
+import static amatkivskiy.gitter.rx.sdk.Constants.GitterRequestHeaderParams.BEARER_REQUEST_HEADER;
+
+public class RxGitterApiClient {
+  private RxGitterApi api;
+
+  public RxGitterApiClient(RxGitterApi api) {
+    this.api = api;
   }
 
   public Observable<MessageResponse> sendMessage(String roomId, String text) {
-    return createApi(adapterBuilder.build(), RxGitterApi.class).sendMessage(roomId, text);
+    return api.sendMessage(roomId, text);
   }
 
   public Observable<UserResponse> getCurrentUser() {
-    Gson gson = new GsonBuilder()
-        .registerTypeAdapter(UserResponse.class, new UserConverter())
-        .create();
-    adapterBuilder.setConverter(new GsonConverter(gson));
-
-    return createApi(adapterBuilder.build(), RxGitterApi.class).getCurrentUser();
+    return api.getCurrentUser();
   }
 
   public Observable<List<RoomResponse>> getUserRooms(String userId) {
-    return createApi(adapterBuilder.build(), RxGitterApi.class).getUserRooms(userId);
+    return api.getUserRooms(userId);
   }
 
   public Observable<List<OrgResponse>> getUserOrgs(String userId) {
-    return createApi(adapterBuilder.build(), RxGitterApi.class).getUserOrgs(userId);
+    return api.getUserOrgs(userId);
   }
 
   public Observable<List<RepoResponse>> getUserRepos(String userId) {
-    return createApi(adapterBuilder.build(), RxGitterApi.class).getUserRepos(userId);
+    return api.getUserRepos(userId);
   }
 
   public Observable<List<RoomResponse>> getUserChannels(String userId) {
-    return createApi(adapterBuilder.build(), RxGitterApi.class).getUserChannels(userId);
+    return api.getUserChannels(userId);
   }
 
   public Observable<RoomResponse> joinRoom(String roomUri) {
-    return createApi(adapterBuilder.build(), RxGitterApi.class).joinRoom(roomUri);
+    return api.joinRoom(roomUri);
   }
 
   public Observable<List<RoomResponse>> getCurrentUserRooms() {
-    return createApi(adapterBuilder.build(), RxGitterApi.class).getCurrentUserRooms();
+    return api.getCurrentUserRooms();
   }
 
   public Observable<List<MessageResponse>> getRoomMessages(String roomId, ChatMessagesRequestParams params) {
-    return createApi(adapterBuilder.build(), RxGitterApi.class).getRoomMessages(roomId,
-        convertChatMessagesParamsToMap(params));
+    return api.getRoomMessages(roomId, convertChatMessagesParamsToMap(params));
   }
 
   public Observable<List<MessageResponse>> getRoomMessages(String roomId) {
@@ -76,22 +72,11 @@ public class RxGitterApiClient extends BaseApiClient {
   }
 
   public Observable<MessageResponse> updateMessage(String roomId, String chatMessageId, String text) {
-    return createApi(adapterBuilder.build(), RxGitterApi.class).updateMessage(roomId, chatMessageId, text);
+    return api.updateMessage(roomId, chatMessageId, text);
   }
 
   public Observable<String> markReadMessages(String userId, String roomId, List<String> chatIds) {
-    return createApi(adapterBuilder.build(), RxGitterApi.class).markReadMessages(userId, roomId,
-        new UnreadRequestParam(chatIds));
-  }
-
-  @Override
-  protected String getEndpointUrl() {
-    return Constants.GitterEndpoints.GITTER_API_ENDPOINT;
-  }
-
-  @Override
-  protected String getEndpointVersion() {
-    return "v1";
+    return api.markReadMessages(userId, roomId, new UnreadRequestParam(chatIds));
   }
 
   private HashMap<String, String> convertChatMessagesParamsToMap(ChatMessagesRequestParams params) {
@@ -115,5 +100,45 @@ public class RxGitterApiClient extends BaseApiClient {
     }
 
     return options;
+  }
+
+  public static class Builder extends BaseApiBuilder<Builder, RxGitterApiClient> {
+    private String accountToken;
+    private String apiVersion = GITTER_API_ENDPOINT_VERSION;
+
+    public Builder withAccountToken(String accountToken) {
+      this.accountToken = accountToken;
+      return this;
+    }
+
+    public Builder withApiVersion(String apiVersion) {
+      this.apiVersion = apiVersion;
+      return this;
+    }
+
+    private String getFullEndpointUrl() {
+      return GITTER_API_ENDPOINT + "/" + apiVersion + "/";
+    }
+
+    @Override
+    public RxGitterApiClient build() {
+      Gson gson = new GsonBuilder()
+          .registerTypeAdapter(UserResponse.class, new UserJsonDeserializer())
+          .create();
+      restAdapterBuilder.setConverter(new GsonConverter(gson));
+
+      restAdapterBuilder.setEndpoint(getFullEndpointUrl());
+
+      RequestInterceptor requestInterceptor = new RequestInterceptor() {
+        @Override
+        public void intercept(RequestFacade requestFacade) {
+          requestFacade.addHeader(AUTHORIZATION_REQUEST_HEADER, BEARER_REQUEST_HEADER + " " + accountToken);
+        }
+      };
+      restAdapterBuilder.setRequestInterceptor(requestInterceptor);
+
+      RxGitterApi api = restAdapterBuilder.build().create(RxGitterApi.class);
+      return new RxGitterApiClient(api);
+    }
   }
 }

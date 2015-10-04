@@ -1,20 +1,25 @@
 package amatkivskiy.gitter.rx.sdk.api;
 
 import amatkivskiy.gitter.rx.sdk.Constants;
-import amatkivskiy.gitter.rx.sdk.model.response.AccessTokenResponse;
+import amatkivskiy.gitter.rx.sdk.api.builder.BaseApiBuilder;
 import amatkivskiy.gitter.rx.sdk.credentials.GitterDeveloperCredentials;
 import amatkivskiy.gitter.rx.sdk.credentials.GitterDeveloperCredentialsProvider;
-
+import amatkivskiy.gitter.rx.sdk.model.response.AccessTokenResponse;
 import rx.Observable;
 
 import static amatkivskiy.gitter.rx.sdk.Constants.GitterEndpoints.GITTER_AUTHENTICATION_ENDPOINT;
 
-public class RxGitterAuthenticationClient extends BaseApiClient {
+public class RxGitterAuthenticationClient {
+  private RxGitterAuthenticateApi api;
+
+  private RxGitterAuthenticationClient(RxGitterAuthenticateApi api) {
+    this.api = api;
+  }
 
   public Observable<AccessTokenResponse> getAccessToken(String code) {
     GitterDeveloperCredentialsProvider provider = GitterDeveloperCredentials.getInstance().getProvider();
 
-    return createApi(adapterBuilder.build(), RxGitterAuthenticateApi.class).getAccessToken(
+    return api.getAccessToken(
         provider.getOauthKey(),
         provider.getOauthSecret(),
         code,
@@ -28,7 +33,7 @@ public class RxGitterAuthenticationClient extends BaseApiClient {
                                                         String redirectUri,
                                                         String grantType) {
 
-    return createApi(adapterBuilder.build(), RxGitterAuthenticateApi.class).getAccessToken(
+    return api.getAccessToken(
         clientId,
         clientSecret,
         code,
@@ -36,13 +41,14 @@ public class RxGitterAuthenticationClient extends BaseApiClient {
         grantType);
   }
 
-  @Override
-  protected String getEndpointUrl() {
-    return GITTER_AUTHENTICATION_ENDPOINT;
-  }
+  public static class Builder extends BaseApiBuilder<Builder, RxGitterAuthenticationClient> {
 
-  @Override
-  protected String getEndpointVersion() {
-    return "";
+    @Override
+    public RxGitterAuthenticationClient build() {
+      restAdapterBuilder.setEndpoint(GITTER_AUTHENTICATION_ENDPOINT);
+      RxGitterAuthenticateApi api = restAdapterBuilder.build().create(RxGitterAuthenticateApi.class);
+
+      return new RxGitterAuthenticationClient(api);
+    }
   }
 }

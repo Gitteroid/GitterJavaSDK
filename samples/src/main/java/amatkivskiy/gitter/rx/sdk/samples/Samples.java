@@ -10,14 +10,17 @@ import amatkivskiy.gitter.rx.sdk.model.request.ChatMessagesRequestParams.ChatMes
 import amatkivskiy.gitter.rx.sdk.model.response.AccessTokenResponse;
 import amatkivskiy.gitter.rx.sdk.model.response.UserResponse;
 import amatkivskiy.gitter.rx.sdk.model.response.message.MessageResponse;
+import amatkivskiy.gitter.rx.sdk.model.response.room.RoomResponse;
+import retrofit.RestAdapter;
+import rx.Observable;
 
 import java.util.List;
 
 public class Samples {
-//  This information you can take from your Gitter dev account:
+  //  This information you can take from your Gitter dev account:
 //  https://developer.gitter.im/apps
   private static final String OAUTH_KEY = "your_oauth_key";
-  private static final String OAUTH_SECRET= "your_oauth_secret";
+  private static final String OAUTH_SECRET = "your_oauth_secret";
   private static final String REDIRECT_URL = "your_redirect_url";
 
   public static void main(String[] args) {
@@ -31,13 +34,18 @@ public class Samples {
   }
 
   private static void getUserSample() {
-    RxGitterApiClient client = new RxGitterApiClient("user_access_token");
+    RxGitterApiClient client = new RxGitterApiClient.Builder()
+        .withAccountToken("user_access_token")
+        .build();
+
     UserResponse user = client.getCurrentUser().toBlocking().first();
     System.out.println("user.displayName = " + user.displayName);
   }
 
   private static void getRoomChatMessages() {
-    RxGitterApiClient client = new RxGitterApiClient("user_access_token");
+    RxGitterApiClient client = new RxGitterApiClient.Builder()
+        .withAccountToken("user_access_token")
+        .build();
 
     ChatMessagesRequestParams params = new ChatMessagesRequestParamsBuilder().limit(20).build();
     String roomId = "533aa1485e986b0712f00ba5"; // gitterHQ/developers for example.
@@ -56,11 +64,20 @@ public class Samples {
     String code = "deadbeef";
 
 //    Then you need to exchange code for access token.
-    AccessTokenResponse tokenResponse = new RxGitterAuthenticationClient().getAccessToken(code).toBlocking().first();
+    RxGitterAuthenticationClient authenticationClient = new RxGitterAuthenticationClient.Builder()
+        .withLogLevel(RestAdapter.LogLevel.FULL)
+        .build();
+    AccessTokenResponse tokenResponse = authenticationClient.getAccessToken(code)
+        .toBlocking()
+        .first();
+
 //    From here yot can access api with your access token.
     System.out.println("Access token = " + tokenResponse.accessToken);
 
 //    For example:
-    new RxGitterApiClient(tokenResponse.accessToken).getCurrentUserRooms();
+    Observable<List<RoomResponse>> rooms = new RxGitterApiClient.Builder()
+        .withAccountToken(tokenResponse.accessToken)
+        .build()
+        .getCurrentUserRooms();
   }
 }

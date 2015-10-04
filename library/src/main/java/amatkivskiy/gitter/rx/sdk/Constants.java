@@ -4,6 +4,7 @@ public class Constants {
   public static class GitterEndpoints {
     public final static String GITTER_AUTHENTICATION_ENDPOINT = "https://gitter.im";
     public final static String GITTER_API_ENDPOINT = "https://api.gitter.im";
+    public final static String GITTER_API_ENDPOINT_VERSION = "v1";
   }
 
   public static class GitterRequestHeaderParams {
