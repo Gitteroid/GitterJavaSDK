@@ -2,7 +2,7 @@ package amatkivskiy.gitter.rx.sdk.model.response;
 
 public class UserResponse {
   public final String id;
-  public final int v;
+  public final Integer v;
   public final String username;
   public final String displayName;
   public final String avatarUrlSmall;
@@ -10,7 +10,7 @@ public class UserResponse {
   public final String gv;
   public final String url;
 
-  public UserResponse(String id, int v, String username, String avatarUrlSmall, String gv, String displayName, String url, String avatarUrlMedium) {
+  public UserResponse(String id, Integer v, String username, String avatarUrlSmall, String gv, String displayName, String url, String avatarUrlMedium) {
     this.id = id;
     this.v = v;
     this.username = username;

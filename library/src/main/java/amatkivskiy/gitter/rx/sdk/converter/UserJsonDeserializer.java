@@ -9,10 +9,20 @@ public class UserJsonDeserializer implements JsonDeserializer<UserResponse> {
   @Override
   public UserResponse deserialize(JsonElement jsonElement, Type type,
                                   JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-    JsonObject element = jsonElement.getAsJsonArray().get(0).getAsJsonObject();
+    JsonObject element = null;
+    if (jsonElement.isJsonArray()) {
+      element = jsonElement.getAsJsonArray().get(0).getAsJsonObject();
+    } else {
+      element = jsonElement.getAsJsonObject();
+    }
 
     String id = element.get("id").getAsString();
-    int v = element.get("v").getAsInt();
+
+    Integer v = null;
+    if (element.get("v") != null) {
+      v = element.get("v").getAsInt();
+    }
+
     String username = element.get("username").getAsString();
     String avatarUrlSmall = element.get("avatarUrlSmall").getAsString();
     String avatarUrlMedium = element.get("avatarUrlMedium").getAsString();
