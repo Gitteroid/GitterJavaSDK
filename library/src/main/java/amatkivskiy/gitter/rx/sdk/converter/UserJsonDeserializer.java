@@ -5,7 +5,7 @@ import com.google.gson.*;
 
 import java.lang.reflect.Type;
 
-public class UserConverter implements JsonDeserializer<UserResponse> {
+public class UserJsonDeserializer implements JsonDeserializer<UserResponse> {
   @Override
   public UserResponse deserialize(JsonElement jsonElement, Type type,
                                   JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
