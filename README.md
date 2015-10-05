@@ -1,4 +1,7 @@
 # GitterRxJavaSDK
+
+[![Join the chat at https://gitter.im/Gitteroid/GitterRxJavaSDK](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Gitteroid/GitterRxJavaSDK?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Gitter.im Java SDK that facilitates communication with Gitter API. Uses RxJava and Retrofit.
 
 ## Description
