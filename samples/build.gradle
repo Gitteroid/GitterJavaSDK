@@ -1,6 +1,6 @@
 apply plugin: 'application'
 
-mainClassName = "amatkivskiy.gitter.rx.sdk.samples.Samples"
+mainClassName = "com.amatkivskiy.gitter.rx.sdk.samples.Samples"
 
 dependencies {
     compile project(':library')
