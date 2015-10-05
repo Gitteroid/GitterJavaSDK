@@ -31,6 +31,13 @@ public interface RxGitterApi {
   @GET("/user/{userId}/channels")
   Observable<List<RoomResponse>> getUserChannels(@Path("userId") String userId);
 
+
+  @GET("/rooms/{roomId}/users")
+  Observable<List<UserResponse>> getRoomUsers(@Path("roomId") String roomId);
+
+  @GET("/rooms/{roomId}/channels")
+  Observable<List<RoomResponse>> getRoomChannels(@Path("roomId") String roomId);
+
   @POST("/rooms")
   @FormUrlEncoded
   Observable<RoomResponse> joinRoom(@Field("uri") String roomUri);

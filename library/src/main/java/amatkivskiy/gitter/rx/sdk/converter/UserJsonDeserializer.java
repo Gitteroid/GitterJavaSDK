@@ -26,7 +26,12 @@ public class UserJsonDeserializer implements JsonDeserializer<UserResponse> {
     String username = element.get("username").getAsString();
     String avatarUrlSmall = element.get("avatarUrlSmall").getAsString();
     String avatarUrlMedium = element.get("avatarUrlMedium").getAsString();
-    String gv = element.get("gv").getAsString();
+
+    String gv = null;
+    if (element.get("gv") != null) {
+      gv = element.get("gv").getAsString();
+    }
+
     String displayName = element.get("displayName").getAsString();
     String url = element.get("url").getAsString();
 
