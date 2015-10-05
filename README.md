@@ -25,6 +25,7 @@ String gitterAccessUrl = GitterOauthUtils.buildOauthUrl();
 http://some.redirect.url?code=deadbeef
 ```
 extract ```code``` parameter value.
+
 5)  Exchange code for access token:
 ```
 RxGitterAuthenticationClient authenticationClient = new RxGitterAuthenticationClient.Builder().build();
