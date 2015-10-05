@@ -1,6 +1,26 @@
 apply plugin: 'java'
+apply plugin: 'com.novoda.bintray-release'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.3.4'
+    }
+}
 
 version '1.0'
+
+publish {
+    groupId = 'com.github.amatkivskiy'
+    artifactId = 'gitter.rx.sdk'
+    publishVersion = '1.0.0'
+    desc = 'Gitter.im RxJava SDK that facilitates communication with Gitter API'
+    licences = ['MIT']
+    website = 'https://github.com/Gitteroid/GitterRxJavaSDK'
+    autoPublish = false
+}
 
 dependencies {
     compile 'com.squareup.retrofit:retrofit:1.9.0'
