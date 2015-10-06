@@ -4,6 +4,36 @@
 
 Gitter.im Java SDK that facilitates communication with Gitter API. Uses RxJava and Retrofit.
 
+## Setup
+
+Add gradle dependency:
+```
+compile 'com.github.amatkivskiy:gitter.rx.sdk:1.0.0'
+```
+
+## Features
+
+- Authentication
+
+*Rooms resource*
+- List rooms
+- Room users
+- Channels
+- Join a room
+
+*User resource*
+- Current user
+- User rooms
+- User orgs
+- User repos
+- User channels
+
+*Messages resource*
+- Unread items
+- List messages
+- Send a message
+- Update a message
+
 ## Description
 This SDK consists of two parts:
 - *Authentication API*
