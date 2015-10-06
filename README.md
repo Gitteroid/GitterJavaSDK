@@ -129,7 +129,7 @@ Thats all =).
 
 ## Samples
 
-You can see some code samples [here](https://github.com/Gitteroid/GitterRxJavaSDK/blob/master/samples/src/main/java/amatkivskiy/gitter/rx/sdk/samples/Samples.java)
+You can see some code samples [here](https://github.com/Gitteroid/GitterRxJavaSDK/blob/master/samples/src/main/java/com/amatkivskiy/gitter/rx/sdk/samples/Samples.java)
 
 ### Feel free to ask any questions.
 
