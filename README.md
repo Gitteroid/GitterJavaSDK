@@ -8,7 +8,13 @@ Gitter.im Java SDK that facilitates communication with Gitter API. Uses RxJava a
 
 Add gradle dependency:
 ```
-compile 'com.github.amatkivskiy:gitter.rx.sdk:1.0.0'
+repositories {
+      jcenter()
+}
+
+dependencies {
+      compile 'com.github.amatkivskiy:gitter.rx.sdk:1.0.0'
+}
 ```
 
 ## Features
