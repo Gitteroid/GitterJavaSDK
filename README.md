@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-      compile 'com.github.amatkivskiy:gitter.rx.sdk:1.0.0'
+      compile 'com.github.amatkivskiy:gitter.rx.sdk:1.1.0'
 }
 ```
 
@@ -44,10 +44,14 @@ dependencies {
 - Send a message
 - Update a message
 
+*Streaming*
+- Room messages stream
+
 ## Description
 This SDK consists of two parts:
 - *Authentication API*
 - *Rest API implementation*
+- *Streaming API implementation*
 
 **Authentication**
 Please read [Authentication](https://developer.gitter.im/docs/authentication) on **Gitter Developer** article before.
@@ -129,6 +133,21 @@ client.getUserChannels("user_id").subscribe(new Action1<List<RoomResponse>>() {
     });
 ```
 
+## How to get streaming data from Gitter Streaming API
+```
+RxGitterStreamingApiClient client = new RxGitterStreamingApiClient.Builder()
+        .withAccountToken("user_access_token")
+        .build();
+
+String roomId = "room_id";
+
+client.getRoomMessagesStream(roomId).subscribe(new Action1<MessageResponse>() {
+	@Override
+	public void call(MessageResponse messageResponse) {
+		System.out.println("messageResponse = " + messageResponse);
+	}
+});
+```
 Thats all =).
 
 ## Samples
