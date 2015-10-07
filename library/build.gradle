@@ -10,16 +10,17 @@ buildscript {
     }
 }
 
-version '1.0'
+version '1.1.0'
 
 publish {
     groupId = 'com.github.amatkivskiy'
     artifactId = 'gitter.rx.sdk'
-    publishVersion = '1.0.0'
+    publishVersion = '1.1.0'
     desc = 'Gitter.im RxJava SDK that facilitates communication with Gitter API'
     licences = ['MIT']
     website = 'https://github.com/Gitteroid/GitterRxJavaSDK'
     autoPublish = false
+    bintrayUser = 'amatkivskiy'
 }
 
 dependencies {
