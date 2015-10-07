@@ -3,6 +3,7 @@ package com.amatkivskiy.gitter.rx.sdk.samples;
 import com.amatkivskiy.gitter.rx.sdk.GitterOauthUtils;
 import com.amatkivskiy.gitter.rx.sdk.api.RxGitterApiClient;
 import com.amatkivskiy.gitter.rx.sdk.api.RxGitterAuthenticationClient;
+import com.amatkivskiy.gitter.rx.sdk.api.RxGitterStreamingApiClient;
 import com.amatkivskiy.gitter.rx.sdk.credentials.GitterDeveloperCredentials;
 import com.amatkivskiy.gitter.rx.sdk.credentials.SimpleGitterCredentialsProvider;
 import com.amatkivskiy.gitter.rx.sdk.model.request.ChatMessagesRequestParams;
@@ -13,6 +14,7 @@ import com.amatkivskiy.gitter.rx.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.room.RoomResponse;
 import retrofit.RestAdapter;
 import rx.Observable;
+import rx.functions.Action1;
 
 import java.util.List;
 
@@ -31,6 +33,22 @@ public class Samples {
     getAccessTokenSample();
     getUserSample();
     getRoomChatMessages();
+    roomMessagesStreamSample();
+  }
+
+  private static void roomMessagesStreamSample() {
+    RxGitterStreamingApiClient client = new RxGitterStreamingApiClient.Builder()
+        .withAccountToken("user_access_token")
+        .build();
+
+    String roomId = "533aa1485e986b0712f00ba5"; // gitterHQ/developers for example.
+
+    client.getRoomMessagesStream(roomId).subscribe(new Action1<MessageResponse>() {
+      @Override
+      public void call(MessageResponse messageResponse) {
+        System.out.println("messageResponse = " + messageResponse);
+      }
+    });
   }
 
   private static void getUserSample() {
