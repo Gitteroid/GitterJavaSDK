@@ -36,6 +36,20 @@ public class Samples {
     getRoomChatMessages();
     roomMessagesStreamSample();
     leaveRoomSample();
+    searchRoomsSample();
+  }
+
+  private static void searchRoomsSample() {
+    RxGitterApiClient client = new RxGitterApiClient.Builder()
+        .withAccountToken("user_access_token")
+        .build();
+
+    client.searchRooms("gitter").subscribe(new Action1<List<RoomResponse>>() {
+      @Override
+      public void call(List<RoomResponse> roomResponses) {
+        System.out.println("roomResponses.size() = " + roomResponses.size());
+      }
+    });
   }
 
   private static void leaveRoomSample() {

@@ -7,6 +7,7 @@ import com.amatkivskiy.gitter.rx.sdk.model.response.RepoResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.UserResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.room.RoomResponse;
+import com.amatkivskiy.gitter.rx.sdk.model.response.room.SearchRoomsResponse;
 import retrofit.http.*;
 import rx.Observable;
 
@@ -42,6 +43,9 @@ public interface RxGitterApi {
   @POST("/rooms")
   @FormUrlEncoded
   Observable<RoomResponse> joinRoom(@Field("uri") String roomUri);
+
+  @GET("/rooms")
+  Observable<SearchRoomsResponse> searchRooms(@Query("q") String searchTerm);
 
   @DELETE("/rooms/{roomId}/users/{userId}")
   Observable<LeaveRoomResponse> leaveRoom(@Path("roomId") String roomId, @Path("userId") String userId);

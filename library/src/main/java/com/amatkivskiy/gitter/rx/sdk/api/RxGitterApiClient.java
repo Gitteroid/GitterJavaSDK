@@ -11,10 +11,12 @@ import com.amatkivskiy.gitter.rx.sdk.model.response.RepoResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.UserResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.room.RoomResponse;
+import com.amatkivskiy.gitter.rx.sdk.model.response.room.SearchRoomsResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import retrofit.converter.GsonConverter;
 import rx.Observable;
+import rx.functions.Func1;
 
 import java.util.HashMap;
 import java.util.List;
@@ -64,6 +66,15 @@ public class RxGitterApiClient {
 
   public Observable<LeaveRoomResponse> leaveRoom(String roomId, String userId) {
     return api.leaveRoom(roomId, userId);
+  }
+
+  public Observable<List<RoomResponse>> searchRooms(String searchTerm) {
+    return api.searchRooms(searchTerm).map(new Func1<SearchRoomsResponse, List<RoomResponse>>() {
+      @Override
+      public List<RoomResponse> call(SearchRoomsResponse searchRoomsResponse) {
+        return searchRoomsResponse.results;
+      }
+    });
   }
 
   public Observable<List<RoomResponse>> getCurrentUserRooms() {
