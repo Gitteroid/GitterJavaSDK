@@ -59,7 +59,7 @@ dependencies {
 - Room messages stream
 
 ## Description
-This SDK consists of two parts:
+This SDK consists of three parts:
 - *Authentication API*
 - *Rest API implementation*
 - *Streaming API implementation*
