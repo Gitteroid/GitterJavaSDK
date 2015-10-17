@@ -47,6 +47,9 @@ public interface RxGitterApi {
   @GET("/rooms")
   Observable<SearchRoomsResponse> searchRooms(@Query("q") String searchTerm);
 
+  @GET("/rooms")
+  Observable<SearchRoomsResponse> searchRooms(@Query("q") String searchTerm, @Query("limit") int limit);
+
   @DELETE("/rooms/{roomId}/users/{userId}")
   Observable<LeaveRoomResponse> leaveRoom(@Path("roomId") String roomId, @Path("userId") String userId);
 

@@ -44,7 +44,7 @@ public class Samples {
         .withAccountToken("user_access_token")
         .build();
 
-    client.searchRooms("gitter").subscribe(new Action1<List<RoomResponse>>() {
+    client.searchRooms("gitter", 50).subscribe(new Action1<List<RoomResponse>>() {
       @Override
       public void call(List<RoomResponse> roomResponses) {
         System.out.println("roomResponses.size() = " + roomResponses.size());
