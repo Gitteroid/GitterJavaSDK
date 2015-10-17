@@ -21,6 +21,14 @@ dependencies {
 }
 ```
 
+## Release notes:
+- 1.2.0
+	- Added ability to search users
+	- Added ability to search rooms
+	- Added ability to leave room
+- 1.1.0
+	- Added room messages streaming API.
+
 ## Features
 
 - Authentication
@@ -30,6 +38,8 @@ dependencies {
 - Room users
 - Channels
 - Join a room
+- Leave room
+- Search rooms
 
 *User resource*
 - Current user
@@ -37,6 +47,7 @@ dependencies {
 - User orgs
 - User repos
 - User channels
+- Search users
 
 *Messages resource*
 - Unread items
