@@ -8,6 +8,7 @@ import com.amatkivskiy.gitter.rx.sdk.credentials.GitterDeveloperCredentials;
 import com.amatkivskiy.gitter.rx.sdk.credentials.SimpleGitterCredentialsProvider;
 import com.amatkivskiy.gitter.rx.sdk.model.request.ChatMessagesRequestParams;
 import com.amatkivskiy.gitter.rx.sdk.model.request.ChatMessagesRequestParams.ChatMessagesRequestParamsBuilder;
+import com.amatkivskiy.gitter.rx.sdk.model.request.UserAccountType;
 import com.amatkivskiy.gitter.rx.sdk.model.response.AccessTokenResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.LeaveRoomResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.UserResponse;
@@ -37,6 +38,20 @@ public class Samples {
     roomMessagesStreamSample();
     leaveRoomSample();
     searchRoomsSample();
+    searchUsersSample();
+  }
+
+  private static void searchUsersSample() {
+    RxGitterApiClient client = new RxGitterApiClient.Builder()
+        .withAccountToken("user_access_token")
+        .build();
+
+    client.searchUsers(UserAccountType.Gitter, "mr.robot").subscribe(new Action1<List<UserResponse>>() {
+      @Override
+      public void call(List<UserResponse> userResponses) {
+        System.out.println("userResponses = " + userResponses);
+      }
+    });
   }
 
   private static void searchRoomsSample() {

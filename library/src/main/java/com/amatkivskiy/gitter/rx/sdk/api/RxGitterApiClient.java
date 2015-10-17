@@ -4,17 +4,16 @@ import com.amatkivskiy.gitter.rx.sdk.Constants;
 import com.amatkivskiy.gitter.rx.sdk.api.builder.GitterApiBuilder;
 import com.amatkivskiy.gitter.rx.sdk.converter.UserJsonDeserializer;
 import com.amatkivskiy.gitter.rx.sdk.model.request.ChatMessagesRequestParams;
+import com.amatkivskiy.gitter.rx.sdk.model.request.UserAccountType;
 import com.amatkivskiy.gitter.rx.sdk.model.request.UnreadRequestParam;
-import com.amatkivskiy.gitter.rx.sdk.model.response.LeaveRoomResponse;
-import com.amatkivskiy.gitter.rx.sdk.model.response.OrgResponse;
-import com.amatkivskiy.gitter.rx.sdk.model.response.RepoResponse;
-import com.amatkivskiy.gitter.rx.sdk.model.response.UserResponse;
+import com.amatkivskiy.gitter.rx.sdk.model.response.*;
 import com.amatkivskiy.gitter.rx.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.room.RoomResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.room.SearchRoomsResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import retrofit.converter.GsonConverter;
+import retrofit.http.Query;
 import rx.Observable;
 import rx.functions.Func1;
 
@@ -82,6 +81,24 @@ public class RxGitterApiClient {
       @Override
       public List<RoomResponse> call(SearchRoomsResponse searchRoomsResponse) {
         return searchRoomsResponse.results;
+      }
+    });
+  }
+
+  public Observable<List<UserResponse>> searchUsers(UserAccountType type, @Query("q") String searchTerm) {
+    return api.searchUsers(type, searchTerm).map(new Func1<SearchUsersResponse, List<UserResponse>>() {
+      @Override
+      public List<UserResponse> call(SearchUsersResponse searchUsersResponse) {
+        return searchUsersResponse.results;
+      }
+    });
+  }
+
+  public Observable<List<UserResponse>> searchUsers(String searchTerm) {
+    return api.searchUsers(searchTerm).map(new Func1<SearchUsersResponse, List<UserResponse>>() {
+      @Override
+      public List<UserResponse> call(SearchUsersResponse searchUsersResponse) {
+        return searchUsersResponse.results;
       }
     });
   }

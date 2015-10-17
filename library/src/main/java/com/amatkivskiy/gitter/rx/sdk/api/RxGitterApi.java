@@ -1,10 +1,8 @@
 package com.amatkivskiy.gitter.rx.sdk.api;
 
+import com.amatkivskiy.gitter.rx.sdk.model.request.UserAccountType;
 import com.amatkivskiy.gitter.rx.sdk.model.request.UnreadRequestParam;
-import com.amatkivskiy.gitter.rx.sdk.model.response.LeaveRoomResponse;
-import com.amatkivskiy.gitter.rx.sdk.model.response.OrgResponse;
-import com.amatkivskiy.gitter.rx.sdk.model.response.RepoResponse;
-import com.amatkivskiy.gitter.rx.sdk.model.response.UserResponse;
+import com.amatkivskiy.gitter.rx.sdk.model.response.*;
 import com.amatkivskiy.gitter.rx.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.room.RoomResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.room.SearchRoomsResponse;
@@ -46,6 +44,12 @@ public interface RxGitterApi {
 
   @GET("/rooms")
   Observable<SearchRoomsResponse> searchRooms(@Query("q") String searchTerm);
+
+  @GET("/user")
+  Observable<SearchUsersResponse> searchUsers(@Query("type") UserAccountType type, @Query("q") String searchTerm);
+
+  @GET("/user")
+  Observable<SearchUsersResponse> searchUsers(@Query("q") String searchTerm);
 
   @GET("/rooms")
   Observable<SearchRoomsResponse> searchRooms(@Query("q") String searchTerm, @Query("limit") int limit);
