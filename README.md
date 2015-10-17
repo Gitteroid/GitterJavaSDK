@@ -21,7 +21,7 @@ dependencies {
 }
 ```
 
-## Release notes:
+## Release notes
 - 1.2.0
 	- Added ability to search users
 	- Added ability to search rooms
