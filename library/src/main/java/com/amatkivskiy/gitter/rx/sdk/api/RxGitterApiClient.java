@@ -5,6 +5,7 @@ import com.amatkivskiy.gitter.rx.sdk.api.builder.GitterApiBuilder;
 import com.amatkivskiy.gitter.rx.sdk.converter.UserJsonDeserializer;
 import com.amatkivskiy.gitter.rx.sdk.model.request.ChatMessagesRequestParams;
 import com.amatkivskiy.gitter.rx.sdk.model.request.UnreadRequestParam;
+import com.amatkivskiy.gitter.rx.sdk.model.response.LeaveRoomResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.OrgResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.RepoResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.UserResponse;
@@ -59,6 +60,10 @@ public class RxGitterApiClient {
 
   public Observable<RoomResponse> joinRoom(String roomUri) {
     return api.joinRoom(roomUri);
+  }
+
+  public Observable<LeaveRoomResponse> leaveRoom(String roomId, String userId) {
+    return api.leaveRoom(roomId, userId);
   }
 
   public Observable<List<RoomResponse>> getCurrentUserRooms() {

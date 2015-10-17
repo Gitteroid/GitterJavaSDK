@@ -1,6 +1,7 @@
 package com.amatkivskiy.gitter.rx.sdk.api;
 
 import com.amatkivskiy.gitter.rx.sdk.model.request.UnreadRequestParam;
+import com.amatkivskiy.gitter.rx.sdk.model.response.LeaveRoomResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.OrgResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.RepoResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.UserResponse;
@@ -41,6 +42,9 @@ public interface RxGitterApi {
   @POST("/rooms")
   @FormUrlEncoded
   Observable<RoomResponse> joinRoom(@Field("uri") String roomUri);
+
+  @DELETE("/rooms/{roomId}/users/{userId}")
+  Observable<LeaveRoomResponse> leaveRoom(@Path("roomId") String roomId, @Path("userId") String userId);
 
   @POST("/user/{userId}/rooms/{roomId}/unreadItems")
   Observable<String> markReadMessages(@Path("userId") String userId, @Path("roomId") String roomId,

@@ -9,6 +9,7 @@ import com.amatkivskiy.gitter.rx.sdk.credentials.SimpleGitterCredentialsProvider
 import com.amatkivskiy.gitter.rx.sdk.model.request.ChatMessagesRequestParams;
 import com.amatkivskiy.gitter.rx.sdk.model.request.ChatMessagesRequestParams.ChatMessagesRequestParamsBuilder;
 import com.amatkivskiy.gitter.rx.sdk.model.response.AccessTokenResponse;
+import com.amatkivskiy.gitter.rx.sdk.model.response.LeaveRoomResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.UserResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.room.RoomResponse;
@@ -34,6 +35,23 @@ public class Samples {
     getUserSample();
     getRoomChatMessages();
     roomMessagesStreamSample();
+    leaveRoomSample();
+  }
+
+  private static void leaveRoomSample() {
+    RxGitterApiClient client = new RxGitterApiClient.Builder()
+        .withAccountToken("user_access_token")
+        .build();
+
+    String roomId = "533aa1485e986b0712f00ba5"; // gitterHQ/developers for example.
+    String userId = "user_id";
+
+    client.leaveRoom(roomId, userId).subscribe(new Action1<LeaveRoomResponse>() {
+      @Override
+      public void call(LeaveRoomResponse leaveRoomResponse) {
+        System.out.println("leaveRoomResponse = " + leaveRoomResponse.success);
+      }
+    });
   }
 
   private static void roomMessagesStreamSample() {
