@@ -16,24 +16,14 @@ public class UserJsonDeserializer implements JsonDeserializer<UserResponse> {
       element = jsonElement.getAsJsonObject();
     }
 
-    String id = element.get("id").getAsString();
-
-    Integer v = null;
-    if (element.get("v") != null) {
-      v = element.get("v").getAsInt();
-    }
-
-    String username = element.get("username").getAsString();
-    String avatarUrlSmall = element.get("avatarUrlSmall").getAsString();
-    String avatarUrlMedium = element.get("avatarUrlMedium").getAsString();
-
-    String gv = null;
-    if (element.get("gv") != null) {
-      gv = element.get("gv").getAsString();
-    }
-
-    String displayName = element.get("displayName").getAsString();
-    String url = element.get("url").getAsString();
+    String id = element.get("id") != null ? element.get("id").getAsString() : null;
+    Integer v = element.get("v") != null ? element.get("v").getAsInt() : null;
+    String username = element.get("username") != null ? element.get("username").getAsString() : null;
+    String avatarUrlSmall = element.get("avatarUrlSmall") != null ? element.get("avatarUrlSmall").getAsString() : null;
+    String avatarUrlMedium = element.get("avatarUrlMedium") != null ? element.get("avatarUrlMedium").getAsString() : null;
+    String gv = element.get("gv") != null ? element.get("gv").getAsString() : null;
+    String displayName = element.get("displayName") != null ? element.get("displayName").getAsString() : null;
+    String url = element.get("url") != null ? element.get("url").getAsString() : null;
 
     return new UserResponse(id, v, username, avatarUrlSmall, gv, displayName, url, avatarUrlMedium);
   }
