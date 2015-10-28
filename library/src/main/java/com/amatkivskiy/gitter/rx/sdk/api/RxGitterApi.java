@@ -4,6 +4,7 @@ import com.amatkivskiy.gitter.rx.sdk.model.request.UserAccountType;
 import com.amatkivskiy.gitter.rx.sdk.model.request.UnreadRequestParam;
 import com.amatkivskiy.gitter.rx.sdk.model.response.*;
 import com.amatkivskiy.gitter.rx.sdk.model.response.message.MessageResponse;
+import com.amatkivskiy.gitter.rx.sdk.model.response.message.UnReadMessagesResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.room.RoomResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.room.SearchRoomsResponse;
 import retrofit.http.*;
@@ -60,6 +61,9 @@ public interface RxGitterApi {
   @POST("/user/{userId}/rooms/{roomId}/unreadItems")
   Observable<String> markReadMessages(@Path("userId") String userId, @Path("roomId") String roomId,
                                       @Body UnreadRequestParam param);
+
+  @GET("/user/{userId}/rooms/{roomId}/unreadItems")
+  Observable<UnReadMessagesResponse> getUnReadMessages(@Path("userId") String userId, @Path("roomId") String roomId);
 
   @GET("/rooms/{roomId}/chatMessages")
   Observable<List<MessageResponse>> getRoomMessages(

@@ -8,12 +8,12 @@ import com.amatkivskiy.gitter.rx.sdk.model.request.UserAccountType;
 import com.amatkivskiy.gitter.rx.sdk.model.request.UnreadRequestParam;
 import com.amatkivskiy.gitter.rx.sdk.model.response.*;
 import com.amatkivskiy.gitter.rx.sdk.model.response.message.MessageResponse;
+import com.amatkivskiy.gitter.rx.sdk.model.response.message.UnReadMessagesResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.room.RoomResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.room.SearchRoomsResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import retrofit.converter.GsonConverter;
-import retrofit.http.Query;
 import rx.Observable;
 import rx.functions.Func1;
 
@@ -63,6 +63,13 @@ public class RxGitterApiClient {
     return api.joinRoom(roomUri);
   }
 
+  /**
+   * Removes specified user from the room. It can be used to leave room.
+   *
+   * @param roomId Id of the room.
+   * @param userId Id of the user to remove.
+   * @return true if successful.
+   */
   public Observable<LeaveRoomResponse> leaveRoom(String roomId, String userId) {
     return api.leaveRoom(roomId, userId);
   }
@@ -85,7 +92,7 @@ public class RxGitterApiClient {
     });
   }
 
-  public Observable<List<UserResponse>> searchUsers(UserAccountType type, @Query("q") String searchTerm) {
+  public Observable<List<UserResponse>> searchUsers(UserAccountType type, String searchTerm) {
     return api.searchUsers(type, searchTerm).map(new Func1<SearchUsersResponse, List<UserResponse>>() {
       @Override
       public List<UserResponse> call(SearchUsersResponse searchUsersResponse) {
@@ -121,6 +128,10 @@ public class RxGitterApiClient {
 
   public Observable<String> markReadMessages(String userId, String roomId, List<String> chatIds) {
     return api.markReadMessages(userId, roomId, new UnreadRequestParam(chatIds));
+  }
+
+  public Observable<UnReadMessagesResponse> getUnReadMessages(String userId, String roomId) {
+    return api.getUnReadMessages(userId, roomId);
   }
 
   private HashMap<String, String> convertChatMessagesParamsToMap(ChatMessagesRequestParams params) {
