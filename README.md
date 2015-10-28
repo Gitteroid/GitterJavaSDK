@@ -17,11 +17,13 @@ repositories {
 }
 
 dependencies {
-      compile 'com.github.amatkivskiy:gitter.rx.sdk:1.1.0'
+      compile 'com.github.amatkivskiy:gitter.rx.sdk:1.2.1'
 }
 ```
 
 ## Release notes
+- 1.2.1
+	- Added ability to retrieve unread messages.
 - 1.2.0
 	- Added ability to search users
 	- Added ability to search rooms
@@ -38,6 +40,7 @@ dependencies {
 - Room users
 - Channels
 - Join a room
+- Remove user from the room
 - Leave room
 - Search rooms
 
@@ -65,7 +68,7 @@ This SDK consists of three parts:
 - *Streaming API implementation*
 
 **Authentication**
-Please read [Authentication](https://developer.gitter.im/docs/authentication) on **Gitter Developer** article before.
+Please read [Authentication](https://developer.gitter.im/docs/authentication) article on **Gitter Developer**  before.
 
 ## How to authenticate user with SDK
 
