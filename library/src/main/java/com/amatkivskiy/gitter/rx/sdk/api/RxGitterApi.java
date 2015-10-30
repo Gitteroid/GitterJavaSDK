@@ -56,10 +56,10 @@ public interface RxGitterApi {
   Observable<SearchRoomsResponse> searchRooms(@Query("q") String searchTerm, @Query("limit") int limit);
 
   @DELETE("/rooms/{roomId}/users/{userId}")
-  Observable<LeaveRoomResponse> leaveRoom(@Path("roomId") String roomId, @Path("userId") String userId);
+  Observable<BooleanResponse> leaveRoom(@Path("roomId") String roomId, @Path("userId") String userId);
 
   @POST("/user/{userId}/rooms/{roomId}/unreadItems")
-  Observable<String> markReadMessages(@Path("userId") String userId, @Path("roomId") String roomId,
+  Observable<BooleanResponse> markReadMessages(@Path("userId") String userId, @Path("roomId") String roomId,
                                       @Body UnreadRequestParam param);
 
   @GET("/user/{userId}/rooms/{roomId}/unreadItems")

@@ -70,7 +70,7 @@ public class RxGitterApiClient {
    * @param userId Id of the user to remove.
    * @return true if successful.
    */
-  public Observable<LeaveRoomResponse> leaveRoom(String roomId, String userId) {
+  public Observable<BooleanResponse> leaveRoom(String roomId, String userId) {
     return api.leaveRoom(roomId, userId);
   }
 
@@ -126,7 +126,7 @@ public class RxGitterApiClient {
     return api.updateMessage(roomId, chatMessageId, text);
   }
 
-  public Observable<String> markReadMessages(String userId, String roomId, List<String> chatIds) {
+  public Observable<BooleanResponse> markReadMessages(String userId, String roomId, List<String> chatIds) {
     return api.markReadMessages(userId, roomId, new UnreadRequestParam(chatIds));
   }
 

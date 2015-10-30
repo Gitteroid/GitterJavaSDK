@@ -10,7 +10,7 @@ import com.amatkivskiy.gitter.rx.sdk.model.request.ChatMessagesRequestParams;
 import com.amatkivskiy.gitter.rx.sdk.model.request.ChatMessagesRequestParams.ChatMessagesRequestParamsBuilder;
 import com.amatkivskiy.gitter.rx.sdk.model.request.UserAccountType;
 import com.amatkivskiy.gitter.rx.sdk.model.response.AccessTokenResponse;
-import com.amatkivskiy.gitter.rx.sdk.model.response.LeaveRoomResponse;
+import com.amatkivskiy.gitter.rx.sdk.model.response.BooleanResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.UserResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.room.RoomResponse;
@@ -18,6 +18,7 @@ import retrofit.RestAdapter;
 import rx.Observable;
 import rx.functions.Action1;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Samples {
@@ -39,6 +40,28 @@ public class Samples {
     leaveRoomSample();
     searchRoomsSample();
     searchUsersSample();
+    markMessagesRead();
+  }
+
+  private static void markMessagesRead() {
+    RxGitterApiClient client = new RxGitterApiClient.Builder()
+        .withAccountToken("user_access_token")
+        .build();
+
+    ArrayList<String> ids = new ArrayList<>();
+    ids.add("message_id1");
+    ids.add("message_id2");
+    ids.add("message_id3");
+
+    String roomId = "room_id";
+    String userId = "user_id";
+
+    client.markReadMessages(userId, roomId, ids).subscribe(new Action1<BooleanResponse>() {
+      @Override
+      public void call(BooleanResponse booleanResponse) {
+        System.out.println("booleanResponse = " + booleanResponse.success);
+      }
+    });
   }
 
   private static void searchUsersSample() {
@@ -75,10 +98,10 @@ public class Samples {
     String roomId = "533aa1485e986b0712f00ba5"; // gitterHQ/developers for example.
     String userId = "user_id";
 
-    client.leaveRoom(roomId, userId).subscribe(new Action1<LeaveRoomResponse>() {
+    client.leaveRoom(roomId, userId).subscribe(new Action1<BooleanResponse>() {
       @Override
-      public void call(LeaveRoomResponse leaveRoomResponse) {
-        System.out.println("leaveRoomResponse = " + leaveRoomResponse.success);
+      public void call(BooleanResponse response) {
+        System.out.println("leaveRoomResponse = " + response.success);
       }
     });
   }
