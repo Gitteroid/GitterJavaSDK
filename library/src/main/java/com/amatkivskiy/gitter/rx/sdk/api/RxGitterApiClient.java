@@ -83,6 +83,13 @@ public class RxGitterApiClient {
     });
   }
 
+  /**
+   * @return suggested rooms for the current user.
+   */
+  public Observable<List<RoomResponse>> getSuggestedRooms() {
+    return api.getSuggestedRooms();
+  }
+
   public Observable<List<RoomResponse>> searchRooms(String searchTerm, int limit) {
     return api.searchRooms(searchTerm, limit).map(new Func1<SearchRoomsResponse, List<RoomResponse>>() {
       @Override

@@ -58,6 +58,9 @@ public interface RxGitterApi {
   @DELETE("/rooms/{roomId}/users/{userId}")
   Observable<BooleanResponse> leaveRoom(@Path("roomId") String roomId, @Path("userId") String userId);
 
+  @GET("/user/me/suggestedRooms")
+  Observable<List<RoomResponse>> getSuggestedRooms();
+
   @POST("/user/{userId}/rooms/{roomId}/unreadItems")
   Observable<BooleanResponse> markReadMessages(@Path("userId") String userId, @Path("roomId") String roomId,
                                       @Body UnreadRequestParam param);
