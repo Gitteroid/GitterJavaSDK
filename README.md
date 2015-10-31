@@ -148,6 +148,8 @@ client.getUserChannels("user_id").subscribe(new Action1<List<RoomResponse>>() {
 ```
 
 ## How to get streaming data from Gitter Streaming API
+### Please don't set any log level for *RxGitterStreamingApiClient* as it blocks the stream.
+
 ```
 RxGitterStreamingApiClient client = new RxGitterStreamingApiClient.Builder()
         .withAccountToken("user_access_token")
