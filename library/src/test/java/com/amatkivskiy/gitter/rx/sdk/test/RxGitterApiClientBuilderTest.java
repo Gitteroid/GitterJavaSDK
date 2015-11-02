@@ -1,6 +1,6 @@
 package com.amatkivskiy.gitter.rx.sdk.test;
 
-import com.amatkivskiy.gitter.rx.sdk.api.RxGitterApiClient;
+import com.amatkivskiy.gitter.rx.sdk.api.rx.RxGitterApiClient;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;

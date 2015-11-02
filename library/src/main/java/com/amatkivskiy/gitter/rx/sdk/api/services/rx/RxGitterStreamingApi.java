@@ -1,4 +1,4 @@
-package com.amatkivskiy.gitter.rx.sdk.api;
+package com.amatkivskiy.gitter.rx.sdk.api.services.rx;
 
 import retrofit.client.Response;
 import retrofit.http.GET;
