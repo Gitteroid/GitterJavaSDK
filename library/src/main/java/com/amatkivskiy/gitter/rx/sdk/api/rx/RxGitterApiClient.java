@@ -1,6 +1,7 @@
-package com.amatkivskiy.gitter.rx.sdk.api;
+package com.amatkivskiy.gitter.rx.sdk.api.rx;
 
 import com.amatkivskiy.gitter.rx.sdk.Constants;
+import com.amatkivskiy.gitter.rx.sdk.api.services.rx.RxGitterApi;
 import com.amatkivskiy.gitter.rx.sdk.api.builder.GitterApiBuilder;
 import com.amatkivskiy.gitter.rx.sdk.converter.UserJsonDeserializer;
 import com.amatkivskiy.gitter.rx.sdk.model.request.ChatMessagesRequestParams;

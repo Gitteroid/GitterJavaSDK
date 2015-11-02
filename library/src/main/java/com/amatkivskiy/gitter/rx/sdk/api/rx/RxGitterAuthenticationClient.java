@@ -1,6 +1,7 @@
-package com.amatkivskiy.gitter.rx.sdk.api;
+package com.amatkivskiy.gitter.rx.sdk.api.rx;
 
 import com.amatkivskiy.gitter.rx.sdk.Constants;
+import com.amatkivskiy.gitter.rx.sdk.api.services.rx.RxGitterAuthenticateApi;
 import com.amatkivskiy.gitter.rx.sdk.api.builder.BaseApiBuilder;
 import com.amatkivskiy.gitter.rx.sdk.credentials.GitterDeveloperCredentials;
 import com.amatkivskiy.gitter.rx.sdk.credentials.GitterDeveloperCredentialsProvider;

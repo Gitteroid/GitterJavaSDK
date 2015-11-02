@@ -1,4 +1,4 @@
-package com.amatkivskiy.gitter.rx.sdk.api;
+package com.amatkivskiy.gitter.rx.sdk.api.services.rx;
 
 import com.amatkivskiy.gitter.rx.sdk.model.request.UserAccountType;
 import com.amatkivskiy.gitter.rx.sdk.model.request.UnreadRequestParam;

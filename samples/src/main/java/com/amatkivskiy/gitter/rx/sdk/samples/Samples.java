@@ -1,9 +1,8 @@
 package com.amatkivskiy.gitter.rx.sdk.samples;
 
 import com.amatkivskiy.gitter.rx.sdk.GitterOauthUtils;
-import com.amatkivskiy.gitter.rx.sdk.api.RxGitterApiClient;
-import com.amatkivskiy.gitter.rx.sdk.api.RxGitterAuthenticationClient;
-import com.amatkivskiy.gitter.rx.sdk.api.RxGitterStreamingApiClient;
+import com.amatkivskiy.gitter.rx.sdk.api.usual.GitterApiClient;
+import com.amatkivskiy.gitter.rx.sdk.api.usual.GitterAuthenticationClient;
 import com.amatkivskiy.gitter.rx.sdk.credentials.GitterDeveloperCredentials;
 import com.amatkivskiy.gitter.rx.sdk.credentials.SimpleGitterCredentialsProvider;
 import com.amatkivskiy.gitter.rx.sdk.model.request.ChatMessagesRequestParams;
@@ -14,9 +13,10 @@ import com.amatkivskiy.gitter.rx.sdk.model.response.BooleanResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.UserResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.rx.sdk.model.response.room.RoomResponse;
+import retrofit.Callback;
 import retrofit.RestAdapter;
-import rx.Observable;
-import rx.functions.Action1;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,124 +36,11 @@ public class Samples {
     getAccessTokenSample();
     getUserSample();
     getRoomChatMessages();
-    roomMessagesStreamSample();
     leaveRoomSample();
     searchRoomsSample();
     searchUsersSample();
     markMessagesRead();
     getSuggestedRooms();
-  }
-
-  private static void getSuggestedRooms() {
-    RxGitterApiClient client = new RxGitterApiClient.Builder()
-        .withAccountToken("user_access_token")
-        .build();
-
-    client.getSuggestedRooms().subscribe(new Action1<List<RoomResponse>>() {
-      @Override
-      public void call(List<RoomResponse> roomResponses) {
-        System.out.println("rooms size = " + roomResponses.size());
-      }
-    });
-  }
-
-  private static void markMessagesRead() {
-    RxGitterApiClient client = new RxGitterApiClient.Builder()
-        .withAccountToken("user_access_token")
-        .build();
-
-    ArrayList<String> ids = new ArrayList<>();
-    ids.add("message_id1");
-    ids.add("message_id2");
-    ids.add("message_id3");
-
-    String roomId = "room_id";
-    String userId = "user_id";
-
-    client.markReadMessages(userId, roomId, ids).subscribe(new Action1<BooleanResponse>() {
-      @Override
-      public void call(BooleanResponse booleanResponse) {
-        System.out.println("booleanResponse = " + booleanResponse.success);
-      }
-    });
-  }
-
-  private static void searchUsersSample() {
-    RxGitterApiClient client = new RxGitterApiClient.Builder()
-        .withAccountToken("user_access_token")
-        .build();
-
-    client.searchUsers(UserAccountType.Gitter, "mr.robot").subscribe(new Action1<List<UserResponse>>() {
-      @Override
-      public void call(List<UserResponse> userResponses) {
-        System.out.println("userResponses = " + userResponses);
-      }
-    });
-  }
-
-  private static void searchRoomsSample() {
-    RxGitterApiClient client = new RxGitterApiClient.Builder()
-        .withAccountToken("user_access_token")
-        .build();
-
-    client.searchRooms("gitter", 50).subscribe(new Action1<List<RoomResponse>>() {
-      @Override
-      public void call(List<RoomResponse> roomResponses) {
-        System.out.println("roomResponses.size() = " + roomResponses.size());
-      }
-    });
-  }
-
-  private static void leaveRoomSample() {
-    RxGitterApiClient client = new RxGitterApiClient.Builder()
-        .withAccountToken("user_access_token")
-        .build();
-
-    String roomId = "533aa1485e986b0712f00ba5"; // gitterHQ/developers for example.
-    String userId = "user_id";
-
-    client.leaveRoom(roomId, userId).subscribe(new Action1<BooleanResponse>() {
-      @Override
-      public void call(BooleanResponse response) {
-        System.out.println("leaveRoomResponse = " + response.success);
-      }
-    });
-  }
-
-  private static void roomMessagesStreamSample() {
-    RxGitterStreamingApiClient client = new RxGitterStreamingApiClient.Builder()
-        .withAccountToken("user_access_token")
-        .build();
-
-    String roomId = "533aa1485e986b0712f00ba5"; // gitterHQ/developers for example.
-
-    client.getRoomMessagesStream(roomId).subscribe(new Action1<MessageResponse>() {
-      @Override
-      public void call(MessageResponse messageResponse) {
-        System.out.println("messageResponse = " + messageResponse);
-      }
-    });
-  }
-
-  private static void getUserSample() {
-    RxGitterApiClient client = new RxGitterApiClient.Builder()
-        .withAccountToken("user_access_token")
-        .build();
-
-    UserResponse user = client.getCurrentUser().toBlocking().first();
-    System.out.println("user.displayName = " + user.displayName);
-  }
-
-  private static void getRoomChatMessages() {
-    RxGitterApiClient client = new RxGitterApiClient.Builder()
-        .withAccountToken("user_access_token")
-        .build();
-
-    ChatMessagesRequestParams params = new ChatMessagesRequestParamsBuilder().limit(20).build();
-    String roomId = "533aa1485e986b0712f00ba5"; // gitterHQ/developers for example.
-
-    List<MessageResponse> messages = client.getRoomMessages(roomId, params).toBlocking().first();
-    System.out.println("Received " + messages.size() + " messages");
   }
 
   private static void getAccessTokenSample() {
@@ -166,20 +53,132 @@ public class Samples {
     String code = "deadbeef";
 
 //    Then you need to exchange code for access token.
-    RxGitterAuthenticationClient authenticationClient = new RxGitterAuthenticationClient.Builder()
+    GitterAuthenticationClient authenticationClient = new GitterAuthenticationClient.Builder()
         .withLogLevel(RestAdapter.LogLevel.FULL)
         .build();
-    AccessTokenResponse tokenResponse = authenticationClient.getAccessToken(code)
-        .toBlocking()
-        .first();
 
+    authenticationClient.getAccessToken(code,
+        new Callback<AccessTokenResponse>() {
+          @Override
+          public void success(AccessTokenResponse tokenResponse, Response response) {
 //    From here yot can access api with your access token.
-    System.out.println("Access token = " + tokenResponse.accessToken);
+            System.out.println("Access token = " + tokenResponse.accessToken);
 
 //    For example:
-    Observable<List<RoomResponse>> rooms = new RxGitterApiClient.Builder()
-        .withAccountToken(tokenResponse.accessToken)
-        .build()
-        .getCurrentUserRooms();
+            new GitterApiClient.Builder()
+                .withAccountToken(tokenResponse.accessToken)
+                .build()
+                .getCurrentUserRooms(new EmptyCallback<List<RoomResponse>>());
+          }
+
+          @Override
+          public void failure(RetrofitError error) {
+          }
+        });
+  }
+
+  private static void getUserSample() {
+    GitterApiClient client = new GitterApiClient.Builder()
+        .withAccountToken("user_access_token")
+        .build();
+
+    client.getCurrentUser(new SuccessCallback<UserResponse>() {
+      @Override
+      public void success(UserResponse user, Response response) {
+        System.out.println("user.displayName = " + user.displayName);
+      }
+    });
+  }
+
+  private static void getRoomChatMessages() {
+    GitterApiClient client = new GitterApiClient.Builder()
+        .withAccountToken("user_access_token")
+        .build();
+
+    ChatMessagesRequestParams params = new ChatMessagesRequestParamsBuilder().limit(20).build();
+    String roomId = "533aa1485e986b0712f00ba5"; // gitterHQ/developers for example.
+
+    client.getRoomMessages(roomId, params, new SuccessCallback<List<MessageResponse>>() {
+      @Override
+      public void success(List<MessageResponse> messages, Response response) {
+        System.out.println("Received " + messages.size() + " messages");
+      }
+    });
+  }
+
+  private static void leaveRoomSample() {
+    GitterApiClient client = new GitterApiClient.Builder()
+        .withAccountToken("user_access_token")
+        .build();
+
+    String roomId = "533aa1485e986b0712f00ba5"; // gitterHQ/developers for example.
+    String userId = "user_id";
+
+    client.leaveRoom(roomId, userId, new SuccessCallback<BooleanResponse>() {
+      @Override
+      public void success(BooleanResponse response, Response response2) {
+        System.out.println("leaveRoomResponse = " + response.success);
+      }
+    });
+  }
+
+  private static void searchRoomsSample() {
+    GitterApiClient client = new GitterApiClient.Builder()
+        .withAccountToken("user_access_token")
+        .build();
+
+    client.searchRooms("gitter", 50, new SuccessCallback<List<RoomResponse>>() {
+      @Override
+      public void success(List<RoomResponse> roomResponses, Response response) {
+        System.out.println("roomResponses.size() = " + roomResponses.size());
+      }
+    });
+  }
+
+  private static void searchUsersSample() {
+    GitterApiClient client = new GitterApiClient.Builder()
+        .withAccountToken("user_access_token")
+        .build();
+
+    client.searchUsers(UserAccountType.Gitter, "mr.robot", new SuccessCallback<List<UserResponse>>() {
+      @Override
+      public void success(List<UserResponse> userResponses, Response response) {
+        System.out.println("userResponses = " + userResponses);
+      }
+    });
+  }
+
+  private static void markMessagesRead() {
+    GitterApiClient client = new GitterApiClient.Builder()
+        .withAccountToken("user_access_token")
+        .build();
+
+    ArrayList<String> ids = new ArrayList<>();
+    ids.add("message_id1");
+    ids.add("message_id2");
+    ids.add("message_id3");
+
+    String roomId = "room_id";
+    String userId = "user_id";
+
+    client.markReadMessages(userId, roomId, ids, new SuccessCallback<BooleanResponse>() {
+      @Override
+      public void success(BooleanResponse response, Response response2) {
+        System.out.println("booleanResponse = " + response.success);
+      }
+    });
+  }
+
+  private static void getSuggestedRooms() {
+    GitterApiClient client = new GitterApiClient.Builder()
+        .withAccountToken("user_access_token")
+        .build();
+
+    client.getSuggestedRooms(new SuccessCallback<List<RoomResponse>>() {
+      @Override
+      public void success(List<RoomResponse> roomResponses, Response response) {
+        System.out.println("rooms size = " + roomResponses.size());
+      }
+    });
   }
 }
