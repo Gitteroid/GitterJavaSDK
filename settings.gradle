@@ -1,2 +1,1 @@
-rootProject.name = 'gitter.rx.sdk'
-include ':library', ':samples'
+include 'library:core', ':samples', 'library:rx'

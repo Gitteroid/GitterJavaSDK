@@ -1,0 +1,10 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(':library:core')
+    compile 'io.reactivex:rxjava:1.0.10'
+}
