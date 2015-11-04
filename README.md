@@ -1,4 +1,4 @@
-# GitterRxJavaSDK
+# Gitter.im Java SDK
 
 [ ![Download](https://api.bintray.com/packages/amatkivskiy/maven/gitter.rx.sdk/images/download.svg) ](https://bintray.com/amatkivskiy/maven/gitter.rx.sdk/_latestVersion)
 
@@ -6,22 +6,43 @@
 
 [![Join the chat at https://gitter.im/Gitteroid/GitterRxJavaSDK](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Gitteroid/GitterRxJavaSDK?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Gitter.im Java SDK that facilitates communication with Gitter API. Uses RxJava and Retrofit.
+Gitter.im Java SDK that facilitates communication with Gitter API.
+
+It provides two approaches to work with API:
+- RxJava approach;
+- Async (callback) approach.
 
 ## Setup
 
 Add gradle dependency:
+
+For RxJava:
 ```
 repositories {
       jcenter()
 }
 
 dependencies {
-      compile 'com.github.amatkivskiy:gitter.rx.sdk:1.2.1'
+      compile 'com.github.amatkivskiy:gitter.sdk.rx:1.3'
+}
+```
+
+For async:
+```
+repositories {
+      jcenter()
+}
+
+dependencies {
+      compile 'com.github.amatkivskiy:gitter.sdk.async:1.3'
 }
 ```
 
 ## Release notes
+- 1.3
+	- Refactored library structure
+	- Added async api support.
+	- Added async api samples.
 - 1.2.1
 	- Added ability to retrieve unread messages.
 - 1.2.0
@@ -58,15 +79,10 @@ dependencies {
 - Send a message
 - Update a message
 
-*Streaming*
+*:heavy_exclamation_mark: Streaming (Avalible only in Rx part.*)
 - Room messages stream
 
 ## Description
-This SDK consists of three parts:
-- *Authentication API*
-- *Rest API implementation*
-- *Streaming API implementation*
-
 **Authentication**
 Please read [Authentication](https://developer.gitter.im/docs/authentication) article on **Gitter Developer**  before.
 
