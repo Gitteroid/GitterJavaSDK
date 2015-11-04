@@ -6,7 +6,7 @@ import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.POST;
 
-public interface GitterAuthenticateApi {
+public interface AsyncGitterAuthenticateApi {
 
   @POST("/login/oauth/token")
   @FormUrlEncoded

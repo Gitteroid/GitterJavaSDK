@@ -10,8 +10,8 @@ import com.amatkivskiy.gitter.sdk.model.response.BooleanResponse;
 import com.amatkivskiy.gitter.sdk.model.response.UserResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.sdk.model.response.room.RoomResponse;
-import com.amatkivskiy.gitter.sdk.async.client.GitterApiClient;
-import com.amatkivskiy.gitter.sdk.async.client.GitterAuthenticationClient;
+import com.amatkivskiy.gitter.sdk.async.client.AsyncGitterApiClient;
+import com.amatkivskiy.gitter.sdk.async.client.AsyncGitterAuthenticationClient;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -52,7 +52,7 @@ public class Samples {
     String code = "deadbeef";
 
 //    Then you need to exchange code for access token.
-    GitterAuthenticationClient authenticationClient = new GitterAuthenticationClient.Builder()
+    AsyncGitterAuthenticationClient authenticationClient = new AsyncGitterAuthenticationClient.Builder()
         .withLogLevel(RestAdapter.LogLevel.FULL)
         .build();
 
@@ -64,7 +64,7 @@ public class Samples {
             System.out.println("Access token = " + tokenResponse.accessToken);
 
 //    For example:
-            new GitterApiClient.Builder()
+            new AsyncGitterApiClient.Builder()
                 .withAccountToken(tokenResponse.accessToken)
                 .build()
                 .getCurrentUserRooms(new EmptyCallback<List<RoomResponse>>());
@@ -77,7 +77,7 @@ public class Samples {
   }
 
   private static void getUserSample() {
-    GitterApiClient client = new GitterApiClient.Builder()
+    AsyncGitterApiClient client = new AsyncGitterApiClient.Builder()
         .withAccountToken("user_access_token")
         .build();
 
@@ -90,7 +90,7 @@ public class Samples {
   }
 
   private static void getRoomChatMessages() {
-    GitterApiClient client = new GitterApiClient.Builder()
+    AsyncGitterApiClient client = new AsyncGitterApiClient.Builder()
         .withAccountToken("user_access_token")
         .build();
 
@@ -106,7 +106,7 @@ public class Samples {
   }
 
   private static void leaveRoomSample() {
-    GitterApiClient client = new GitterApiClient.Builder()
+    AsyncGitterApiClient client = new AsyncGitterApiClient.Builder()
         .withAccountToken("user_access_token")
         .build();
 
@@ -122,7 +122,7 @@ public class Samples {
   }
 
   private static void searchRoomsSample() {
-    GitterApiClient client = new GitterApiClient.Builder()
+    AsyncGitterApiClient client = new AsyncGitterApiClient.Builder()
         .withAccountToken("user_access_token")
         .build();
 
@@ -135,7 +135,7 @@ public class Samples {
   }
 
   private static void searchUsersSample() {
-    GitterApiClient client = new GitterApiClient.Builder()
+    AsyncGitterApiClient client = new AsyncGitterApiClient.Builder()
         .withAccountToken("user_access_token")
         .build();
 
@@ -148,7 +148,7 @@ public class Samples {
   }
 
   private static void markMessagesRead() {
-    GitterApiClient client = new GitterApiClient.Builder()
+    AsyncGitterApiClient client = new AsyncGitterApiClient.Builder()
         .withAccountToken("user_access_token")
         .build();
 
@@ -169,7 +169,7 @@ public class Samples {
   }
 
   private static void getSuggestedRooms() {
-    GitterApiClient client = new GitterApiClient.Builder()
+    AsyncGitterApiClient client = new AsyncGitterApiClient.Builder()
         .withAccountToken("user_access_token")
         .build();
 
