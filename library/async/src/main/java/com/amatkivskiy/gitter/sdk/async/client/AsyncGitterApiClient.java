@@ -2,7 +2,7 @@ package com.amatkivskiy.gitter.sdk.async.client;
 
 import com.amatkivskiy.gitter.sdk.Constants;
 import com.amatkivskiy.gitter.sdk.api.builder.GitterApiBuilder;
-import com.amatkivskiy.gitter.sdk.async.api.GitterApi;
+import com.amatkivskiy.gitter.sdk.async.api.AsyncGitterApi;
 import com.amatkivskiy.gitter.sdk.converter.UserJsonDeserializer;
 import com.amatkivskiy.gitter.sdk.model.request.ChatMessagesRequestParams;
 import com.amatkivskiy.gitter.sdk.model.request.UnreadRequestParam;
@@ -22,10 +22,10 @@ import retrofit.converter.GsonConverter;
 import java.util.HashMap;
 import java.util.List;
 
-public class GitterApiClient {
-  private GitterApi api;
+public class AsyncGitterApiClient {
+  private AsyncGitterApi api;
 
-  public GitterApiClient(GitterApi api) {
+  public AsyncGitterApiClient(AsyncGitterApi api) {
     this.api = api;
   }
 
@@ -186,14 +186,14 @@ public class GitterApiClient {
     return options;
   }
 
-  public static class Builder extends GitterApiBuilder<Builder, GitterApiClient> {
+  public static class Builder extends GitterApiBuilder<Builder, AsyncGitterApiClient> {
 
     protected String getFullEndpointUrl() {
       return Constants.GitterEndpoints.GITTER_API_ENDPOINT + "/" + apiVersion + "/";
     }
 
     @Override
-    public GitterApiClient build() {
+    public AsyncGitterApiClient build() {
       prepareDefaultBuilderConfig();
 
       Gson gson = new GsonBuilder()
@@ -201,8 +201,8 @@ public class GitterApiClient {
           .create();
       restAdapterBuilder.setConverter(new GsonConverter(gson));
 
-      GitterApi api = restAdapterBuilder.build().create(GitterApi.class);
-      return new GitterApiClient(api);
+      AsyncGitterApi api = restAdapterBuilder.build().create(AsyncGitterApi.class);
+      return new AsyncGitterApiClient(api);
     }
   }
 }

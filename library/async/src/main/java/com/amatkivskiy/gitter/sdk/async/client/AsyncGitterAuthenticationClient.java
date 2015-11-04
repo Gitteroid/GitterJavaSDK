@@ -2,7 +2,7 @@ package com.amatkivskiy.gitter.sdk.async.client;
 
 import com.amatkivskiy.gitter.sdk.Constants;
 import com.amatkivskiy.gitter.sdk.api.builder.BaseApiBuilder;
-import com.amatkivskiy.gitter.sdk.async.api.GitterAuthenticateApi;
+import com.amatkivskiy.gitter.sdk.async.api.AsyncGitterAuthenticateApi;
 import com.amatkivskiy.gitter.sdk.credentials.GitterDeveloperCredentials;
 import com.amatkivskiy.gitter.sdk.credentials.GitterDeveloperCredentialsProvider;
 import com.amatkivskiy.gitter.sdk.model.response.AccessTokenResponse;
@@ -10,10 +10,10 @@ import retrofit.Callback;
 
 import static com.amatkivskiy.gitter.sdk.Constants.GitterEndpoints.GITTER_AUTHENTICATION_ENDPOINT;
 
-public class GitterAuthenticationClient {
-  private GitterAuthenticateApi api;
+public class AsyncGitterAuthenticationClient {
+  private AsyncGitterAuthenticateApi api;
 
-  private GitterAuthenticationClient(GitterAuthenticateApi api) {
+  private AsyncGitterAuthenticationClient(AsyncGitterAuthenticateApi api) {
     this.api = api;
   }
 
@@ -45,14 +45,14 @@ public class GitterAuthenticationClient {
         callback);
   }
 
-  public static class Builder extends BaseApiBuilder<Builder, GitterAuthenticationClient> {
+  public static class Builder extends BaseApiBuilder<Builder, AsyncGitterAuthenticationClient> {
 
     @Override
-    public GitterAuthenticationClient build() {
+    public AsyncGitterAuthenticationClient build() {
       restAdapterBuilder.setEndpoint(GITTER_AUTHENTICATION_ENDPOINT);
-      GitterAuthenticateApi api = restAdapterBuilder.build().create(GitterAuthenticateApi.class);
+      AsyncGitterAuthenticateApi api = restAdapterBuilder.build().create(AsyncGitterAuthenticateApi.class);
 
-      return new GitterAuthenticationClient(api);
+      return new AsyncGitterAuthenticationClient(api);
     }
   }
 }

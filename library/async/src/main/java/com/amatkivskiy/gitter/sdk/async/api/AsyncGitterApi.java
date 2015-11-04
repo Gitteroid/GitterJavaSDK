@@ -13,7 +13,7 @@ import retrofit.http.*;
 import java.util.List;
 import java.util.Map;
 
-public interface GitterApi {
+public interface AsyncGitterApi {
   @GET("/user")
   void getCurrentUser(Callback<UserResponse> callback);
 
