@@ -1,8 +1,8 @@
-package com.amatkivskiy.gitter.sdk.api.usual;
+package com.amatkivskiy.gitter.sdk.async.client;
 
 import com.amatkivskiy.gitter.sdk.Constants;
 import com.amatkivskiy.gitter.sdk.api.builder.BaseApiBuilder;
-import com.amatkivskiy.gitter.sdk.api.services.usual.GitterAuthenticateApi;
+import com.amatkivskiy.gitter.sdk.async.api.GitterAuthenticateApi;
 import com.amatkivskiy.gitter.sdk.credentials.GitterDeveloperCredentials;
 import com.amatkivskiy.gitter.sdk.credentials.GitterDeveloperCredentialsProvider;
 import com.amatkivskiy.gitter.sdk.model.response.AccessTokenResponse;

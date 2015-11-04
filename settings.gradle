@@ -1,1 +1,2 @@
-include 'library:core', ':samples', 'library:rx'
+include 'library:core', ':samples', 'library:rx', 'library:async'
+

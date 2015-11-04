@@ -6,6 +6,8 @@ buildscript {
 }
 
 allprojects {
+    version '1.2.2'
+
     repositories {
         jcenter()
         mavenCentral()

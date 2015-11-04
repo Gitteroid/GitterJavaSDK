@@ -1,17 +1,17 @@
 package com.amatkivskiy.gitter.sdk.rx.client;
 
 import com.amatkivskiy.gitter.sdk.Constants;
-import com.amatkivskiy.gitter.sdk.api.builder.GitterApiBuilder;
 import com.amatkivskiy.gitter.sdk.converter.UserJsonDeserializer;
 import com.amatkivskiy.gitter.sdk.model.request.ChatMessagesRequestParams;
-import com.amatkivskiy.gitter.sdk.model.request.UnreadRequestParam;
-import com.amatkivskiy.gitter.sdk.model.request.UserAccountType;
 import com.amatkivskiy.gitter.sdk.model.response.*;
-import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.UnReadMessagesResponse;
 import com.amatkivskiy.gitter.sdk.model.response.room.RoomResponse;
-import com.amatkivskiy.gitter.sdk.model.response.room.SearchRoomsResponse;
 import com.amatkivskiy.gitter.sdk.rx.api.RxGitterApi;
+import com.amatkivskiy.gitter.sdk.api.builder.GitterApiBuilder;
+import com.amatkivskiy.gitter.sdk.model.request.UnreadRequestParam;
+import com.amatkivskiy.gitter.sdk.model.request.UserAccountType;
+import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
+import com.amatkivskiy.gitter.sdk.model.response.room.SearchRoomsResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import retrofit.converter.GsonConverter;

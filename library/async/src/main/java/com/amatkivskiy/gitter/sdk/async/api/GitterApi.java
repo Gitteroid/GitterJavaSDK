@@ -1,12 +1,12 @@
-package com.amatkivskiy.gitter.sdk.api.services.usual;
+package com.amatkivskiy.gitter.sdk.async.api;
 
 import com.amatkivskiy.gitter.sdk.model.request.UserAccountType;
 import com.amatkivskiy.gitter.sdk.model.request.UnreadRequestParam;
+import com.amatkivskiy.gitter.sdk.model.response.*;
 import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.UnReadMessagesResponse;
 import com.amatkivskiy.gitter.sdk.model.response.room.RoomResponse;
 import com.amatkivskiy.gitter.sdk.model.response.room.SearchRoomsResponse;
-import com.amatkivskiy.gitter.sdk.model.response.*;
 import retrofit.Callback;
 import retrofit.http.*;
 

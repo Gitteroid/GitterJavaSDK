@@ -1,14 +1,11 @@
 package com.amatkivskiy.gitter.sdk.api.builder;
 
+import com.amatkivskiy.gitter.sdk.Constants;
 import retrofit.RequestInterceptor;
-
-import static com.amatkivskiy.gitter.sdk.Constants.GitterEndpoints.GITTER_API_ENDPOINT_VERSION;
-import static com.amatkivskiy.gitter.sdk.Constants.GitterRequestHeaderParams.AUTHORIZATION_REQUEST_HEADER;
-import static com.amatkivskiy.gitter.sdk.Constants.GitterRequestHeaderParams.BEARER_REQUEST_HEADER;
 
 public abstract class GitterApiBuilder<Builder, ApiClient> extends BaseApiBuilder<Builder, ApiClient> {
   protected String accountToken;
-  protected String apiVersion = GITTER_API_ENDPOINT_VERSION;
+  protected String apiVersion = Constants.GitterEndpoints.GITTER_API_ENDPOINT_VERSION;
 
   protected abstract String getFullEndpointUrl();
 
@@ -42,7 +39,7 @@ public abstract class GitterApiBuilder<Builder, ApiClient> extends BaseApiBuilde
     RequestInterceptor requestInterceptor = new RequestInterceptor() {
       @Override
       public void intercept(RequestFacade requestFacade) {
-        requestFacade.addHeader(AUTHORIZATION_REQUEST_HEADER, BEARER_REQUEST_HEADER + " " + accountToken);
+        requestFacade.addHeader(Constants.GitterRequestHeaderParams.AUTHORIZATION_REQUEST_HEADER, Constants.GitterRequestHeaderParams.BEARER_REQUEST_HEADER + " " + accountToken);
       }
     };
     restAdapterBuilder.setRequestInterceptor(requestInterceptor);

@@ -1,12 +1,12 @@
 package com.amatkivskiy.gitter.sdk.rx.client;
 
 import com.amatkivskiy.gitter.sdk.Constants;
-import com.amatkivskiy.gitter.sdk.api.builder.GitterApiBuilder;
 import com.amatkivskiy.gitter.sdk.converter.UserJsonDeserializer;
 import com.amatkivskiy.gitter.sdk.model.response.UserResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.sdk.rx.api.RxGitterStreamingApi;
 import com.amatkivskiy.gitter.sdk.rx.streaming.OnSubscribeBufferedReader;
+import com.amatkivskiy.gitter.sdk.api.builder.GitterApiBuilder;
 import com.amatkivskiy.gitter.sdk.util.StringUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
