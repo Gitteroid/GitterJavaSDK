@@ -104,6 +104,7 @@ http://some.redirect.url?code=deadbeef
 extract ```code``` parameter value.
 
 5)  Exchange code for access token:
+ - Rx:
 ```
 RxGitterAuthenticationClient authenticationClient = new RxGitterAuthenticationClient.Builder().build();
 
@@ -113,6 +114,23 @@ authenticationClient.getAccessToken(code).subscribe(new Action1<AccessTokenRespo
         System.out.println("Access token = " + accessTokenResponse.accessToken);
       }
     });
+```
+
+- Async:
+```
+AsyncGitterAuthenticationClient authenticationClient = new AsyncGitterAuthenticationClient.Builder()
+        .build();
+
+authenticationClient.getAccessToken(code, new Callback<AccessTokenResponse>() {
+	
+		@Override
+        public void success(AccessTokenResponse tokenResponse, Response response) {
+		System.out.println("Access token = " + accessTokenResponse.accessToken);
+        }
+
+        @Override
+        public void failure(RetrofitError error) {}
+});
 ```
 6) Save and use this ```accessToken``` to make requests to the REST API.
 
