@@ -10,13 +10,15 @@ buildscript {
     }
 }
 
-version '1.2.2'
+repositories {
+    mavenCentral()
+}
 
 publish {
     groupId = 'com.github.amatkivskiy'
-    artifactId = 'gitter.rx.sdk'
-    publishVersion = '1.2.2'
-    desc = 'Gitter.im RxJava SDK that facilitates communication with Gitter API'
+    artifactId = 'gitter.sdk.async'
+    publishVersion = project.parent.version
+    desc = 'Gitter.im Java SDK that facilitates communication with Gitter API'
     licences = ['MIT']
     website = 'https://github.com/Gitteroid/GitterRxJavaSDK'
     autoPublish = false
@@ -24,8 +26,5 @@ publish {
 }
 
 dependencies {
-    compile 'com.squareup.retrofit:retrofit:1.9.0'
-    compile 'io.reactivex:rxjava:1.0.14'
-
-    testCompile 'junit:junit:4.12'
+    compile project(':library:core')
 }

@@ -1,11 +1,11 @@
 package com.amatkivskiy.gitter.sdk.rx.api;
 
+import com.amatkivskiy.gitter.sdk.model.response.*;
+import com.amatkivskiy.gitter.sdk.model.response.room.RoomResponse;
 import com.amatkivskiy.gitter.sdk.model.request.UserAccountType;
 import com.amatkivskiy.gitter.sdk.model.request.UnreadRequestParam;
-import com.amatkivskiy.gitter.sdk.model.response.*;
 import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.UnReadMessagesResponse;
-import com.amatkivskiy.gitter.sdk.model.response.room.RoomResponse;
 import com.amatkivskiy.gitter.sdk.model.response.room.SearchRoomsResponse;
 import retrofit.http.*;
 import rx.Observable;

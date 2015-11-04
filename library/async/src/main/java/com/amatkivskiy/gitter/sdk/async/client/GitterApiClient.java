@@ -1,8 +1,8 @@
-package com.amatkivskiy.gitter.sdk.api.usual;
+package com.amatkivskiy.gitter.sdk.async.client;
 
 import com.amatkivskiy.gitter.sdk.Constants;
 import com.amatkivskiy.gitter.sdk.api.builder.GitterApiBuilder;
-import com.amatkivskiy.gitter.sdk.api.services.usual.GitterApi;
+import com.amatkivskiy.gitter.sdk.async.api.GitterApi;
 import com.amatkivskiy.gitter.sdk.converter.UserJsonDeserializer;
 import com.amatkivskiy.gitter.sdk.model.request.ChatMessagesRequestParams;
 import com.amatkivskiy.gitter.sdk.model.request.UnreadRequestParam;

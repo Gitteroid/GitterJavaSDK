@@ -5,4 +5,5 @@ mainClassName = "com.amatkivskiy.gitter.sdk.samples.RxSamples"
 dependencies {
 //    compile project(':library:core')
     compile project(':library:rx')
+    compile project(':library:async')
 }

@@ -1,4 +1,4 @@
-package com.amatkivskiy.gitter.sdk.api.services.usual;
+package com.amatkivskiy.gitter.sdk.async.api;
 
 import com.amatkivskiy.gitter.sdk.model.response.AccessTokenResponse;
 import retrofit.Callback;

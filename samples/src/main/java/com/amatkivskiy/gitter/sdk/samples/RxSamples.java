@@ -1,15 +1,15 @@
 package com.amatkivskiy.gitter.sdk.samples;
 
-import com.amatkivskiy.gitter.sdk.GitterOauthUtils;
 import com.amatkivskiy.gitter.sdk.credentials.GitterDeveloperCredentials;
+import com.amatkivskiy.gitter.sdk.model.response.BooleanResponse;
+import com.amatkivskiy.gitter.sdk.model.response.UserResponse;
+import com.amatkivskiy.gitter.sdk.model.response.room.RoomResponse;
+import com.amatkivskiy.gitter.sdk.GitterOauthUtils;
 import com.amatkivskiy.gitter.sdk.credentials.SimpleGitterCredentialsProvider;
 import com.amatkivskiy.gitter.sdk.model.request.ChatMessagesRequestParams;
 import com.amatkivskiy.gitter.sdk.model.request.UserAccountType;
 import com.amatkivskiy.gitter.sdk.model.response.AccessTokenResponse;
-import com.amatkivskiy.gitter.sdk.model.response.BooleanResponse;
-import com.amatkivskiy.gitter.sdk.model.response.UserResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
-import com.amatkivskiy.gitter.sdk.model.response.room.RoomResponse;
 import com.amatkivskiy.gitter.sdk.rx.client.RxGitterApiClient;
 import com.amatkivskiy.gitter.sdk.rx.client.RxGitterAuthenticationClient;
 import com.amatkivskiy.gitter.sdk.rx.client.RxGitterStreamingApiClient;
