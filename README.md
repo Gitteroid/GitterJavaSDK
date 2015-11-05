@@ -17,7 +17,7 @@ It provides two approaches to work with API:
 Add gradle dependency:
 
 For RxJava:
-```
+```groovy
 repositories {
       jcenter()
 }
@@ -28,7 +28,7 @@ dependencies {
 ```
 
 For async:
-```
+```groovy
 repositories {
       jcenter()
 }
@@ -89,11 +89,11 @@ Please read [Authentication](https://developer.gitter.im/docs/authentication) ar
 ## How to authenticate user with SDK
 
 1) Setup **GitterDeveloperCredentials** with info from [here](https://developer.gitter.im/apps):
-```
+```java
 GitterDeveloperCredentials.init(new SimpleGitterCredentialsProvider(your_oauth_key, your_oauth_secret, your_redirect_url));
 ```
 2) Get Gitter request access URL:
-```
+```java
 String gitterAccessUrl = GitterOauthUtils.buildOauthUrl();
 ```
 3) Open this url in something like embedded browser and listen for redirects.
@@ -105,7 +105,7 @@ extract ```code``` parameter value.
 
 5)  Exchange code for access token:
  - Rx:
-```
+```java
 RxGitterAuthenticationClient authenticationClient = new RxGitterAuthenticationClient.Builder().build();
 
 authenticationClient.getAccessToken(code).subscribe(new Action1<AccessTokenResponse>() {
@@ -117,7 +117,7 @@ authenticationClient.getAccessToken(code).subscribe(new Action1<AccessTokenRespo
 ```
 
 - Async:
-```
+```java
 AsyncGitterAuthenticationClient authenticationClient = new AsyncGitterAuthenticationClient.Builder()
         .build();
 
@@ -135,14 +135,21 @@ authenticationClient.getAccessToken(code, new Callback<AccessTokenResponse>() {
 6) Save and use this ```accessToken``` to make requests to the REST API.
 
 ## How to get data from Gitter REST API
-1)  Create ```RxGitterApiClient``` with help of ```RxGitterApiClient.Builder```:
-```
+1)  Create ```GitterApiClient``` with help of ```GitterApiClient.Builder```:
+- Rx:
+```java
 RxGitterApiClient client = new RxGitterApiClient.Builder()
         .withAccountToken("user_access_token")
         .build();
 ```
-also you can provide some Retrofit config for requests:
+- Async:
 ```
+AsyncGitterApiClient client = new AsyncGitterApiClient.Builder()
+        .withAccountToken("user_access_token")
+        .build();
+```
+also you can provide some Retrofit config for requests (same for Rx and Async):
+```java
 RxGitterApiClient client = new RxGitterApiClient.Builder()
         .withAccountToken("user_access_token")
         .withClient(new OkClient())
@@ -151,7 +158,8 @@ RxGitterApiClient client = new RxGitterApiClient.Builder()
         .build();
 ```
 2) Execute any request that you need:
-```
+- Rx:
+```java
 client.getCurrentUser().subscribe(new Action1<UserResponse>() {
       @Override
       public void call(UserResponse user) {
@@ -159,8 +167,23 @@ client.getCurrentUser().subscribe(new Action1<UserResponse>() {
       }
     });
 ```
-or
+- Async:
+```java
+client.getCurrentUser(new Callback<UserResponse>() {
+      @Override
+      public void success(UserResponse userResponse, Response response) {
+        System.out.println("userResponse.displayName = " + userResponse.displayName);
+      }
+
+      @Override
+      public void failure(RetrofitError error) {
+        System.err.println("error = " + error);
+      }
+    });
 ```
+or
+- Rx:
+```java
 ChatMessagesRequestParams params = new ChatMessagesRequestParamsBuilder().limit(20).build();
 String roomId = "room_id";
 
@@ -171,8 +194,24 @@ client.getRoomMessages(roomId, params).subscribe(new Action1<List<MessageRespons
       }
     });
 ```
-or
+- Async:
+```java
+ChatMessagesRequestParams params = new ChatMessagesRequestParamsBuilder().limit(20).build();
+String roomId = "room_id";
+
+client.getRoomMessages(roomId, params, new Callback<List<MessageResponse>>() {
+      @Override
+      public void success(List<MessageResponse> messages, Response response) {
+        System.out.println("Received " + messages.size() + " messages");
+      }
+
+      @Override
+      public void failure(RetrofitError error) {}
+    });
 ```
+or
+- Rx:
+```java
 client.getUserChannels("user_id").subscribe(new Action1<List<RoomResponse>>() {
       @Override
       public void call(List<RoomResponse> rooms) {
@@ -180,9 +219,21 @@ client.getUserChannels("user_id").subscribe(new Action1<List<RoomResponse>>() {
       }
     });
 ```
+- Async:
+```java
+client.getUserChannels("user_id", new Callback<List<RoomResponse>>() {
+      @Override
+      public void success(List<RoomResponse> rooms, Response response) {
+        System.out.println("Received " + rooms.size() + " rooms");
+      }
 
+      @Override
+      public void failure(RetrofitError error) {}
+    });
+```
 ## How to get streaming data from Gitter Streaming API
 ### :heavy_exclamation_mark: Please don't set any log level for *RxGitterStreamingApiClient* as it blocks the stream.
+:heavy_exclamation_mark: If you get `java.net.SocketTimeoutException: Read timed out` try to encrease `ReadTimeout` in your `retrofit.client.Client` and spicify this client for `GutterApiClient` (`withClient()`).
 
 ```
 RxGitterStreamingApiClient client = new RxGitterStreamingApiClient.Builder()
@@ -202,7 +253,7 @@ Thats all =).
 
 ## Samples
 
-You can see some code samples [here](https://github.com/Gitteroid/GitterRxJavaSDK/blob/master/samples/src/main/java/com/amatkivskiy/gitter/rx/sdk/samples/Samples.java)
+You can see some code samples [here](https://github.com/Gitteroid/GitterRxJavaSDK/blob/master/samples/src/main/java/com/amatkivskiy/gitter/rx/sdk/samples/)
 
 ### Feel free to ask any questions.
 
