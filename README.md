@@ -235,7 +235,7 @@ client.getUserChannels("user_id", new Callback<List<RoomResponse>>() {
 ### :heavy_exclamation_mark: Please don't set any log level for *RxGitterStreamingApiClient* as it blocks the stream.
 :heavy_exclamation_mark: If you get `java.net.SocketTimeoutException: Read timed out` try to encrease `ReadTimeout` in your `retrofit.client.Client` and spicify this client for `GutterApiClient` (`withClient()`).
 
-```
+```java
 RxGitterStreamingApiClient client = new RxGitterStreamingApiClient.Builder()
         .withAccountToken("user_access_token")
         .build();
