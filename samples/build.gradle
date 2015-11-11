@@ -1,9 +1,10 @@
 apply plugin: 'application'
 
-mainClassName = "com.amatkivskiy.gitter.sdk.samples.RxSamples"
+mainClassName = "com.amatkivskiy.gitter.sdk.samples.SyncSamples"
 
 dependencies {
 //    compile project(':library:core')
     compile project(':library:rx')
     compile project(':library:async')
+    compile project(':library:sync')
 }
