@@ -20,7 +20,7 @@ publish {
     publishVersion = project.parent.version
     desc = 'Gitter.im RxJava SDK that facilitates communication with Gitter API'
     licences = ['MIT']
-    website = 'https://github.com/Gitteroid/GitterRxJavaSDK'
+    website = 'https://github.com/Gitteroid/GitterJavaSDK'
     autoPublish = false
     bintrayUser = 'amatkivskiy'
 }
