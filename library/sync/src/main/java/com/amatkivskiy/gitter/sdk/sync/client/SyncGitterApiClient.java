@@ -15,6 +15,7 @@ import com.amatkivskiy.gitter.sdk.sync.api.SyncGitterApi;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import retrofit.converter.GsonConverter;
+import retrofit.http.Path;
 
 import java.util.HashMap;
 import java.util.List;
@@ -110,6 +111,10 @@ public class SyncGitterApiClient {
 
   public List<MessageResponse> getRoomMessages(String roomId) {
     return getRoomMessages(roomId, null);
+  }
+
+  public MessageResponse getRoomMessages(String roomId, String messageId) {
+    return api.getRoomMessageById(roomId, messageId);
   }
 
   public MessageResponse updateMessage(String roomId, String chatMessageId, String text) {

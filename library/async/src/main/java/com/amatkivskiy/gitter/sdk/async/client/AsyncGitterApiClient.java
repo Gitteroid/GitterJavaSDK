@@ -151,6 +151,10 @@ public class AsyncGitterApiClient {
     getRoomMessages(roomId, null, callback);
   }
 
+  public void getRoomMessageById(String roomId, String messageId, Callback<MessageResponse> callback) {
+    api.getRoomMessageById(roomId, messageId, callback);
+  }
+
   public void updateMessage(String roomId, String chatMessageId, String text, Callback<MessageResponse> callback) {
     api.updateMessage(roomId, chatMessageId, text, callback);
   }

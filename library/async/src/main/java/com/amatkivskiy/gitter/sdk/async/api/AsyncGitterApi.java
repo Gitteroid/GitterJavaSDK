@@ -1,7 +1,7 @@
 package com.amatkivskiy.gitter.sdk.async.api;
 
-import com.amatkivskiy.gitter.sdk.model.request.UserAccountType;
 import com.amatkivskiy.gitter.sdk.model.request.UnreadRequestParam;
+import com.amatkivskiy.gitter.sdk.model.request.UserAccountType;
 import com.amatkivskiy.gitter.sdk.model.response.*;
 import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.UnReadMessagesResponse;
@@ -84,6 +84,13 @@ public interface AsyncGitterApi {
       @Path("roomId") String roomId,
       @QueryMap Map<String, String> options,
       Callback<List<MessageResponse>> callback
+  );
+
+  @GET("/rooms/{roomId}/chatMessages/{messageId}")
+  void getRoomMessageById(
+      @Path("roomId") String roomId,
+      @Path("messageId") String messageId,
+      Callback<MessageResponse> callback
   );
 
   @FormUrlEncoded
