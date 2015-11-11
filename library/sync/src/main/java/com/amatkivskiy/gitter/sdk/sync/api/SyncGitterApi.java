@@ -71,6 +71,9 @@ public interface SyncGitterApi {
   @GET("/rooms/{roomId}/chatMessages")
   List<MessageResponse> getRoomMessages(@Path("roomId") String roomId, @QueryMap Map<String, String> options);
 
+  @GET("/rooms/{roomId}/chatMessages/{messageId}")
+  MessageResponse getRoomMessageById(@Path("roomId") String roomId, @Path("messageId") String messageId);
+
   @FormUrlEncoded
   @POST("/rooms/{roomId}/chatMessages")
   MessageResponse sendMessage(@Path("roomId") String roomId, @Field("text") String text);
