@@ -74,6 +74,12 @@ public interface RxGitterApi {
       @QueryMap Map<String, String> options
   );
 
+  @GET("/rooms/{roomId}/chatMessages/{messageId}")
+  Observable<MessageResponse> getRoomMessageById(
+      @Path("roomId") String roomId,
+      @Path("messageId") String messageId
+  );
+
   @FormUrlEncoded
   @POST("/rooms/{roomId}/chatMessages")
   Observable<MessageResponse> sendMessage(
