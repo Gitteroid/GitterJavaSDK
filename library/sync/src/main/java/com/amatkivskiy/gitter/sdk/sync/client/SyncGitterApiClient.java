@@ -113,7 +113,7 @@ public class SyncGitterApiClient {
     return getRoomMessages(roomId, null);
   }
 
-  public MessageResponse getRoomMessages(String roomId, String messageId) {
+  public MessageResponse getRoomMessageById(String roomId, String messageId) {
     return api.getRoomMessageById(roomId, messageId);
   }
 
