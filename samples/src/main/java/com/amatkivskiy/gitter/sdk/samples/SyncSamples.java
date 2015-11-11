@@ -29,14 +29,14 @@ public class SyncSamples {
 //    This is required only for authentication.
     GitterDeveloperCredentials.init(new SimpleGitterCredentialsProvider(OAUTH_KEY, OAUTH_SECRET, REDIRECT_URL));
 
-//    getAccessTokenSample();
-//    getUserSample();
-//    getRoomChatMessages();
-//    leaveRoomSample();
-//    searchRoomsSample();
-//    searchUsersSample();
-//    markMessagesRead();
-//    getSuggestedRooms();
+    getAccessTokenSample();
+    getUserSample();
+    getRoomChatMessages();
+    leaveRoomSample();
+    searchRoomsSample();
+    searchUsersSample();
+    markMessagesRead();
+    getSuggestedRooms();
   }
 
   private static void getAccessTokenSample() {

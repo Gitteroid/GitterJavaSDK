@@ -126,6 +126,10 @@ public class RxGitterApiClient {
     return api.getRoomMessages(roomId, convertChatMessagesParamsToMap(params));
   }
 
+  public Observable<MessageResponse> getRoomMessageById( String roomId, String messageId) {
+    return api.getRoomMessageById(roomId, messageId);
+  }
+
   public Observable<List<MessageResponse>> getRoomMessages(String roomId) {
     return getRoomMessages(roomId, null);
   }
