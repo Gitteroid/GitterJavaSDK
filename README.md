@@ -11,6 +11,7 @@ Gitter.im Java SDK that facilitates communication with Gitter API.
 It provides two approaches to work with API:
 - RxJava approach;
 - Async (callback) approach.
+- Sync approach.
 
 ## Setup
 
@@ -38,11 +39,24 @@ dependencies {
 }
 ```
 
+For sync:
+```groovy
+repositories {
+      jcenter()
+}
+
+dependencies {
+      compile 'com.github.amatkivskiy:gitter.sdk.sync:1.3'
+}
+```
+
 ## Release notes
 - 1.3
 	- Refactored library structure
 	- Added async api support.
 	- Added async api samples.
+	- Added sync api support.
+	- Added sync api samples.
 - 1.2.1
 	- Added ability to retrieve unread messages.
 - 1.2.0
@@ -132,6 +146,16 @@ authenticationClient.getAccessToken(code, new Callback<AccessTokenResponse>() {
         public void failure(RetrofitError error) {}
 });
 ```
+
+- Sync:
+```java
+SyncGitterAuthenticationClient authenticationClient = new SyncGitterAuthenticationClient.Builder()
+        .build();
+
+AccessTokenResponse accessTokenResponse = authenticationClient.getAccessToken(code);
+System.out.println("Access token = " + accessTokenResponse.accessToken);
+
+```
 6) Save and use this ```accessToken``` to make requests to the REST API.
 
 ## How to get data from Gitter REST API
@@ -148,6 +172,14 @@ AsyncGitterApiClient client = new AsyncGitterApiClient.Builder()
         .withAccountToken("user_access_token")
         .build();
 ```
+
+- Sync:
+```
+SyncGitterApiClient client = new SyncGitterApiClient.Builder()
+        .withAccountToken("user_access_token")
+        .build();
+```
+
 also you can provide some Retrofit config for requests (same for Rx and Async):
 ```java
 RxGitterApiClient client = new RxGitterApiClient.Builder()
@@ -181,6 +213,13 @@ client.getCurrentUser(new Callback<UserResponse>() {
       }
     });
 ```
+
+- Sync:
+```java
+UserResponse userResponse = client.getCurrentUser();
+System.out.println("userResponse.displayName = " + userResponse.displayName);
+```
+
 or
 - Rx:
 ```java
@@ -209,6 +248,16 @@ client.getRoomMessages(roomId, params, new Callback<List<MessageResponse>>() {
       public void failure(RetrofitError error) {}
     });
 ```
+
+- Sync:
+```java
+ChatMessagesRequestParams params = new ChatMessagesRequestParamsBuilder().limit(20).build();
+String roomId = "room_id";
+
+List<MessageResponse> messages = client.getRoomMessages(roomId, params);
+System.out.println("Received " + messages.size() + " messages");
+```
+
 or
 - Rx:
 ```java
@@ -231,6 +280,12 @@ client.getUserChannels("user_id", new Callback<List<RoomResponse>>() {
       public void failure(RetrofitError error) {}
     });
 ```
+- Sync:
+```java
+List<RoomResponse> rooms = client.getUserChannels("user_id");
+System.out.println("Received " + rooms.size() + " rooms");
+```
+
 ## How to get streaming data from Gitter Streaming API
 ### :heavy_exclamation_mark: Please don't set any log level for *RxGitterStreamingApiClient* as it blocks the stream.
 :heavy_exclamation_mark: If you get `java.net.SocketTimeoutException: Read timed out` try to encrease `ReadTimeout` in your `retrofit.client.Client` and spicify this client for `GutterApiClient` (`withClient()`).
