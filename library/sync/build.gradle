@@ -1,0 +1,30 @@
+apply plugin: 'java'
+apply plugin: 'com.novoda.bintray-release'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.3.4'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+publish {
+    groupId = 'com.github.amatkivskiy'
+    artifactId = 'gitter.sdk.sync'
+    publishVersion = project.parent.version
+    desc = 'Gitter.im Java SDK that facilitates communication with Gitter API'
+    licences = ['MIT']
+    website = 'https://github.com/Gitteroid/GitterRxJavaSDK'
+    autoPublish = false
+    bintrayUser = 'amatkivskiy'
+}
+
+dependencies {
+    compile project(':library:core')
+}

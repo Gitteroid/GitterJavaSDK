@@ -20,7 +20,7 @@ import retrofit.client.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Samples {
+public class AsyncSamples {
   //  This information you can take from your Gitter dev account:
 //  https://developer.gitter.im/apps
   private static final String OAUTH_KEY = "your_oauth_key";
