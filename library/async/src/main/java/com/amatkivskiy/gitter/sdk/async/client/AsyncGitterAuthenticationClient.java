@@ -50,8 +50,9 @@ public class AsyncGitterAuthenticationClient {
     @Override
     public AsyncGitterAuthenticationClient build() {
       restAdapterBuilder.setEndpoint(GITTER_AUTHENTICATION_ENDPOINT);
-      AsyncGitterAuthenticateApi api = restAdapterBuilder.build().create(AsyncGitterAuthenticateApi.class);
+      restAdapterBuilder.setErrorHandler(gitterWrappedErrorhandler);
 
+      AsyncGitterAuthenticateApi api = restAdapterBuilder.build().create(AsyncGitterAuthenticateApi.class);
       return new AsyncGitterAuthenticationClient(api);
     }
   }

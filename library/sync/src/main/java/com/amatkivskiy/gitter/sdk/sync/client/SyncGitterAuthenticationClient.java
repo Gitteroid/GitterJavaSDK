@@ -46,6 +46,7 @@ public class SyncGitterAuthenticationClient {
     @Override
     public SyncGitterAuthenticationClient build() {
       restAdapterBuilder.setEndpoint(GITTER_AUTHENTICATION_ENDPOINT);
+      restAdapterBuilder.setErrorHandler(gitterWrappedErrorhandler);
       SyncGitterAuthenticateApi api = restAdapterBuilder.build().create(SyncGitterAuthenticateApi.class);
 
       return new SyncGitterAuthenticationClient(api);
