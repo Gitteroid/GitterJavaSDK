@@ -45,6 +45,8 @@ public class RxGitterAuthenticationClient {
     @Override
     public RxGitterAuthenticationClient build() {
       restAdapterBuilder.setEndpoint(Constants.GitterEndpoints.GITTER_AUTHENTICATION_ENDPOINT);
+      restAdapterBuilder.setErrorHandler(gitterWrappedErrorhandler);
+
       RxGitterAuthenticateApi api = restAdapterBuilder.build().create(RxGitterAuthenticateApi.class);
 
       return new RxGitterAuthenticationClient(api);

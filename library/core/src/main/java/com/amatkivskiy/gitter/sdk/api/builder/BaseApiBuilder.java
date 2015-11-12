@@ -1,13 +1,36 @@
 package com.amatkivskiy.gitter.sdk.api.builder;
 
+import com.amatkivskiy.gitter.sdk.model.error.GitterApiErrorResponse;
+import com.amatkivskiy.gitter.sdk.model.error.GitterApiException;
+import retrofit.ErrorHandler;
 import retrofit.Profiler;
 import retrofit.RestAdapter;
+import retrofit.RetrofitError;
 import retrofit.client.Client;
 
 import java.util.concurrent.Executor;
 
 public abstract class BaseApiBuilder<BuilderClass, ApiClass> {
   protected RestAdapter.Builder restAdapterBuilder;
+
+  protected ErrorHandler gitterWrappedErrorhandler = new ErrorHandler() {
+    @Override
+    public Throwable handleError(RetrofitError cause) {
+      Throwable returnThrowable = cause;
+      if (cause.getKind() == RetrofitError.Kind.HTTP) {
+        if (cause.getResponse() != null) {
+          GitterApiErrorResponse errorResponse = (GitterApiErrorResponse) cause.getBodyAs(GitterApiErrorResponse.class);
+
+          if (errorResponse != null) {
+            returnThrowable = new GitterApiException(errorResponse);
+            returnThrowable.setStackTrace(cause.getStackTrace());
+          }
+        }
+      }
+
+      return returnThrowable;
+    }
+  };
 
   public BaseApiBuilder() {
     restAdapterBuilder = new RestAdapter.Builder();
