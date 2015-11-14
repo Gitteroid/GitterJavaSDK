@@ -1,10 +1,12 @@
 # Gitter.im Java SDK
 
-[ ![Download](https://api.bintray.com/packages/amatkivskiy/maven/gitter.rx.sdk/images/download.svg) ](https://bintray.com/amatkivskiy/maven/gitter.rx.sdk/_latestVersion)
+Async : [ ![Download](https://api.bintray.com/packages/amatkivskiy/maven/gitter.sdk.async/images/download.svg) ](https://bintray.com/amatkivskiy/maven/gitter.sdk.async/_latestVersion)
+Sync : [ ![Download](https://api.bintray.com/packages/amatkivskiy/maven/gitter.sdk.async/images/download.svg) ](https://bintray.com/amatkivskiy/maven/gitter.sdk.sync/_latestVersion)
+Rx : [ ![Download](https://api.bintray.com/packages/amatkivskiy/maven/gitter.sdk.async/images/download.svg) ](https://bintray.com/amatkivskiy/maven/gitter.sdk.rx/_latestVersion)
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-GitterRxJavaSDK-green.svg?style=flat)](https://android-arsenal.com/details/1/2599)
 
-[![Join the chat at https://gitter.im/Gitteroid/GitterRxJavaSDK](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Gitteroid/GitterRxJavaSDK?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/Gitteroid/GitterRxJavaSDK](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Gitteroid/GitterJavaSDK?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Gitter.im Java SDK that facilitates communication with Gitter API.
 
