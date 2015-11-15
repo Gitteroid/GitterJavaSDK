@@ -8,11 +8,8 @@ buildscript {
     }
 }
 
-version '1.2.2'
-
 dependencies {
     compile 'com.squareup.retrofit:retrofit:1.9.0'
-	compile 'io.reactivex:rxjava:1.0.10'
-    
+
     testCompile 'junit:junit:4.12'
 }
