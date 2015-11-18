@@ -12,6 +12,7 @@ buildscript {
 
 repositories {
     mavenCentral()
+    maven { url "https://dl.bintray.com/amatkivskiy/maven/"}
 }
 
 publish {
@@ -21,10 +22,11 @@ publish {
     desc = 'Gitter.im Java SDK that facilitates communication with Gitter API'
     licences = ['MIT']
     website = 'https://github.com/Gitteroid/GitterJavaSDK'
-    autoPublish = false
+    autoPublish = true
     bintrayUser = 'amatkivskiy'
 }
 
 dependencies {
-    compile project(':library:core')
+    compile 'com.github.amatkivskiy:gitter.sdk.core:1.3'
+    //    compile project(':library:core')
 }
