@@ -26,7 +26,7 @@ repositories {
 }
 
 dependencies {
-      compile 'com.github.amatkivskiy:gitter.sdk.rx:1.3'
+      compile 'com.github.amatkivskiy:gitter.sdk.rx:1.4'
 }
 ```
 
@@ -37,7 +37,7 @@ repositories {
 }
 
 dependencies {
-      compile 'com.github.amatkivskiy:gitter.sdk.async:1.3'
+      compile 'com.github.amatkivskiy:gitter.sdk.async:1.4'
 }
 ```
 
@@ -48,12 +48,12 @@ repositories {
 }
 
 dependencies {
-      compile 'com.github.amatkivskiy:gitter.sdk.sync:1.3'
+      compile 'com.github.amatkivskiy:gitter.sdk.sync:1.4'
 }
 ```
 
 ## Release notes
-- 1.3
+- 1.4
 	- Refactored library structure
 	- Added async api support.
 	- Added async api samples.
