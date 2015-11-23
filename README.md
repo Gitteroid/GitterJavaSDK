@@ -4,7 +4,7 @@ Async : [ ![Download](https://api.bintray.com/packages/amatkivskiy/maven/gitter.
 Sync : [ ![Download](https://api.bintray.com/packages/amatkivskiy/maven/gitter.sdk.async/images/download.svg) ](https://bintray.com/amatkivskiy/maven/gitter.sdk.sync/_latestVersion)
 Rx : [ ![Download](https://api.bintray.com/packages/amatkivskiy/maven/gitter.sdk.async/images/download.svg) ](https://bintray.com/amatkivskiy/maven/gitter.sdk.rx/_latestVersion)
 
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-GitterRxJavaSDK-green.svg?style=flat)](https://android-arsenal.com/details/1/2599)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-GitterJavaSDK-green.svg?style=flat)](http://android-arsenal.com/details/1/2599)
 
 [![Join the chat at https://gitter.im/Gitteroid/GitterRxJavaSDK](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Gitteroid/GitterJavaSDK?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
