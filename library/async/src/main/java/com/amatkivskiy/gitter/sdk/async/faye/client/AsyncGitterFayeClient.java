@@ -39,7 +39,6 @@ public class AsyncGitterFayeClient {
   private static final int DEFAULT_PING_INTERVAL_SEC = 5;
 
   private TimerTask pingTask;
-  private int pingIntervalSec = DEFAULT_PING_INTERVAL_SEC;
   private Logger logger = new Logger() {
     @Override
     public void log(String message) {
@@ -73,14 +72,6 @@ public class AsyncGitterFayeClient {
   public void connect(ConnectionListener onConnected) {
     connectionListener = onConnected;
     performHandshake();
-  }
-
-  public void setPingInterval(int seconds) {
-    if (seconds <= 0) {
-      throw new IllegalArgumentException("Interval should not be less or equal zero.");
-    }
-
-    this.pingIntervalSec = seconds;
   }
 
   public void setLogger(Logger logger) {
@@ -177,7 +168,8 @@ public class AsyncGitterFayeClient {
         }
       };
 
-      new Timer().scheduleAtFixedRate(pingTask, pingIntervalSec * 1000, pingIntervalSec * 1000);
+      new Timer().scheduleAtFixedRate(pingTask, DEFAULT_PING_INTERVAL_SEC * 1000,
+          DEFAULT_PING_INTERVAL_SEC * 1000);
     }
 
     @Override

@@ -1,7 +1,8 @@
 package com.amatkivskiy.gitter.sdk.async.faye.model;
 
-import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.google.gson.annotations.SerializedName;
+
+import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 
 public class MessageEvent {
   public final String operation;

@@ -11,6 +11,7 @@ public class FayeConstants {
     public static final String DISCONNECT = "/meta/disconnect";
     public static final String SUBSCRIBE = "/meta/subscribe";
     public static final String UNSUBSCRIBE = "/meta/unsubscribe";
+    public static final String ROOM_MESSAGES_CHANNEL_TEMPLATE = "/api/v1/rooms/%s/chatMessages";
   }
 
   public class Codes {
@@ -24,7 +25,7 @@ public class FayeConstants {
     public static final String VERSION = "version";
     public static final String MIN_VERSION = "minimumVersion";
     public static final String SUBSCRIPTION = "subscription";
-    public static final String SUPPRTED_CONNECTION_TYPES = "supportedConnectionTypes";
+    public static final String SUPPORTED_CONNECTION_TYPES = "supportedConnectionTypes";
     public static final String CONNECTION_TYPE = "connectionType";
     public static final String DATA = "data";
     public static final String ID = "id";

@@ -1,14 +1,15 @@
 package com.amatkivskiy.gitter.sdk.async.faye.listeners;
 
-import com.amatkivskiy.gitter.sdk.async.faye.model.MessageEvent;
 import com.google.gson.Gson;
 
-public class ChannelMessageListener extends BaseChannelListener<MessageEvent> {
-  public final String ChatMessagesEndpointTemple = "/api/v1/rooms/%s/chatMessages";
+import com.amatkivskiy.gitter.sdk.async.faye.model.MessageEvent;
 
+import static com.amatkivskiy.gitter.sdk.async.faye.FayeConstants.FayeChannels.ROOM_MESSAGES_CHANNEL_TEMPLATE;
+
+public class RoomMessageListener extends BaseChannelListener<MessageEvent> {
   private String roomId;
 
-  public ChannelMessageListener(String roomId) {
+  public RoomMessageListener(String roomId) {
     super(new Gson());
     this.roomId = roomId;
   }
@@ -19,7 +20,7 @@ public class ChannelMessageListener extends BaseChannelListener<MessageEvent> {
 
   @Override
   public String getChannel() {
-    return String.format(ChatMessagesEndpointTemple, roomId);
+    return String.format(ROOM_MESSAGES_CHANNEL_TEMPLATE, roomId);
   }
 
   @Override
