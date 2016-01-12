@@ -22,7 +22,7 @@ import static com.amatkivskiy.gitter.sdk.async.faye.FayeConstants.JsonKeys.CONNE
 import static com.amatkivskiy.gitter.sdk.async.faye.FayeConstants.JsonKeys.EXT;
 import static com.amatkivskiy.gitter.sdk.async.faye.FayeConstants.JsonKeys.MIN_VERSION;
 import static com.amatkivskiy.gitter.sdk.async.faye.FayeConstants.JsonKeys.SUBSCRIPTION;
-import static com.amatkivskiy.gitter.sdk.async.faye.FayeConstants.JsonKeys.SUPPRTED_CONNECTION_TYPES;
+import static com.amatkivskiy.gitter.sdk.async.faye.FayeConstants.JsonKeys.SUPPORTED_CONNECTION_TYPES;
 import static com.amatkivskiy.gitter.sdk.async.faye.FayeConstants.JsonKeys.VERSION;
 
 public class Utils {
@@ -75,7 +75,7 @@ public class Utils {
     JsonObject json = new JsonObject();
     JsonArray jsonArray = new JsonArray();
     jsonArray.add(new JsonPrimitive(AsyncGitterFayeClient.VALUE_CONNECTION_TYPE));
-    json.add(SUPPRTED_CONNECTION_TYPES, jsonArray);
+    json.add(SUPPORTED_CONNECTION_TYPES, jsonArray);
     json.addProperty(CHANNEL, HANDSHAKE);
     json.addProperty(VERSION, AsyncGitterFayeClient.VALUE_VERSION);
     json.addProperty(MIN_VERSION, AsyncGitterFayeClient.VALUE_MIN_VERSION);
