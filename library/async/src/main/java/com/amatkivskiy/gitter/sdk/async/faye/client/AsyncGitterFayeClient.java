@@ -115,6 +115,7 @@ public class AsyncGitterFayeClient {
     logger.log("Performing connect.");
     sendMessage(Utils.createConnectionChannel(this.clientId, this.accountToken));
     connectionListener.onConnected();
+    connectionListener = null;
   }
 
   private void performHandshake() {
