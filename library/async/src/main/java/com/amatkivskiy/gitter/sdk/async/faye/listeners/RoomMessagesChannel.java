@@ -6,16 +6,12 @@ import com.amatkivskiy.gitter.sdk.async.faye.model.MessageEvent;
 
 import static com.amatkivskiy.gitter.sdk.async.faye.FayeConstants.FayeChannels.ROOM_MESSAGES_CHANNEL_TEMPLATE;
 
-public abstract class RoomMessageListener extends BaseChannelListener<MessageEvent> {
+public abstract class RoomMessagesChannel extends AbstractChannelListener<MessageEvent> {
   private String roomId;
 
-  public RoomMessageListener(String roomId) {
+  public RoomMessagesChannel(String roomId) {
     super(new Gson());
     this.roomId = roomId;
-  }
-
-  public String getRoomId() {
-    return roomId;
   }
 
   @Override

@@ -10,7 +10,7 @@ import static com.amatkivskiy.gitter.sdk.async.faye.FayeConstants.FayeChannels.R
 /**
  * Use this channel to catch user {@link PresenceStatus#In} and {@link PresenceStatus#Out} events in the room.
   */
-public abstract class RoomUserPresenceChannel extends BaseChannelListener<UserPresenceEvent> {
+public abstract class RoomUserPresenceChannel extends AbstractChannelListener<UserPresenceEvent> {
   private String roomId;
 
   public RoomUserPresenceChannel(String roomId) {

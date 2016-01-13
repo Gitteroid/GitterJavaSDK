@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName;
 import com.amatkivskiy.gitter.sdk.model.response.UserResponse;
 
 public class UserEvent {
+  /**
+   * Operation that was done on this user, such as: create or remove.
+   */
   public final String operation;
   @SerializedName("model")
   public final UserResponse user;

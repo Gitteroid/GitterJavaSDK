@@ -9,8 +9,8 @@ import com.amatkivskiy.gitter.sdk.async.faye.interfaces.ConnectionListener;
 import com.amatkivskiy.gitter.sdk.async.faye.interfaces.FailListener;
 import com.amatkivskiy.gitter.sdk.async.faye.interfaces.HandshakeListener;
 import com.amatkivskiy.gitter.sdk.async.faye.interfaces.Logger;
-import com.amatkivskiy.gitter.sdk.async.faye.interfaces.MessageListener;
-import com.amatkivskiy.gitter.sdk.async.faye.listeners.BaseChannelListener;
+import com.amatkivskiy.gitter.sdk.async.faye.interfaces.ChannelListener;
+import com.amatkivskiy.gitter.sdk.async.faye.listeners.AbstractChannelListener;
 import com.amatkivskiy.gitter.sdk.async.faye.util.Utils;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -49,7 +49,7 @@ public class AsyncGitterFayeClient {
   private String accountToken;
   private String clientId;
   private WebSocket webSocket;
-  private HashMap<String, MessageListener> channelListeners = new HashMap<>();
+  private HashMap<String, ChannelListener> channelListeners = new HashMap<>();
 
   private HandshakeListener handshakeListener;
   private ConnectionListener connectionListener;
@@ -82,7 +82,7 @@ public class AsyncGitterFayeClient {
     this.logger = logger;
   }
 
-  public void subscribe(String channel, MessageListener listener) {
+  public void subscribe(String channel, ChannelListener listener) {
     channelListeners.put(channel, listener);
     sendMessage(Utils.createChannelSubscription(this.accountToken, channel, this.clientId));
   }
@@ -91,7 +91,7 @@ public class AsyncGitterFayeClient {
     sendMessage(Utils.createChannelUnSubscription(this.accountToken, channel, this.clientId));
   }
 
-  public void subscribe(BaseChannelListener listener) {
+  public void subscribe(AbstractChannelListener listener) {
     subscribe(listener.getChannel(), listener);
   }
 
@@ -200,7 +200,7 @@ public class AsyncGitterFayeClient {
         return;
       } else if (SUBSCRIBE.equals(channel)) {
         String subscriptionChannel = json.get(SUBSCRIPTION).getAsString();
-        MessageListener listener = channelListeners.get(subscriptionChannel);
+        ChannelListener listener = channelListeners.get(subscriptionChannel);
         if (listener != null) {
           if (json.get(SUCCESS).getAsBoolean()) {
             listener.onSubscribed(channel);
@@ -212,7 +212,7 @@ public class AsyncGitterFayeClient {
         return;
       } else if (UNSUBSCRIBE.equals(channel)) {
         String subscriptionChannel = json.get(SUBSCRIPTION).getAsString();
-        MessageListener listener = channelListeners.get(subscriptionChannel);
+        ChannelListener listener = channelListeners.get(subscriptionChannel);
         if (listener != null) {
           channelListeners.remove(subscriptionChannel);
           if (json.get(SUCCESS).getAsBoolean()) {
@@ -227,7 +227,7 @@ public class AsyncGitterFayeClient {
         logger.log("Disconnected from server.");
         return;
       } else {
-        MessageListener listener = channelListeners.get(channel);
+        ChannelListener listener = channelListeners.get(channel);
         if (listener != null) {
           listener.onMessage(channel, json.getAsJsonObject(DATA));
           return;
