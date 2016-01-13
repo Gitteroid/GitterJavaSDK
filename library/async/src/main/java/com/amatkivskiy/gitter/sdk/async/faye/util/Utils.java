@@ -28,47 +28,25 @@ import static com.amatkivskiy.gitter.sdk.async.faye.FayeConstants.JsonKeys.VERSI
 public class Utils {
 
   public static JsonObject createDisconnectMessage(String clientId, String accountToken) {
-    JsonObject json = new JsonObject();
-    json.addProperty(CHANNEL, DISCONNECT);
-    json.addProperty(CLIENT_ID, clientId);
+    JsonObject json = createBaseJson(accountToken, null, clientId, DISCONNECT);
     json.addProperty(CONNECTION_TYPE, AsyncGitterFayeClient.VALUE_CONNECTION_TYPE);
-
-    json.add(EXT, createAccountTokenObject(accountToken));
 
     return json;
   }
 
   public static JsonObject createConnectionChannel(String clientId, String accountToken) {
-    JsonObject json = new JsonObject();
-    json.addProperty(CHANNEL, CONNECT);
-    json.addProperty(CLIENT_ID, clientId);
+    JsonObject json = createBaseJson(accountToken, null, clientId, CONNECT);
     json.addProperty(CONNECTION_TYPE, AsyncGitterFayeClient.VALUE_CONNECTION_TYPE);
-
-    json.add(EXT, createAccountTokenObject(accountToken));
 
     return json;
   }
 
   public static JsonObject createChannelUnSubscription(String accountToken, String channel, String clientId) {
-    JsonObject json = new JsonObject();
-    json.addProperty(CHANNEL, UNSUBSCRIBE);
-    json.addProperty(CLIENT_ID, clientId);
-    json.addProperty(SUBSCRIPTION, channel);
-
-    json.add(EXT, createAccountTokenObject(accountToken));
-
-    return json;
+    return createBaseJson(accountToken, channel, clientId, UNSUBSCRIBE);
   }
 
   public static JsonObject createChannelSubscription(String accountToken, String channel, String clientId) {
-    JsonObject json = new JsonObject();
-    json.addProperty(CHANNEL, SUBSCRIBE);
-    json.addProperty(CLIENT_ID, clientId);
-    json.addProperty(SUBSCRIPTION, channel);
-
-    json.add(EXT, createAccountTokenObject(accountToken));
-
-    return json;
+    return createBaseJson(accountToken, channel, clientId, SUBSCRIBE);
   }
 
   public static JsonObject createHandShakeJson(String accountToken) {
@@ -85,7 +63,19 @@ public class Utils {
     return json;
   }
 
-  public static JsonObject createAccountTokenObject(String accountToken) {
+  private static JsonObject createBaseJson(String accountToken, String subscription, String clientId, String channel) {
+    JsonObject json = new JsonObject();
+    json.addProperty(CHANNEL, channel);
+    json.addProperty(CLIENT_ID, clientId);
+
+    if (subscription != null) json.addProperty(SUBSCRIPTION, subscription);
+
+    json.add(EXT, createAccountTokenObject(accountToken));
+
+    return json;
+  }
+
+  private static JsonObject createAccountTokenObject(String accountToken) {
     JsonObject token = new JsonObject();
     token.addProperty(ACCOUNT_TOKEN, accountToken);
 

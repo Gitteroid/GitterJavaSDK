@@ -6,10 +6,13 @@ import com.amatkivskiy.gitter.sdk.async.faye.model.UserEvent;
 
 import static com.amatkivskiy.gitter.sdk.async.faye.FayeConstants.FayeChannels.ROOM_USERS_CHANNEL_TEMPLATE;
 
-public abstract class RoomUsersListener extends BaseChannelListener<UserEvent> {
+/**
+ * Channel for users changes in the room like adding new user or removing old one.
+ */
+public abstract class RoomUsersChannel extends AbstractChannelListener<UserEvent> {
   private String roomId;
 
-  public RoomUsersListener(String roomId) {
+  public RoomUsersChannel(String roomId) {
     super(new Gson());
     this.roomId = roomId;
   }

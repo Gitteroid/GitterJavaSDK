@@ -35,6 +35,4 @@ public class FayeConstants {
     public static final String ERROR = "error";
     public static final String ACCOUNT_TOKEN = "token";
   }
-
-
 }
