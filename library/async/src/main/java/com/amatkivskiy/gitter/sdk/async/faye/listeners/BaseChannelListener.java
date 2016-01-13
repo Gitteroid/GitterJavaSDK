@@ -16,8 +16,8 @@ public abstract class BaseChannelListener<T> implements MessageListener {
     this.gson = gson;
   }
 
-  public void onMessage(String channel, JsonObject message) {
-    T parseMessage = gson.fromJson(message, getParameterClass());
+  public void onMessage(String channel, JsonObject event) {
+    T parseMessage = gson.fromJson(event, getParameterClass());
     onMessage(channel, parseMessage);
   }
 
@@ -27,5 +27,9 @@ public abstract class BaseChannelListener<T> implements MessageListener {
 
   @Override
   public void onSubscribed(String channel) {
+  }
+
+  @Override
+  public void onUnSubscribed(String channel) {
   }
 }

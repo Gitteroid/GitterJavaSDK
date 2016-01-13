@@ -6,7 +6,7 @@ import com.amatkivskiy.gitter.sdk.async.faye.model.MessageEvent;
 
 import static com.amatkivskiy.gitter.sdk.async.faye.FayeConstants.FayeChannels.ROOM_MESSAGES_CHANNEL_TEMPLATE;
 
-public class RoomMessageListener extends BaseChannelListener<MessageEvent> {
+public abstract class RoomMessageListener extends BaseChannelListener<MessageEvent> {
   private String roomId;
 
   public RoomMessageListener(String roomId) {
@@ -26,14 +26,5 @@ public class RoomMessageListener extends BaseChannelListener<MessageEvent> {
   @Override
   protected Class<MessageEvent> getParameterClass() {
     return MessageEvent.class;
-  }
-
-  @Override
-  public void onMessage(String channel, MessageEvent message) {
-  }
-
-  @Override
-  public void onUnSubscribed(String channel) {
-
   }
 }
