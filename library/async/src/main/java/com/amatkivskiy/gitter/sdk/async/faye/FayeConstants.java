@@ -12,6 +12,8 @@ public class FayeConstants {
     public static final String SUBSCRIBE = "/meta/subscribe";
     public static final String UNSUBSCRIBE = "/meta/unsubscribe";
     public static final String ROOM_MESSAGES_CHANNEL_TEMPLATE = "/api/v1/rooms/%s/chatMessages";
+    public static final String ROOM_USERS_PRESENCE_CHANNEL_TEMPLATE = "/api/v1/rooms/%s";
+    public static final String ROOM_USERS_CHANNEL_TEMPLATE = "/api/v1/rooms/%s/users";
   }
 
   public class Codes {
