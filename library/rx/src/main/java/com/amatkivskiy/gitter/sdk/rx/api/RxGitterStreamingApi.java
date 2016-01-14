@@ -10,5 +10,5 @@ public interface RxGitterStreamingApi {
 
   @Streaming
   @GET("/rooms/{roomId}/chatMessages")
-  Observable<Response> getRoomStream(@Path("roomId") String roomId);
+  Observable<Response> getRoomMessagesStream(@Path("roomId") String roomId);
 }
