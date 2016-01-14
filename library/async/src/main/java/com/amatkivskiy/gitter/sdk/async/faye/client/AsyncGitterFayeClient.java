@@ -105,6 +105,7 @@ public class AsyncGitterFayeClient {
 
   /**
    * Enables logging for all main operation that this client performs.
+   *
    * @param logger custom logger.
    */
   public void setLogger(Logger logger) {
@@ -140,6 +141,10 @@ public class AsyncGitterFayeClient {
     logger.log("Performing disconnect.");
     this.catchDisconnection = false;
     sendMessage(Utils.createDisconnectMessage(clientId, accountToken));
+    closeWebSocket();
+  }
+
+  private void closeWebSocket() {
     try {
       webSocket.close(FayeConstants.Codes.NORMAL_CLOSE, "Goodbye, Gitter!");
     } catch (IOException e) {
@@ -164,12 +169,16 @@ public class AsyncGitterFayeClient {
       @Override
       public void onFailed(Exception ex) {
         logger.log("Handshake failed. Error: " + ex.getMessage());
+
+        closeWebSocket();
+
         onFailHappened(ex);
       }
 
       @Override
       public void onHandshakeFinished() {
         logger.log("Successful handshake.");
+        setupPingTask();
         performConnect();
       }
     };
@@ -187,37 +196,40 @@ public class AsyncGitterFayeClient {
     }
   }
 
+  private void setupPingTask() {
+    pingTask = new TimerTask() {
+      @Override
+      public void run() {
+        try {
+          if (webSocket == null) {
+//              Websocket is closed so we need to cancel ping task.
+            cancel();
+          } else {
+            logger.log("Sending ping.");
+            webSocket.sendPing(new Buffer());
+          }
+        } catch (IOException e) {
+          onFailHappened(e);
+        }
+      }
+    };
+
+    new Timer().scheduleAtFixedRate(pingTask, DEFAULT_PING_INTERVAL_SEC * 1000,
+        DEFAULT_PING_INTERVAL_SEC * 1000);
+  }
+
   private WebSocketListener createWebSocketListener() {
     return new WebSocketListener() {
+
       @Override
       public void onOpen(WebSocket socket, Response response) {
         webSocket = socket;
         sendMessage(Utils.createHandShakeJson(accountToken));
-
-        pingTask = new TimerTask() {
-          @Override
-          public void run() {
-            try {
-              if (webSocket == null) {
-//              Websocket is closed so we need to cancel ping task.
-                cancel();
-              } else {
-                logger.log("Sending ping.");
-                webSocket.sendPing(new Buffer());
-              }
-            } catch (IOException e) {
-              onFailHappened(e);
-            }
-          }
-        };
-
-        new Timer().scheduleAtFixedRate(pingTask, DEFAULT_PING_INTERVAL_SEC * 1000,
-            DEFAULT_PING_INTERVAL_SEC * 1000);
       }
 
       @Override
       public void onFailure(IOException e, Response response) {
-        pingTask.cancel();
+        if (pingTask != null) pingTask.cancel();
         failListener.onFailed(e);
       }
 
@@ -286,8 +298,8 @@ public class AsyncGitterFayeClient {
       @Override
       public void onClose(int code, String reason) {
         logger.log("Websocket closed. Code : " + code + ", Reason: " + reason + ".");
-        pingTask.cancel();
         cleanUp();
+        if (pingTask != null) pingTask.cancel();
         if (catchDisconnection) disconnectionListener.onDisconnected();
       }
     };
