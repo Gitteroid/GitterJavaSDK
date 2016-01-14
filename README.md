@@ -8,9 +8,9 @@ Rx : [ ![Download](https://api.bintray.com/packages/amatkivskiy/maven/gitter.sdk
 
 [![Join the chat at https://gitter.im/Gitteroid/GitterRxJavaSDK](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Gitteroid/GitterJavaSDK?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Gitter.im Java SDK that facilitates communication with Gitter API.
+Gitter.im Java SDK that facilitates communication with Gitter API, Gitter Streaming API, Gitter Faye API.
 
-It provides two approaches to work with API:
+It provides three approaches to work with API:
 - RxJava approach;
 - Async (callback) approach.
 - Sync approach.
@@ -37,7 +37,7 @@ repositories {
 }
 
 dependencies {
-      compile 'com.github.amatkivskiy:gitter.sdk.async:1.4'
+      compile 'com.github.amatkivskiy:gitter.sdk.async:1.5'
 }
 ```
 
@@ -53,19 +53,21 @@ dependencies {
 ```
 
 ## Release notes
-- 1.4
+- **1.5** (14.01.2016)
+	- Added faye api support.
+- **1.4**
 	- Refactored library structure
 	- Added async api support.
 	- Added async api samples.
 	- Added sync api support.
 	- Added sync api samples.
-- 1.2.1
+- **1.2.1**
 	- Added ability to retrieve unread messages.
-- 1.2.0
+- **1.2.0**
 	- Added ability to search users
 	- Added ability to search rooms
 	- Added ability to leave room
-- 1.1.0
+- **1.1.0**
 	- Added room messages streaming API.
 
 ## Features
@@ -97,6 +99,11 @@ dependencies {
 
 *:heavy_exclamation_mark: Streaming (Avalible only in Rx part.*)
 - Room messages stream
+
+*:heavy_exclamation_mark: Faye API (Avalible only in Async part.*)
+- Room messages events
+- Room user presence events
+- Room user managment events
 
 ## Description
 **Authentication**
@@ -306,6 +313,86 @@ client.getRoomMessagesStream(roomId).subscribe(new Action1<MessageResponse>() {
 	}
 });
 ```
+
+## How to work with Gitter Faye API:
+1. Setup ```AsyncGitterFayeClient```:
+
+```java
+AsyncGitterFayeClient client = new AsyncGitterFayeClient("account_token");
+```
+
+also you can provide disconnection listener (sometimes Faye server drops connection):
+
+```java
+AsyncGitterFayeClient client = new AsyncGitterFayeClient(ACCOUNT_TOKEN, new DisconnectionListener() {
+      @Override
+      public void onDisconnected() {
+        // Client has disconnected. You can reconnect it here.
+      }
+});
+```
+
+and you can provide error listener (is called when something went wrong):
+
+```java
+AsyncGitterFayeClient client = new AsyncGitterFayeClient(ACCOUNT_TOKEN, new DisconnectionListener() {
+      @Override
+      public void onDisconnected() {
+        // Client has disconnected. You can reconnect it here.
+      }
+    }, new FailListener() {
+      @Override
+      public void onFailed(Exception ex) {
+        // Oh, something horrible happened.
+      }
+});
+```
+
+2. Connect it to the server:
+
+```java
+client.connect(new ConnectionListener() {
+      @Override
+      public void onConnected() {
+        // Client is ready. Subscribe to channels you are intereseted in.
+      }
+    });
+```
+
+3. Subscribe to desighed channel:
+
+```java
+client.subscribe(new RoomMessagesChannel("room_id") {
+          @Override
+          public void onMessage(String channel, MessageEvent message) {
+            // Yeah, you've got message here.
+          }
+});
+```
+
+or 
+
+```java
+client.subscribe(new RoomUserPresenceChannel("room_id") {
+          @Override
+          public void onMessage(String channel, UserPresenceEvent message) {
+            // User is active or not.
+          }
+});
+```
+
+or 
+
+```java
+client.subscribe(new RoomUsersChannel("room_id") {
+          @Override
+          public void onMessage(String channel, UserEvent message) {
+            // User left ot joined the room.
+          }
+});
+```
+
+
 Thats all =).
 
 ## Samples
