@@ -34,7 +34,7 @@ repositories {
 }
 
 dependencies {
-      compile 'com.github.amatkivskiy:gitter.sdk.rx:1.4'
+      compile 'com.github.amatkivskiy:gitter.sdk.rx:1.5'
 }
 ```
 
@@ -63,6 +63,7 @@ dependencies {
 ###<a name="ReleaseNotes">**Release notes**
 - **1.5** (14.01.2016)
 	- Added faye api support.
+	- Added room events streaming api support.
 - **1.4**
 	- Refactored library structure
 	- Added async api support.
@@ -107,6 +108,7 @@ dependencies {
 
 *:heavy_exclamation_mark: Streaming (Avalible only in Rx part.*)
 - Room messages stream
+- Room events stream
 
 *:heavy_exclamation_mark: Faye API (Avalible only in Async part.*)
 - Room messages events
@@ -320,6 +322,24 @@ client.getRoomMessagesStream(roomId).subscribe(new Action1<MessageResponse>() {
 	@Override
 	public void call(MessageResponse messageResponse) {
 		System.out.println("messageResponse = " + messageResponse);
+	}
+});
+```
+
+or 
+
+```java
+RxGitterStreamingApiClient client = new RxGitterStreamingApiClient.Builder()
+        .withAccountToken("user_access_token")
+        .build();
+
+String roomId = "room_id";
+
+client.getRoomEventsStream(roomId).subscribe(new Action1<RoomEvent>() {
+	@Override
+	public void call(RoomEvent event) {
+		System.out.println(event.sent);
+	        System.out.println(event.meta);
 	}
 });
 ```
