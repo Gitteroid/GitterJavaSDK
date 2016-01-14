@@ -315,7 +315,7 @@ client.getRoomMessagesStream(roomId).subscribe(new Action1<MessageResponse>() {
 ```
 
 ## How to work with Gitter Faye API:
-1. Setup ```AsyncGitterFayeClient```:
+1 Setup ```AsyncGitterFayeClient```:
 
 ```java
 AsyncGitterFayeClient client = new AsyncGitterFayeClient("account_token");
@@ -348,7 +348,7 @@ AsyncGitterFayeClient client = new AsyncGitterFayeClient(ACCOUNT_TOKEN, new Disc
 });
 ```
 
-2. Connect it to the server:
+2 Connect it to the server:
 
 ```java
 client.connect(new ConnectionListener() {
@@ -359,7 +359,7 @@ client.connect(new ConnectionListener() {
     });
 ```
 
-3. Subscribe to desighed channel:
+3 Subscribe to desighed channel:
 
 ```java
 client.subscribe(new RoomMessagesChannel("room_id") {
@@ -392,6 +392,54 @@ client.subscribe(new RoomUsersChannel("room_id") {
 });
 ```
 
+or define your custom channel: 
+
+```java
+client.subscribe("channel_name",new ChannelListener(){
+@Override
+public void onMessage(String channel,JsonObject message){
+//        Handle message here.
+    }
+
+@Override
+public void onFailed(String channel,Exception ex){
+    }
+
+@Override
+public void onSubscribed(String channel){
+    }
+
+@Override
+public void onUnSubscribed(String channel){
+    }
+    });
+```
+
+You can unsibscribe from channel: 
+
+
+```java
+client.unsubscribe("channel_name");
+```
+
+or 
+
+```java
+RoomMessagesChannel channel = new RoomMessagesChannel("room_id") {
+        @Override
+        public void onMessage(String channel, MessageEvent message) {
+        }
+};
+client.subscribe(channel);
+
+client.unSubscribe(channel);
+```
+
+Finally when your are finished with client, you need to call:
+
+```java
+client.subscribe(channel);
+```
 
 Thats all =).
 
