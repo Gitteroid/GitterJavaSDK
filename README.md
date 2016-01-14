@@ -438,7 +438,7 @@ client.unSubscribe(channel);
 Finally when your are finished with client, you need to call:
 
 ```java
-client.subscribe(channel);
+client.disconnect();
 ```
 
 Thats all =).
@@ -454,7 +454,7 @@ You can see some code samples [here](https://github.com/Gitteroid/GitterJavaSDK/
 ```
 The MIT License (MIT)
 
-Copyright (c) 2015 
+Copyright (c) 2016 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
