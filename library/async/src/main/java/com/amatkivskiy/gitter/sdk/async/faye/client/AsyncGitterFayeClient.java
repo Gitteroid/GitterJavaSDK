@@ -205,7 +205,6 @@ public class AsyncGitterFayeClient {
 //              Websocket is closed so we need to cancel ping task.
             cancel();
           } else {
-            logger.log("Sending ping.");
             webSocket.sendPing(new Buffer());
           }
         } catch (IOException e) {
