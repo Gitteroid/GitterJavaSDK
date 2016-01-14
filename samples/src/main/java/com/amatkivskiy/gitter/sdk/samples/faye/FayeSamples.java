@@ -14,7 +14,7 @@ import com.amatkivskiy.gitter.sdk.async.faye.model.MessageEvent;
 import com.amatkivskiy.gitter.sdk.async.faye.model.UserEvent;
 import com.amatkivskiy.gitter.sdk.async.faye.model.UserPresenceEvent;
 
-public class FayeMain {
+public class FayeSamples {
   private static final String ACCOUNT_TOKEN = "account_token";
   private static final String ROOM_ID = "room_id";
 
