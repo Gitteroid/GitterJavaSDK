@@ -18,7 +18,7 @@ repositories {
 publish {
     groupId = 'com.github.amatkivskiy'
     artifactId = 'gitter.sdk.rx'
-    publishVersion = project.parent.version
+    publishVersion = '1.5'
     desc = 'Gitter.im RxJava SDK that facilitates communication with Gitter API'
     licences = ['MIT']
     website = 'https://github.com/Gitteroid/GitterJavaSDK'
