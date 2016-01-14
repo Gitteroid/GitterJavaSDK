@@ -10,6 +10,7 @@ import com.amatkivskiy.gitter.sdk.model.response.UserResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.sdk.rx.api.RxGitterStreamingApi;
 import com.amatkivskiy.gitter.sdk.rx.streaming.OnSubscribeBufferedReader;
+import com.amatkivskiy.gitter.sdk.rx.streaming.model.RoomEvent;
 import com.amatkivskiy.gitter.sdk.util.StringUtils;
 
 import java.io.BufferedReader;
@@ -51,6 +52,31 @@ public class RxGitterStreamingApiClient {
       @Override
       public MessageResponse call(String s) {
         return gson.fromJson(s, MessageResponse.class);
+      }
+    });
+  }
+
+  public Observable<RoomEvent> getRoomEventsStream(String roomId) {
+    return api.getRoomEventsStream(roomId).flatMap(new Func1<Response, Observable<String>>() {
+      @Override
+      public Observable<String> call(Response response) {
+        try {
+          BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(response.getBody().in()));
+          return Observable.create(new OnSubscribeBufferedReader(bufferedReader));
+        } catch (IOException e) {
+          return Observable.error(e);
+        }
+      }
+    }).filter(new Func1<String, Boolean>() {
+      @Override
+      public Boolean call(String s) {
+//        This check is required because server sometimes return empty string or string with newline character.
+        return StringUtils.checkIfValidMessageJson(s);
+      }
+    }).map(new Func1<String, RoomEvent>() {
+      @Override
+      public RoomEvent call(String s) {
+        return gson.fromJson(s, RoomEvent.class);
       }
     });
   }
