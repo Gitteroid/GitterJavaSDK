@@ -1,24 +1,29 @@
 package com.amatkivskiy.gitter.sdk.samples;
 
-import com.amatkivskiy.gitter.sdk.credentials.GitterDeveloperCredentials;
-import com.amatkivskiy.gitter.sdk.model.response.BooleanResponse;
-import com.amatkivskiy.gitter.sdk.model.response.UserResponse;
-import com.amatkivskiy.gitter.sdk.model.response.room.RoomResponse;
 import com.amatkivskiy.gitter.sdk.GitterOauthUtils;
+import com.amatkivskiy.gitter.sdk.credentials.GitterDeveloperCredentials;
 import com.amatkivskiy.gitter.sdk.credentials.SimpleGitterCredentialsProvider;
 import com.amatkivskiy.gitter.sdk.model.request.ChatMessagesRequestParams;
 import com.amatkivskiy.gitter.sdk.model.request.UserAccountType;
 import com.amatkivskiy.gitter.sdk.model.response.AccessTokenResponse;
+import com.amatkivskiy.gitter.sdk.model.response.BooleanResponse;
+import com.amatkivskiy.gitter.sdk.model.response.UserResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
+import com.amatkivskiy.gitter.sdk.model.response.room.RoomResponse;
 import com.amatkivskiy.gitter.sdk.rx.client.RxGitterApiClient;
 import com.amatkivskiy.gitter.sdk.rx.client.RxGitterAuthenticationClient;
 import com.amatkivskiy.gitter.sdk.rx.client.RxGitterStreamingApiClient;
-import retrofit.RestAdapter;
-import rx.Observable;
-import rx.functions.Action1;
+import com.amatkivskiy.gitter.sdk.rx.streaming.model.RoomEvent;
+import com.squareup.okhttp.OkHttpClient;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import retrofit.RestAdapter;
+import retrofit.client.OkClient;
+import rx.Observable;
+import rx.functions.Action1;
 
 public class RxSamples {
   //  This information you can take from your Gitter dev account:
@@ -41,6 +46,29 @@ public class RxSamples {
     searchUsersSample();
     markMessagesRead();
     getSuggestedRooms();
+    roomEventsStreamSample();
+  }
+
+  private static void roomEventsStreamSample() {
+    OkHttpClient okClient = new OkHttpClient();
+
+    // Configure OkHttpClient not to drop connection rapidly.
+    okClient.setReadTimeout(10, TimeUnit.MINUTES);
+
+    RxGitterStreamingApiClient client = new RxGitterStreamingApiClient.Builder()
+        .withAccountToken("user_access_token")
+        .withClient(new OkClient(okClient))
+        .build();
+
+    String roomId = "533aa1485e986b0712f00ba5"; // gitterHQ/developers for example.
+
+    client.getRoomEventsStream(roomId).subscribe(new Action1<RoomEvent>() {
+      @Override
+      public void call(RoomEvent event) {
+        System.out.println(event.sent);
+        System.out.println(event.meta);
+      }
+    });
   }
 
   private static void getSuggestedRooms() {
@@ -120,8 +148,14 @@ public class RxSamples {
   }
 
   private static void roomMessagesStreamSample() {
+    OkHttpClient okClient = new OkHttpClient();
+
+    // Configure OkHttpClient not to drop connection rapidly.
+    okClient.setReadTimeout(10, TimeUnit.MINUTES);
+
     RxGitterStreamingApiClient client = new RxGitterStreamingApiClient.Builder()
         .withAccountToken("user_access_token")
+        .withClient(new OkClient(okClient))
         .build();
 
     String roomId = "533aa1485e986b0712f00ba5"; // gitterHQ/developers for example.

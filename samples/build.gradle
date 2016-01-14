@@ -1,7 +1,7 @@
 apply plugin: 'application'
 
-mainClassName = "com.amatkivskiy.gitter.sdk.samples.faye.FayeSamples"
-//mainClassName = "com.amatkivskiy.gitter.sdk.samples.RxSamples"
+//mainClassName = "com.amatkivskiy.gitter.sdk.samples.faye.FayeSamples"
+mainClassName = "com.amatkivskiy.gitter.sdk.samples.RxSamples"
 
 dependencies {
 //    compile project(':library:core')
