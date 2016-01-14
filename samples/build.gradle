@@ -1,10 +1,16 @@
 apply plugin: 'application'
 
-mainClassName = "com.amatkivskiy.gitter.sdk.samples.SyncSamples"
+mainClassName = "com.amatkivskiy.gitter.sdk.samples.faye.FayeSamples"
+//mainClassName = "com.amatkivskiy.gitter.sdk.samples.RxSamples"
 
 dependencies {
 //    compile project(':library:core')
     compile project(':library:rx')
     compile project(':library:async')
     compile project(':library:sync')
+
+    compile 'com.squareup.okio:okio:1.6.0'
+    compile 'com.squareup.okhttp:okhttp:2.5.0'
+    compile 'com.squareup.okhttp:okhttp-ws:2.5.0'
+    compile 'com.appunite:websockets-rxjava:3.0.0'
 }

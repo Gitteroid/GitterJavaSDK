@@ -8,15 +8,23 @@ Rx : [ ![Download](https://api.bintray.com/packages/amatkivskiy/maven/gitter.sdk
 
 [![Join the chat at https://gitter.im/Gitteroid/GitterRxJavaSDK](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Gitteroid/GitterJavaSDK?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Gitter.im Java SDK that facilitates communication with Gitter API.
+Gitter.im Java SDK that facilitates communication with Gitter API, Gitter Streaming API, Gitter Faye API.
 
-It provides two approaches to work with API:
+It provides three approaches to work with API:
 - RxJava approach;
 - Async (callback) approach.
 - Sync approach.
 
-## Setup
+## Table of content
+- [Features](#Features)
+- [Release Notes](#ReleaseNotes)
+- [Setup](#Setup)
+- [Description](#Description)
+- [Streaming](#Streaming)
+- [Faye](#Faye)
+- [Samples](#Samples)
 
+###<a name="Setup">**Setup**
 Add gradle dependency:
 
 For RxJava:
@@ -37,7 +45,7 @@ repositories {
 }
 
 dependencies {
-      compile 'com.github.amatkivskiy:gitter.sdk.async:1.4'
+      compile 'com.github.amatkivskiy:gitter.sdk.async:1.5'
 }
 ```
 
@@ -52,23 +60,25 @@ dependencies {
 }
 ```
 
-## Release notes
-- 1.4
+###<a name="ReleaseNotes">**Release notes**
+- **1.5** (14.01.2016)
+	- Added faye api support.
+- **1.4**
 	- Refactored library structure
 	- Added async api support.
 	- Added async api samples.
 	- Added sync api support.
 	- Added sync api samples.
-- 1.2.1
+- **1.2.1**
 	- Added ability to retrieve unread messages.
-- 1.2.0
+- **1.2.0**
 	- Added ability to search users
 	- Added ability to search rooms
 	- Added ability to leave room
-- 1.1.0
+- **1.1.0**
 	- Added room messages streaming API.
 
-## Features
+###<a name="Features">**Features**
 
 - Authentication
 
@@ -98,7 +108,13 @@ dependencies {
 *:heavy_exclamation_mark: Streaming (Avalible only in Rx part.*)
 - Room messages stream
 
-## Description
+*:heavy_exclamation_mark: Faye API (Avalible only in Async part.*)
+- Room messages events
+- Room user presence events
+- Room user managment events
+
+###<a name="Description">**Description**
+
 **Authentication**
 Please read [Authentication](https://developer.gitter.im/docs/authentication) article on **Gitter Developer**  before.
 
@@ -288,7 +304,8 @@ List<RoomResponse> rooms = client.getUserChannels("user_id");
 System.out.println("Received " + rooms.size() + " rooms");
 ```
 
-## How to get streaming data from Gitter Streaming API
+###<a name="Streaming">**How to get streaming data from Gitter Streaming API**
+
 ### :heavy_exclamation_mark: Please don't set any log level for *RxGitterStreamingApiClient* as it blocks the stream.
 :heavy_exclamation_mark: If you get `java.net.SocketTimeoutException: Read timed out` try to encrease `ReadTimeout` in your `retrofit.client.Client` and spicify this client for `GutterApiClient` (`withClient()`).
 
@@ -306,9 +323,138 @@ client.getRoomMessagesStream(roomId).subscribe(new Action1<MessageResponse>() {
 	}
 });
 ```
+
+###<a name="Faye">**How to work with Gitter Faye API**
+
+1 Setup ```AsyncGitterFayeClient```:
+
+```java
+AsyncGitterFayeClient client = new AsyncGitterFayeClient("account_token");
+```
+
+also you can provide disconnection listener (sometimes Faye server drops connection):
+
+```java
+AsyncGitterFayeClient client = new AsyncGitterFayeClient(ACCOUNT_TOKEN, new DisconnectionListener() {
+      @Override
+      public void onDisconnected() {
+        // Client has disconnected. You can reconnect it here.
+      }
+});
+```
+
+and you can provide error listener (is called when something went wrong):
+
+```java
+AsyncGitterFayeClient client = new AsyncGitterFayeClient(ACCOUNT_TOKEN, new DisconnectionListener() {
+      @Override
+      public void onDisconnected() {
+        // Client has disconnected. You can reconnect it here.
+      }
+    }, new FailListener() {
+      @Override
+      public void onFailed(Exception ex) {
+        // Oh, something horrible happened.
+      }
+});
+```
+
+2 Connect it to the server:
+
+```java
+client.connect(new ConnectionListener() {
+      @Override
+      public void onConnected() {
+        // Client is ready. Subscribe to channels you are intereseted in.
+      }
+    });
+```
+
+3 Subscribe to desighed channel:
+
+```java
+client.subscribe(new RoomMessagesChannel("room_id") {
+          @Override
+          public void onMessage(String channel, MessageEvent message) {
+            // Yeah, you've got message here.
+          }
+});
+```
+
+or 
+
+```java
+client.subscribe(new RoomUserPresenceChannel("room_id") {
+          @Override
+          public void onMessage(String channel, UserPresenceEvent message) {
+            // User is active or not.
+          }
+});
+```
+
+or 
+
+```java
+client.subscribe(new RoomUsersChannel("room_id") {
+          @Override
+          public void onMessage(String channel, UserEvent message) {
+            // User left ot joined the room.
+          }
+});
+```
+
+or define your custom channel: 
+
+```java
+client.subscribe("channel_name",new ChannelListener(){
+@Override
+public void onMessage(String channel,JsonObject message){
+//        Handle message here.
+    }
+
+@Override
+public void onFailed(String channel,Exception ex){
+    }
+
+@Override
+public void onSubscribed(String channel){
+    }
+
+@Override
+public void onUnSubscribed(String channel){
+    }
+    });
+```
+
+You can unsibscribe from channel: 
+
+
+```java
+client.unsubscribe("channel_name");
+```
+
+or 
+
+```java
+RoomMessagesChannel channel = new RoomMessagesChannel("room_id") {
+        @Override
+        public void onMessage(String channel, MessageEvent message) {
+        }
+};
+client.subscribe(channel);
+
+client.unSubscribe(channel);
+```
+
+Finally when your are finished with client, you need to call:
+
+```java
+client.disconnect();
+```
+
 Thats all =).
 
-## Samples
+###<a name="Samples">**Samples**
 
 You can see some code samples [here](https://github.com/Gitteroid/GitterJavaSDK/tree/master/samples/src/main/java/com/amatkivskiy/gitter/sdk/samples)
 
@@ -319,7 +465,7 @@ You can see some code samples [here](https://github.com/Gitteroid/GitterJavaSDK/
 ```
 The MIT License (MIT)
 
-Copyright (c) 2015 
+Copyright (c) 2016 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
