@@ -15,8 +15,16 @@ It provides three approaches to work with API:
 - Async (callback) approach.
 - Sync approach.
 
-## Setup
+## Table of content
+- [Features](#Features)
+- [Release Notes](#ReleaseNotes)
+- [Setup](#Setup)
+- [Description](#Description)
+- [Streaming](#Streaming)
+- [Faye](#Faye)
+- [Samples](#Samples)
 
+###<a name="Setup">**Setup**
 Add gradle dependency:
 
 For RxJava:
@@ -52,7 +60,7 @@ dependencies {
 }
 ```
 
-## Release notes
+###<a name="ReleaseNotes">**Release notes**
 - **1.5** (14.01.2016)
 	- Added faye api support.
 - **1.4**
@@ -70,7 +78,7 @@ dependencies {
 - **1.1.0**
 	- Added room messages streaming API.
 
-## Features
+###<a name="Features">**Features**
 
 - Authentication
 
@@ -105,7 +113,8 @@ dependencies {
 - Room user presence events
 - Room user managment events
 
-## Description
+###<a name="Description">**Description**
+
 **Authentication**
 Please read [Authentication](https://developer.gitter.im/docs/authentication) article on **Gitter Developer**  before.
 
@@ -295,7 +304,8 @@ List<RoomResponse> rooms = client.getUserChannels("user_id");
 System.out.println("Received " + rooms.size() + " rooms");
 ```
 
-## How to get streaming data from Gitter Streaming API
+###<a name="Streaming">**How to get streaming data from Gitter Streaming API**
+
 ### :heavy_exclamation_mark: Please don't set any log level for *RxGitterStreamingApiClient* as it blocks the stream.
 :heavy_exclamation_mark: If you get `java.net.SocketTimeoutException: Read timed out` try to encrease `ReadTimeout` in your `retrofit.client.Client` and spicify this client for `GutterApiClient` (`withClient()`).
 
@@ -314,7 +324,8 @@ client.getRoomMessagesStream(roomId).subscribe(new Action1<MessageResponse>() {
 });
 ```
 
-## How to work with Gitter Faye API:
+###<a name="Faye">**How to work with Gitter Faye API**
+
 1 Setup ```AsyncGitterFayeClient```:
 
 ```java
@@ -443,7 +454,7 @@ client.disconnect();
 
 Thats all =).
 
-## Samples
+###<a name="Samples">**Samples**
 
 You can see some code samples [here](https://github.com/Gitteroid/GitterJavaSDK/tree/master/samples/src/main/java/com/amatkivskiy/gitter/sdk/samples)
 
