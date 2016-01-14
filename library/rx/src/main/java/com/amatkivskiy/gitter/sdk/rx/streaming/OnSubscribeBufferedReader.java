@@ -1,10 +1,10 @@
 package com.amatkivskiy.gitter.sdk.rx.streaming;
 
-import rx.Subscriber;
-import rx.observables.AbstractOnSubscribe;
-
 import java.io.BufferedReader;
 import java.io.IOException;
+
+import rx.Subscriber;
+import rx.observables.AbstractOnSubscribe;
 
 public class OnSubscribeBufferedReader extends AbstractOnSubscribe<String, BufferedReader> {
 
