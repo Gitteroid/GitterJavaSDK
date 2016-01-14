@@ -18,8 +18,8 @@ repositories {
 publish {
     groupId = 'com.github.amatkivskiy'
     artifactId = 'gitter.sdk.async'
-    publishVersion = project.parent.version
-    desc = 'Gitter.im Java SDK that facilitates communication with Gitter API'
+    publishVersion = '1.5'
+    desc = 'Gitter.im Java SDK that facilitates communication with Gitter API and Gitter Faye API'
     licences = ['MIT']
     website = 'https://github.com/Gitteroid/GitterJavaSDK'
     autoPublish = true
