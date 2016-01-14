@@ -1,23 +1,25 @@
 package com.amatkivskiy.gitter.sdk.rx.client;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import com.amatkivskiy.gitter.sdk.Constants;
+import com.amatkivskiy.gitter.sdk.api.builder.GitterApiBuilder;
 import com.amatkivskiy.gitter.sdk.converter.UserJsonDeserializer;
 import com.amatkivskiy.gitter.sdk.model.response.UserResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.sdk.rx.api.RxGitterStreamingApi;
 import com.amatkivskiy.gitter.sdk.rx.streaming.OnSubscribeBufferedReader;
-import com.amatkivskiy.gitter.sdk.api.builder.GitterApiBuilder;
 import com.amatkivskiy.gitter.sdk.util.StringUtils;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import retrofit.client.Response;
-import retrofit.converter.GsonConverter;
-import rx.Observable;
-import rx.functions.Func1;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import retrofit.client.Response;
+import retrofit.converter.GsonConverter;
+import rx.Observable;
+import rx.functions.Func1;
 
 public class RxGitterStreamingApiClient {
   private RxGitterStreamingApi api;
@@ -29,7 +31,7 @@ public class RxGitterStreamingApiClient {
   }
 
   public Observable<MessageResponse> getRoomMessagesStream(String roomId) {
-    return api.getRoomStream(roomId).flatMap(new Func1<Response, Observable<String>>() {
+    return api.getRoomMessagesStream(roomId).flatMap(new Func1<Response, Observable<String>>() {
       @Override
       public Observable<String> call(Response response) {
         try {
