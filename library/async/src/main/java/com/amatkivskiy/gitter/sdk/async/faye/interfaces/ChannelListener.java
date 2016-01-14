@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 
 /**
  * Base interface for working with Faye channels. It provides callback methods.
+ * For available channels list visit <a href="https://developer.gitter.im/docs/faye-endpoint#Endpoints">Gitter Faye</a>
  */
 public interface ChannelListener {
 

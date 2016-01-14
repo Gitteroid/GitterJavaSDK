@@ -30,9 +30,7 @@ public class FayeConstants {
     public static final String SUPPORTED_CONNECTION_TYPES = "supportedConnectionTypes";
     public static final String CONNECTION_TYPE = "connectionType";
     public static final String DATA = "data";
-    public static final String ID = "id";
     public static final String EXT = "ext";
-    public static final String ERROR = "error";
     public static final String ACCOUNT_TOKEN = "token";
   }
 }
