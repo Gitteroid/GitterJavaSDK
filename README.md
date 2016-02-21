@@ -446,11 +446,11 @@ public void onUnSubscribed(String channel){
     });
 ```
 
-You can unsibscribe from channel: 
+You can unsubscribe from channel: 
 
 
 ```java
-client.unsubscribe("channel_name");
+client.unSubscribe("channel_name");
 ```
 
 or 
