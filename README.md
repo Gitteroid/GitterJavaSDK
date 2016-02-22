@@ -1,5 +1,7 @@
 # Gitter.im Java SDK
 
+:+1: **_Fully compatible with Android_**
+
 Async : [ ![Download](https://api.bintray.com/packages/amatkivskiy/maven/gitter.sdk.async/images/download.svg) ](https://bintray.com/amatkivskiy/maven/gitter.sdk.async/_latestVersion)
 Sync : [ ![Download](https://api.bintray.com/packages/amatkivskiy/maven/gitter.sdk.async/images/download.svg) ](https://bintray.com/amatkivskiy/maven/gitter.sdk.sync/_latestVersion)
 Rx : [ ![Download](https://api.bintray.com/packages/amatkivskiy/maven/gitter.sdk.async/images/download.svg) ](https://bintray.com/amatkivskiy/maven/gitter.sdk.rx/_latestVersion)
