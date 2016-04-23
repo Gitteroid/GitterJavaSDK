@@ -22,6 +22,7 @@ public class RoomResponse {
   @SerializedName("noindex") public final boolean noIndex;
   @SerializedName("tags") public final List<String> tags = new ArrayList<String>();
   @SerializedName("v") public final int v;
+  @SerializedName("favourite") public final int favourite;
 
   public RoomResponse(String id,
                       String name,
@@ -37,7 +38,8 @@ public class RoomResponse {
                       RoomType githubRoomType,
                       String security,
                       boolean noIndex,
-                      int v) {
+                      int v,
+                      int favourite) {
     this.id = id;
     this.name = name;
     this.topic = topic;
@@ -53,5 +55,6 @@ public class RoomResponse {
     this.security = security;
     this.noIndex = noIndex;
     this.v = v;
+    this.favourite = favourite;
   }
 }
