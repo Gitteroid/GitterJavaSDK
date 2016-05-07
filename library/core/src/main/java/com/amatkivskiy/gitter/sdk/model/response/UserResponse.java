@@ -20,4 +20,18 @@ public class UserResponse {
     this.url = url;
     this.avatarUrlMedium = avatarUrlMedium;
   }
+
+  @Override
+  public String toString() {
+    return "UserResponse{" +
+        "id='" + id + '\'' +
+        ", v=" + v +
+        ", username='" + username + '\'' +
+        ", displayName='" + displayName + '\'' +
+        ", avatarUrlSmall='" + avatarUrlSmall + '\'' +
+        ", avatarUrlMedium='" + avatarUrlMedium + '\'' +
+        ", gv='" + gv + '\'' +
+        ", url='" + url + '\'' +
+        '}';
+  }
 }

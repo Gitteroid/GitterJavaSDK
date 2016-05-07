@@ -1,6 +1,8 @@
 apply plugin: 'java'
 apply plugin: 'com.novoda.bintray-release'
 
+version '1.5'
+
 buildscript {
     repositories {
         jcenter()
@@ -18,7 +20,7 @@ repositories {
 publish {
     groupId = 'com.github.amatkivskiy'
     artifactId = 'gitter.sdk.core'
-    publishVersion = project.parent.version
+    publishVersion = '1.5'
     desc = 'Gitter.im RxJava SDK that facilitates communication with Gitter API'
     licences = ['MIT']
     website = 'https://github.com/Gitteroid/GitterJavaSDK'

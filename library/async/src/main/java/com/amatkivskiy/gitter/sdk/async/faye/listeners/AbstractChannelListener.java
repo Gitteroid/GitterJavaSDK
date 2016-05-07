@@ -4,6 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import com.amatkivskiy.gitter.sdk.async.faye.interfaces.ChannelListener;
+import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
+
+import java.util.List;
 
 public abstract class AbstractChannelListener<T> implements ChannelListener {
   private Gson gson;
@@ -40,7 +43,8 @@ public abstract class AbstractChannelListener<T> implements ChannelListener {
   }
 
   @Override
-  public void onSubscribed(String channel) {
+  public void onSubscribed(String channel, List<MessageResponse> messagesSnapshot) {
+
   }
 
   @Override
