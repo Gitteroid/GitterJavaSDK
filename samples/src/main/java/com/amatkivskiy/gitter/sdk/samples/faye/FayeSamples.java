@@ -3,6 +3,7 @@ package com.amatkivskiy.gitter.sdk.samples.faye;
 import com.google.gson.JsonObject;
 
 import com.amatkivskiy.gitter.sdk.async.faye.client.AsyncGitterFayeClient;
+import com.amatkivskiy.gitter.sdk.async.faye.client.AsyncGitterFayeClientBuilder;
 import com.amatkivskiy.gitter.sdk.async.faye.interfaces.ChannelListener;
 import com.amatkivskiy.gitter.sdk.async.faye.interfaces.ConnectionListener;
 import com.amatkivskiy.gitter.sdk.async.faye.interfaces.DisconnectionListener;
@@ -13,6 +14,7 @@ import com.amatkivskiy.gitter.sdk.async.faye.listeners.RoomUsersChannel;
 import com.amatkivskiy.gitter.sdk.async.faye.model.MessageEvent;
 import com.amatkivskiy.gitter.sdk.async.faye.model.UserEvent;
 import com.amatkivskiy.gitter.sdk.async.faye.model.UserPresenceEvent;
+import com.squareup.okhttp.OkHttpClient;
 
 public class FayeSamples {
   private static final String ACCOUNT_TOKEN = "account_token";
@@ -64,12 +66,16 @@ public class FayeSamples {
       }
     };
 
-    client = new AsyncGitterFayeClient(ACCOUNT_TOKEN, new DisconnectionListener() {
-      @Override
-      public void onDisconnected() {
-        // Client has disconnected. You can reconnect it here.
-      }
-    });
+    client = new AsyncGitterFayeClientBuilder()
+        .withAccountToken(ACCOUNT_TOKEN)
+        .withOnDisconnected(new DisconnectionListener() {
+          @Override
+          public void onDisconnected() {
+            // Client has disconnected. You can reconnect it here.
+          }
+        })
+        .withOkHttpClient(new OkHttpClient())
+        .build();
 
     client.setLogger(new Logger() {
       @Override
