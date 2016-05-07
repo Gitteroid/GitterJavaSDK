@@ -21,12 +21,13 @@ import com.amatkivskiy.gitter.sdk.model.response.room.RoomResponse;
 import com.amatkivskiy.gitter.sdk.model.response.room.SearchRoomsResponse;
 import com.amatkivskiy.gitter.sdk.rx.api.RxGitterApi;
 
-import java.util.HashMap;
 import java.util.List;
 
 import retrofit.converter.GsonConverter;
 import rx.Observable;
 import rx.functions.Func1;
+
+import static com.amatkivskiy.gitter.sdk.util.RequestUtils.convertChatMessagesParamsToMap;
 
 public class RxGitterApiClient {
   private RxGitterApi api;
@@ -155,37 +156,6 @@ public class RxGitterApiClient {
 
   public Observable<UnReadMessagesResponse> getUnReadMessages(String userId, String roomId) {
     return api.getUnReadMessages(userId, roomId);
-  }
-
-  private HashMap<String, String> convertChatMessagesParamsToMap(ChatMessagesRequestParams params) {
-    HashMap<String, String> options = new HashMap<>();
-    if (params != null) {
-      if (params.limit != null) {
-        options.put(Constants.GitterRequestParams.LIMIT_PARAM, String.valueOf(params.limit.intValue()));
-      }
-
-      if (params.afterId != null) {
-        options.put(Constants.GitterRequestParams.AFTER_ID_PARAM, params.afterId);
-      }
-
-      if (params.beforeId != null) {
-        options.put(Constants.GitterRequestParams.BEFORE_ID_PARAM, params.beforeId);
-      }
-
-      if (params.skipCount != null) {
-        options.put(Constants.GitterRequestParams.SKIP_PARAM, String.valueOf(params.skipCount.intValue()));
-      }
-
-      if (params.aroundId != null) {
-        options.put(Constants.GitterRequestParams.AROUND_ID_PARAM, params.aroundId);
-      }
-
-      if (params.searchQuery != null) {
-        options.put(Constants.GitterRequestParams.SEARCH_QUERY_PARAM, params.searchQuery);
-      }
-    }
-
-    return options;
   }
 
   public static class Builder extends GitterApiBuilder<Builder, RxGitterApiClient> {
