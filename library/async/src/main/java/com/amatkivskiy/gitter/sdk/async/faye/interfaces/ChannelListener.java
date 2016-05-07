@@ -2,6 +2,10 @@ package com.amatkivskiy.gitter.sdk.async.faye.interfaces;
 
 import com.google.gson.JsonObject;
 
+import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
+
+import java.util.List;
+
 /**
  * Base interface for working with Faye channels. It provides callback methods.
  * For available channels list visit <a href="https://developer.gitter.im/docs/faye-endpoint#Endpoints">Gitter Faye</a>
@@ -28,8 +32,9 @@ public interface ChannelListener {
    * Called when channel is subscribed to the event on the Faye server.
    *
    * @param channel name of the channel.
+   * @param messagesSnapshot snapshot of the last messages in the channel.
    */
-  void onSubscribed(String channel);
+  void onSubscribed(String channel, List<MessageResponse> messagesSnapshot);
 
   /**
    * Called when channel is unsubscribed from the Faye server.
