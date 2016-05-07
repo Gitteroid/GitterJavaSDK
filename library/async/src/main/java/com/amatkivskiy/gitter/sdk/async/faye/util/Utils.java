@@ -1,12 +1,21 @@
 package com.amatkivskiy.gitter.sdk.async.faye.util;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import com.google.gson.reflect.TypeToken;
 
 import com.amatkivskiy.gitter.sdk.async.faye.client.AsyncGitterFayeClient;
+import com.amatkivskiy.gitter.sdk.converter.UserJsonDeserializer;
+import com.amatkivskiy.gitter.sdk.model.response.UserResponse;
+import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 
+import java.lang.reflect.Type;
 import java.nio.charset.Charset;
+import java.util.Collections;
+import java.util.List;
 
 import okio.Buffer;
 
@@ -88,5 +97,22 @@ public class Utils {
 
   public static String fromBuffer(Buffer source) {
     return source.readString(Charset.defaultCharset());
+  }
+
+  public static List<MessageResponse> parseSnapshotJson(JsonObject parent) {
+    if (!parent.has(EXT)) {
+      return Collections.emptyList();
+    }
+
+    JsonArray snapshotJsonArray = parent.get(EXT)
+        .getAsJsonObject()
+        .getAsJsonArray("snapshot");
+
+    Gson gson = new GsonBuilder()
+        .registerTypeAdapter(UserResponse.class, new UserJsonDeserializer())
+        .create();
+
+    Type messagesListType = new TypeToken<List<MessageResponse>>() {}.getType();
+    return gson.fromJson(snapshotJsonArray, messagesListType);
   }
 }

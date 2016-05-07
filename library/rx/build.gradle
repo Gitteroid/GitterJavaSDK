@@ -18,7 +18,7 @@ repositories {
 publish {
     groupId = 'com.github.amatkivskiy'
     artifactId = 'gitter.sdk.rx'
-    publishVersion = '1.5'
+    publishVersion = '1.5.1'
     desc = 'Gitter.im RxJava SDK that facilitates communication with Gitter API'
     licences = ['MIT']
     website = 'https://github.com/Gitteroid/GitterJavaSDK'
@@ -27,7 +27,7 @@ publish {
 }
 
 dependencies {
-    compile 'com.github.amatkivskiy:gitter.sdk.core:1.4'
-    //    compile project(':library:core')
+    compile 'com.github.amatkivskiy:gitter.sdk.core:1.5'
+//    compile project(':library:core')
     compile 'io.reactivex:rxjava:1.0.10'
 }
