@@ -18,6 +18,8 @@ public class Constants {
     public final static String BEFORE_ID_PARAM = "beforeId";
     public final static String AFTER_ID_PARAM = "afterId";
     public final static String LIMIT_PARAM = "limit";
+    public final static String AROUND_ID_PARAM = "aroundId";
+    public final static String SEARCH_QUERY_PARAM = "q";
   }
 
   public static class GitterOauth {

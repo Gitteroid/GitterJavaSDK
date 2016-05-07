@@ -4,12 +4,17 @@ public class ChatMessagesRequestParams {
   public final Integer skipCount;
   public final String beforeId;
   public final String afterId;
+  public final String aroundId;
+  public final String searchQuery;
   public final Integer limit;
 
-  private ChatMessagesRequestParams(Integer skipCount, String beforeId, String afterId, Integer limit) {
+  private ChatMessagesRequestParams(Integer skipCount, String beforeId, String afterId,
+                                    String aroundId, String searchQuery, Integer limit) {
     this.skipCount = skipCount;
     this.beforeId = beforeId;
     this.afterId = afterId;
+    this.aroundId = aroundId;
+    this.searchQuery = searchQuery;
     this.limit = limit;
   }
 
@@ -17,6 +22,8 @@ public class ChatMessagesRequestParams {
     private Integer skipCount;
     private String beforeId;
     private String afterId;
+    private String aroundId;
+    private String searchQuery;
     private Integer limit;
 
     public ChatMessagesRequestParamsBuilder skip(int skipCount) {
@@ -39,8 +46,18 @@ public class ChatMessagesRequestParams {
       return this;
     }
 
+    public ChatMessagesRequestParamsBuilder aroundId(String id) {
+      this.aroundId = id;
+      return this;
+    }
+
+    public ChatMessagesRequestParamsBuilder searchQuery(String query) {
+      this.searchQuery = query;
+      return this;
+    }
+
     public ChatMessagesRequestParams build() {
-      return new ChatMessagesRequestParams(skipCount, beforeId, afterId, limit);
+      return new ChatMessagesRequestParams(skipCount, beforeId, afterId, aroundId, searchQuery, limit);
     }
   }
 }
