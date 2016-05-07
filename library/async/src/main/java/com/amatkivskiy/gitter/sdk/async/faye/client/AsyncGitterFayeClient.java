@@ -45,6 +45,7 @@ public class AsyncGitterFayeClient {
 
   private static final int DEFAULT_PING_INTERVAL_SEC = 5;
 
+  // Keep connection timer task
   private TimerTask pingTask;
   private Logger logger = new Logger() {
     @Override
@@ -56,10 +57,12 @@ public class AsyncGitterFayeClient {
   private String accountToken;
   private String clientId;
   private WebSocket webSocket;
+  private OkHttpClient okHttpClient;
   private HashMap<String, ChannelListener> channelListeners = new HashMap<>();
 
   private boolean catchDisconnection = true;
-  private WebSocketListener webSocketListener;
+
+  // State listeners
   private HandshakeListener handshakeListener;
   private ConnectionListener connectionListener;
   private DisconnectionListener disconnectionListener = new DisconnectionListener() {
@@ -68,7 +71,6 @@ public class AsyncGitterFayeClient {
 
     }
   };
-
   private FailListener failListener = new FailListener() {
     @Override
     public void onFailed(Exception ex) {
@@ -76,19 +78,14 @@ public class AsyncGitterFayeClient {
     }
   };
 
-  public AsyncGitterFayeClient(String accountToken) {
+  public AsyncGitterFayeClient(String accountToken,
+                               DisconnectionListener onDisconnected,
+                               FailListener failListener,
+                               OkHttpClient okHttpClient) {
     this.accountToken = accountToken;
-  }
-
-  public AsyncGitterFayeClient(String accountToken, DisconnectionListener onDisconnected) {
-    this.accountToken = accountToken;
-    this.disconnectionListener = onDisconnected;
-  }
-
-  public AsyncGitterFayeClient(String accountToken, DisconnectionListener onDisconnected, FailListener failListener) {
-    this.accountToken = accountToken;
-    this.disconnectionListener = onDisconnected;
-    this.failListener = failListener;
+    if (onDisconnected != null) this.disconnectionListener = onDisconnected;
+    if (failListener != null) this.failListener = failListener;
+    if (okHttpClient != null) this.okHttpClient = okHttpClient;
   }
 
   /**
@@ -184,7 +181,7 @@ public class AsyncGitterFayeClient {
     };
 
     Request request = new Request.Builder().url(GITTER_FAYE_ENDPOINT).build();
-    WebSocketCall.create(new OkHttpClient(), request).enqueue(this.webSocketListener = createWebSocketListener());
+    WebSocketCall.create(this.okHttpClient, request).enqueue(createWebSocketListener());
   }
 
   private void sendMessage(JsonObject message) {
@@ -306,7 +303,6 @@ public class AsyncGitterFayeClient {
 
   private void cleanUp() {
     webSocket = null;
-    webSocketListener = null;
 
     channelListeners.clear();
     channelListeners = null;
