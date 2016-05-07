@@ -175,6 +175,14 @@ public class RxGitterApiClient {
       if (params.skipCount != null) {
         options.put(Constants.GitterRequestParams.SKIP_PARAM, String.valueOf(params.skipCount.intValue()));
       }
+
+      if (params.aroundId != null) {
+        options.put(Constants.GitterRequestParams.AROUND_ID_PARAM, params.aroundId);
+      }
+
+      if (params.searchQuery != null) {
+        options.put(Constants.GitterRequestParams.SEARCH_QUERY_PARAM, params.searchQuery);
+      }
     }
 
     return options;
