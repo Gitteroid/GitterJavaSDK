@@ -1,24 +1,30 @@
 package com.amatkivskiy.gitter.sdk.sync.client;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import com.amatkivskiy.gitter.sdk.Constants;
 import com.amatkivskiy.gitter.sdk.api.builder.GitterApiBuilder;
 import com.amatkivskiy.gitter.sdk.converter.UserJsonDeserializer;
 import com.amatkivskiy.gitter.sdk.model.request.ChatMessagesRequestParams;
 import com.amatkivskiy.gitter.sdk.model.request.UnreadRequestParam;
 import com.amatkivskiy.gitter.sdk.model.request.UserAccountType;
-import com.amatkivskiy.gitter.sdk.model.response.*;
+import com.amatkivskiy.gitter.sdk.model.response.BooleanResponse;
+import com.amatkivskiy.gitter.sdk.model.response.OrgResponse;
+import com.amatkivskiy.gitter.sdk.model.response.RepoResponse;
+import com.amatkivskiy.gitter.sdk.model.response.SearchUsersResponse;
+import com.amatkivskiy.gitter.sdk.model.response.UserResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.UnReadMessagesResponse;
 import com.amatkivskiy.gitter.sdk.model.response.room.RoomResponse;
 import com.amatkivskiy.gitter.sdk.model.response.room.SearchRoomsResponse;
 import com.amatkivskiy.gitter.sdk.sync.api.SyncGitterApi;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import retrofit.converter.GsonConverter;
-import retrofit.http.Path;
 
-import java.util.HashMap;
 import java.util.List;
+
+import retrofit.converter.GsonConverter;
+
+import static com.amatkivskiy.gitter.sdk.util.RequestUtils.convertChatMessagesParamsToMap;
 
 public class SyncGitterApiClient {
   private SyncGitterApi api;
@@ -127,29 +133,6 @@ public class SyncGitterApiClient {
 
   public UnReadMessagesResponse getUnReadMessages(String userId, String roomId) {
     return api.getUnReadMessages(userId, roomId);
-  }
-
-  private HashMap<String, String> convertChatMessagesParamsToMap(ChatMessagesRequestParams params) {
-    HashMap<String, String> options = new HashMap<>();
-    if (params != null) {
-      if (params.limit != null) {
-        options.put(Constants.GitterRequestParams.LIMIT_PARAM, String.valueOf(params.limit.intValue()));
-      }
-
-      if (params.afterId != null) {
-        options.put(Constants.GitterRequestParams.AFTER_ID_PARAM, params.afterId);
-      }
-
-      if (params.beforeId != null) {
-        options.put(Constants.GitterRequestParams.BEFORE_ID_PARAM, params.beforeId);
-      }
-
-      if (params.skipCount != null) {
-        options.put(Constants.GitterRequestParams.SKIP_PARAM, String.valueOf(params.skipCount.intValue()));
-      }
-    }
-
-    return options;
   }
 
   public static class Builder extends GitterApiBuilder<Builder, SyncGitterApiClient> {
