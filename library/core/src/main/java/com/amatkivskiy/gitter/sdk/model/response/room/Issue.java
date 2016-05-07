@@ -1,11 +1,9 @@
 package com.amatkivskiy.gitter.sdk.model.response.room;
 
-import java.util.List;
-
 public class Issue {
-  public final List<String> numbers;
+  public final String number;
 
-  public Issue(List<String> numbers) {
-    this.numbers = numbers;
+  public Issue(String number) {
+    this.number = number;
   }
 }
