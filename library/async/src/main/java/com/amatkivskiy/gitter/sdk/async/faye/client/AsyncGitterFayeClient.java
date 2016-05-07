@@ -253,7 +253,7 @@ public class AsyncGitterFayeClient {
           ChannelListener listener = channelListeners.get(subscriptionChannel);
           if (listener != null) {
             if (json.get(SUCCESS).getAsBoolean()) {
-              listener.onSubscribed(channel);
+              listener.onSubscribed(channel, Utils.parseSnapshotJson(json));
             } else {
               listener.onFailed(channel, new Exception(json.toString()));
             }

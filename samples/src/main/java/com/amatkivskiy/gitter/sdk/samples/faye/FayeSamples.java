@@ -14,7 +14,10 @@ import com.amatkivskiy.gitter.sdk.async.faye.listeners.RoomUsersChannel;
 import com.amatkivskiy.gitter.sdk.async.faye.model.MessageEvent;
 import com.amatkivskiy.gitter.sdk.async.faye.model.UserEvent;
 import com.amatkivskiy.gitter.sdk.async.faye.model.UserPresenceEvent;
+import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.squareup.okhttp.OkHttpClient;
+
+import java.util.List;
 
 public class FayeSamples {
   private static final String ACCOUNT_TOKEN = "account_token";
@@ -58,7 +61,8 @@ public class FayeSamples {
       }
 
       @Override
-      public void onSubscribed(String channel) {
+      public void onSubscribed(String channel, List<MessageResponse> messagesSnapshot) {
+
       }
 
       @Override
