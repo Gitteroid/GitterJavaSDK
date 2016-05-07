@@ -34,7 +34,7 @@ repositories {
 }
 
 dependencies {
-      compile 'com.github.amatkivskiy:gitter.sdk.rx:1.5'
+      compile 'com.github.amatkivskiy:gitter.sdk.rx:1.5.1'
 }
 ```
 
@@ -45,7 +45,7 @@ repositories {
 }
 
 dependencies {
-      compile 'com.github.amatkivskiy:gitter.sdk.async:1.5'
+      compile 'com.github.amatkivskiy:gitter.sdk.async:1.5.1'
 }
 ```
 
@@ -56,11 +56,18 @@ repositories {
 }
 
 dependencies {
-      compile 'com.github.amatkivskiy:gitter.sdk.sync:1.4'
+      compile 'com.github.amatkivskiy:gitter.sdk.sync:1.5.1'
 }
 ```
 
 ###<a name="ReleaseNotes">**Release notes**
+- **1.5.1** (07.05.2016)
+	- Updated `RoomRepsonse` data structure.
+	- Added `aroundId` and `q` params for chat messages request.
+	- Added `Update room` request.
+	- Fixed `Issue` data structure type.
+	- Faye: added ability to set custom OkHttpClient.
+	- Faye: changed `onSubscribed()` params, no it passes messages snapshots.
 - **1.5** (14.01.2016)
 	- Added faye api support.
 	- Added room events streaming api support.
@@ -349,34 +356,16 @@ client.getRoomEventsStream(roomId).subscribe(new Action1<RoomEvent>() {
 1 Setup ```AsyncGitterFayeClient```:
 
 ```java
-AsyncGitterFayeClient client = new AsyncGitterFayeClient("account_token");
-```
-
-also you can provide disconnection listener (sometimes Faye server drops connection):
-
-```java
-AsyncGitterFayeClient client = new AsyncGitterFayeClient(ACCOUNT_TOKEN, new DisconnectionListener() {
-      @Override
-      public void onDisconnected() {
-        // Client has disconnected. You can reconnect it here.
-      }
-});
-```
-
-and you can provide error listener (is called when something went wrong):
-
-```java
-AsyncGitterFayeClient client = new AsyncGitterFayeClient(ACCOUNT_TOKEN, new DisconnectionListener() {
-      @Override
-      public void onDisconnected() {
-        // Client has disconnected. You can reconnect it here.
-      }
-    }, new FailListener() {
-      @Override
-      public void onFailed(Exception ex) {
-        // Oh, something horrible happened.
-      }
-});
+AsyncGitterFayeClient client = new AsyncGitterFayeClientBuilder()
+        .withAccountToken("account_token")
+        .withOnDisconnected(new DisconnectionListener() {
+          @Override
+          public void onDisconnected() {
+            // Client has disconnected. You can reconnect it here.
+          }
+        })
+        .withOkHttpClient(new OkHttpClient())
+        .build();
 ```
 
 2 Connect it to the server:
@@ -437,7 +426,7 @@ public void onFailed(String channel,Exception ex){
     }
 
 @Override
-public void onSubscribed(String channel){
+public void onSubscribed(String channel, List<MessageResponse> messagesSnapshot){
     }
 
 @Override
