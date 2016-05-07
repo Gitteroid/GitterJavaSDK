@@ -8,6 +8,7 @@ import com.amatkivskiy.gitter.sdk.api.builder.GitterApiBuilder;
 import com.amatkivskiy.gitter.sdk.converter.UserJsonDeserializer;
 import com.amatkivskiy.gitter.sdk.model.request.ChatMessagesRequestParams;
 import com.amatkivskiy.gitter.sdk.model.request.UnreadRequestParam;
+import com.amatkivskiy.gitter.sdk.model.request.UpdateRoomRequestParam;
 import com.amatkivskiy.gitter.sdk.model.request.UserAccountType;
 import com.amatkivskiy.gitter.sdk.model.response.BooleanResponse;
 import com.amatkivskiy.gitter.sdk.model.response.OrgResponse;
@@ -67,6 +68,10 @@ public class SyncGitterApiClient {
 
   public RoomResponse joinRoom(String roomUri) {
     return api.joinRoom(roomUri);
+  }
+
+  public RoomResponse updateRoom(String roomId, UpdateRoomRequestParam params) {
+    return api.updateRoom(roomId, params);
   }
 
   /**

@@ -1,16 +1,31 @@
 package com.amatkivskiy.gitter.sdk.sync.api;
 
 import com.amatkivskiy.gitter.sdk.model.request.UnreadRequestParam;
+import com.amatkivskiy.gitter.sdk.model.request.UpdateRoomRequestParam;
 import com.amatkivskiy.gitter.sdk.model.request.UserAccountType;
-import com.amatkivskiy.gitter.sdk.model.response.*;
+import com.amatkivskiy.gitter.sdk.model.response.BooleanResponse;
+import com.amatkivskiy.gitter.sdk.model.response.OrgResponse;
+import com.amatkivskiy.gitter.sdk.model.response.RepoResponse;
+import com.amatkivskiy.gitter.sdk.model.response.SearchUsersResponse;
+import com.amatkivskiy.gitter.sdk.model.response.UserResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.UnReadMessagesResponse;
 import com.amatkivskiy.gitter.sdk.model.response.room.RoomResponse;
 import com.amatkivskiy.gitter.sdk.model.response.room.SearchRoomsResponse;
-import retrofit.http.*;
 
 import java.util.List;
 import java.util.Map;
+
+import retrofit.http.Body;
+import retrofit.http.DELETE;
+import retrofit.http.Field;
+import retrofit.http.FormUrlEncoded;
+import retrofit.http.GET;
+import retrofit.http.POST;
+import retrofit.http.PUT;
+import retrofit.http.Path;
+import retrofit.http.Query;
+import retrofit.http.QueryMap;
 
 public interface SyncGitterApi {
   @GET("/user")
@@ -40,6 +55,9 @@ public interface SyncGitterApi {
   @POST("/rooms")
   @FormUrlEncoded
   RoomResponse joinRoom(@Field("uri") String roomUri);
+
+  @PUT("/rooms/{roomId}")
+  RoomResponse updateRoom(@Path("roomId") String roomId, @Body UpdateRoomRequestParam param);
 
   @GET("/rooms")
   SearchRoomsResponse searchRooms(@Query("q") String searchTerm);
