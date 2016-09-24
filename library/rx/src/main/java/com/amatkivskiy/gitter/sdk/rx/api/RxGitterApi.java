@@ -51,6 +51,9 @@ public interface RxGitterApi {
   @GET("/rooms/{roomId}/users")
   Observable<List<UserResponse>> getRoomUsers(@Path("roomId") String roomId);
 
+  @GET("/rooms/{roomId}/users")
+  Observable<List<UserResponse>> getRoomUsers(@Path("roomId") String roomId, @Query("q") String query, @Query("skip") int skip, @Query("limit") int limit);
+
   @GET("/rooms/{roomId}/channels")
   Observable<List<RoomResponse>> getRoomChannels(@Path("roomId") String roomId);
 

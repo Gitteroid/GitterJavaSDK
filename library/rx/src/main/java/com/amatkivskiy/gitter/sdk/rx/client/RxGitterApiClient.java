@@ -64,6 +64,10 @@ public class RxGitterApiClient {
     return api.getRoomUsers(roomId);
   }
 
+  public Observable<List<UserResponse>> getRoomUsers(String roomId, String query, int skip, int limit) {
+    return api.getRoomUsers(roomId, query, skip, limit);
+  }
+
   public Observable<List<RoomResponse>> getRoomChannels(String roomId) {
     return api.getRoomChannels(roomId);
   }
