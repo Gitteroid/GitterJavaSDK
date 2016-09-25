@@ -62,6 +62,10 @@ public class SyncGitterApiClient {
     return api.getRoomUsers(roomId);
   }
 
+  public List<UserResponse> getRoomUsers(String roomId, String query, int skip, int limit) {
+    return api.getRoomUsers(roomId, query, skip, limit);
+  }
+
   public List<RoomResponse> getRoomChannels(String roomId) {
     return api.getRoomChannels(roomId);
   }

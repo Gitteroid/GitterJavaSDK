@@ -65,6 +65,10 @@ public class AsyncGitterApiClient {
     api.getRoomUsers(roomId, callback);
   }
 
+  public void getRoomUsers(String roomId, String query, int skip, int limit, Callback<List<UserResponse>> callback) {
+    api.getRoomUsers(roomId, query, skip, limit, callback);
+  }
+
   public void getRoomChannels(String roomId, Callback<List<RoomResponse>> callback) {
     api.getRoomChannels(roomId, callback);
   }
