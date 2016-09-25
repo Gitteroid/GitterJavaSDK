@@ -3,10 +3,10 @@ package com.amatkivskiy.gitter.sdk.rx.streaming;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-import rx.Subscriber;
-import rx.observables.AbstractOnSubscribe;
+import rx.Observer;
+import rx.observables.SyncOnSubscribe;
 
-public class OnSubscribeBufferedReader extends AbstractOnSubscribe<String, BufferedReader> {
+public class OnSubscribeBufferedReader extends SyncOnSubscribe<BufferedReader, String> {
 
   private final BufferedReader reader;
 
@@ -15,29 +15,28 @@ public class OnSubscribeBufferedReader extends AbstractOnSubscribe<String, Buffe
   }
 
   @Override
-  protected BufferedReader onSubscribe(Subscriber<? super String> subscriber) {
+  protected BufferedReader generateState() {
     return reader;
   }
 
   @Override
-  protected void next(SubscriptionState<String, BufferedReader> state) {
-    BufferedReader reader = state.state();
+  protected BufferedReader next(BufferedReader state, Observer<? super String> observer) {
     try {
       String line = reader.readLine();
       if (line == null) {
-        state.onCompleted();
+        observer.onCompleted();
       } else {
-        state.onNext(line);
+        observer.onNext(line);
       }
     } catch (IOException e) {
-      state.onError(e);
+      observer.onError(e);
     }
+
+    return reader;
   }
 
   @Override
-  protected void onTerminated(BufferedReader state) {
-    super.onTerminated(state);
-
+  protected void onUnsubscribe(BufferedReader state) {
     if (state != null) {
       try {
         state.close();
