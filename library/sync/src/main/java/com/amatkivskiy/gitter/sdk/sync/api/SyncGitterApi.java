@@ -49,6 +49,9 @@ public interface SyncGitterApi {
   @GET("/rooms/{roomId}/users")
   List<UserResponse> getRoomUsers(@Path("roomId") String roomId);
 
+  @GET("/rooms/{roomId}/users")
+  List<UserResponse> getRoomUsers(@Path("roomId") String roomId, @Query("q") String query, @Query("skip") int skip, @Query("limit") int limit);
+
   @GET("/rooms/{roomId}/channels")
   List<RoomResponse> getRoomChannels(@Path("roomId") String roomId);
 
