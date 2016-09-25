@@ -50,6 +50,9 @@ public interface AsyncGitterApi {
   @GET("/rooms/{roomId}/users")
   void getRoomUsers(@Path("roomId") String roomId, Callback<List<UserResponse>> callback);
 
+  @GET("/rooms/{roomId}/users")
+  void getRoomUsers(@Path("roomId") String roomId, @Query("q") String query, @Query("skip") int skip, @Query("limit") int limit, Callback<List<UserResponse>> callback);
+
   @GET("/rooms/{roomId}/channels")
   void getRoomChannels(@Path("roomId") String roomId, Callback<List<RoomResponse>> callback);
 
