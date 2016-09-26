@@ -1,4 +1,4 @@
-package com.amatkivskiy.gitter.sdk.test;
+package com.amatkivskiy.gitter.sdk;
 
 import com.amatkivskiy.gitter.sdk.api.builder.GitterApiBuilder;
 import org.junit.Assert;
