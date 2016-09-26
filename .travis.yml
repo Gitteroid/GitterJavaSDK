@@ -2,7 +2,10 @@ language: java
 jdk: oraclejdk7
 before_install:
  - chmod +x gradlew
-script: ./gradlew clean build
+script:
+- ./gradlew clean build
+after_success:
+- ./gradlew jacocoTestReport coveralls
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:

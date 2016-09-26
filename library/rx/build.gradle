@@ -1,5 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'jacoco'
+apply plugin: 'com.github.kt3k.coveralls'
 
 buildscript {
     repositories {
@@ -13,6 +15,13 @@ buildscript {
 repositories {
     jcenter()
     maven { url "https://dl.bintray.com/amatkivskiy/maven/"}
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true // coveralls plugin depends on xml format report
+        html.enabled = true
+    }
 }
 
 publish {
