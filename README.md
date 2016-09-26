@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/Gitteroid/GitterJavaSDK.svg?branch=dev)](https://travis-ci.org/Gitteroid/GitterJavaSDK) 
 # Gitter.im Java SDK
 
 :+1: **_Fully compatible with Android_**
