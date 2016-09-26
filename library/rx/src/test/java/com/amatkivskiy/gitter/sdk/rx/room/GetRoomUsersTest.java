@@ -16,10 +16,10 @@ import okhttp3.mockwebserver.MockWebServer;
 import retrofit.RetrofitError;
 import rx.observers.TestSubscriber;
 
-import static com.amatkivskiy.gitter.sdk.rx.TestUtils.assertErrorResult;
+import static com.amatkivskiy.gitter.sdk.rx.TestUtils.assertErrorTypeResult;
 import static com.amatkivskiy.gitter.sdk.rx.TestUtils.assertSuccessfulResult;
-import static com.amatkivskiy.gitter.sdk.rx.TestUtils.createEmptyMockedResponse;
 import static com.amatkivskiy.gitter.sdk.rx.TestUtils.createMockedResponse;
+import static com.amatkivskiy.gitter.sdk.rx.TestUtils.createStringMockedResponse;
 import static com.amatkivskiy.gitter.sdk.rx.TestUtils.getOnNextEvent;
 import static com.amatkivskiy.gitter.sdk.rx.TestUtils.getRequestUrl;
 import static com.amatkivskiy.gitter.sdk.rx.TestUtils.setupMockWebServer;
@@ -86,7 +86,7 @@ public class GetRoomUsersTest {
   @Test
   public void testGetRoomUsersEmptyHttpResponseReturnsNull() throws Exception {
     // ARRANGE
-    this.mockWebServer.enqueue(createEmptyMockedResponse());
+    this.mockWebServer.enqueue(createStringMockedResponse(""));
     TestSubscriber<List<UserResponse>> testSubscriber = TestSubscriber.create();
 
     // ACT
@@ -106,6 +106,20 @@ public class GetRoomUsersTest {
     this.gitterApiClient.getRoomUsers(null).subscribe(testSubscriber);
 
     // ASSERT
-    assertErrorResult(testSubscriber, RetrofitError.class);
+    assertErrorTypeResult(testSubscriber, RetrofitError.class);
+  }
+
+  @Test
+  public void testWrongRoomIdFails() throws Exception {
+    // ARRANGE
+    this.mockWebServer.enqueue(createStringMockedResponse("{\"error\":\"Bad Request\"}")
+        .setResponseCode(400));
+    TestSubscriber<List<UserResponse>> testSubscriber = TestSubscriber.create();
+
+    // ACT
+    this.gitterApiClient.getRoomUsers("wrong_id").subscribe(testSubscriber);
+
+    // ASSERT
+    assertErrorTypeResult(testSubscriber, RetrofitError.class);
   }
 }

@@ -21,8 +21,8 @@ public class TestUtils {
         return new MockResponse().setBody(buffer);
     }
 
-    public static MockResponse createEmptyMockedResponse() throws IOException {
-        return new MockResponse().setBody("");
+    public static MockResponse createStringMockedResponse(String response) throws IOException {
+        return new MockResponse().setBody(response);
     }
 
     public static HttpUrl getRequestUrl(MockWebServer webServer) throws InterruptedException {
@@ -41,7 +41,7 @@ public class TestUtils {
         subscriber.assertCompleted();
     }
 
-    public static <T extends Exception> void assertErrorResult(TestSubscriber subscriber, Class<T> exceptionClass) {
+    public static <T extends Exception> void assertErrorTypeResult(TestSubscriber subscriber, Class<T> exceptionClass) {
         subscriber.awaitTerminalEvent();
         subscriber.assertNotCompleted();
         subscriber.assertError(exceptionClass);
