@@ -11,6 +11,7 @@ public class RoomResponse {
   @SerializedName("id") public final String id;
   @SerializedName("name") public final String name;
   @SerializedName("topic") public final String topic;
+  @SerializedName("avatarUrl") public final String avatarUrl;
   @SerializedName("uri") public final String uri;
   @SerializedName("oneToOne") public final boolean oneToOne;
   @SerializedName("user") public final UserResponse user;
@@ -31,6 +32,7 @@ public class RoomResponse {
   public RoomResponse(String id,
                       String name,
                       String topic,
+                      String avatarUrl,
                       String uri,
                       boolean oneToOne,
                       UserResponse user,
@@ -49,6 +51,7 @@ public class RoomResponse {
     this.id = id;
     this.name = name;
     this.topic = topic;
+    this.avatarUrl = avatarUrl;
     this.uri = uri;
     this.oneToOne = oneToOne;
     this.user = user;
@@ -72,6 +75,7 @@ public class RoomResponse {
         "id='" + id + '\'' +
         ", name='" + name + '\'' +
         ", topic='" + topic + '\'' +
+        ", avatarUrl='" + avatarUrl + '\'' +
         ", uri='" + uri + '\'' +
         ", oneToOne=" + oneToOne +
         ", user=" + user +
