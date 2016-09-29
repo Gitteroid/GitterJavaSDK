@@ -18,7 +18,6 @@ public class RoomResponse {
   @SerializedName("unreadItems") public final int unreadItems;
   @SerializedName("mentions") public final int mentions;
   @SerializedName("lastAccessTime") public final String lastAccessTime;
-  @SerializedName("favouriteOrder") public final int favouriteOrder;
   @SerializedName("lurk") public final boolean lurk;
   @SerializedName("url") public final String url;
   @SerializedName("githubType") public final RoomType githubRoomType;
@@ -27,6 +26,11 @@ public class RoomResponse {
   @SerializedName("tags") public final List<String> tags = new ArrayList<String>();
   @SerializedName("v") public final int v;
   @SerializedName("roomMember") public final boolean isRoomMember;
+  @SerializedName("avatarUrl") public final String avatarUrl;
+  @SerializedName("groupId") public final String groupId;
+  @SerializedName("public") public final boolean isPublic;
+  @SerializedName("activity") public final boolean activity;
+  @SerializedName("premium") public final boolean isPremium;
 
   public RoomResponse(String id,
                       String name,
@@ -38,14 +42,18 @@ public class RoomResponse {
                       int unreadItems,
                       int mentions,
                       String lastAccessTime,
-                      int favouriteOrder,
                       boolean lurk,
                       String url,
                       RoomType githubRoomType,
                       String security,
                       boolean noIndex,
                       int v,
-                      boolean isRoomMember) {
+                      boolean isRoomMember,
+                      String avatarUrl,
+                      String groupId,
+                      boolean isPublic,
+                      boolean activity,
+                      boolean isPremium) {
     this.id = id;
     this.name = name;
     this.topic = topic;
@@ -56,7 +64,6 @@ public class RoomResponse {
     this.unreadItems = unreadItems;
     this.mentions = mentions;
     this.lastAccessTime = lastAccessTime;
-    this.favouriteOrder = favouriteOrder;
     this.lurk = lurk;
     this.url = url;
     this.githubRoomType = githubRoomType;
@@ -64,6 +71,11 @@ public class RoomResponse {
     this.noIndex = noIndex;
     this.v = v;
     this.isRoomMember = isRoomMember;
+    this.avatarUrl = avatarUrl;
+    this.groupId = groupId;
+    this.isPublic = isPublic;
+    this.activity = activity;
+    this.isPremium = isPremium;
   }
 
   @Override
@@ -79,7 +91,6 @@ public class RoomResponse {
         ", unreadItems=" + unreadItems +
         ", mentions=" + mentions +
         ", lastAccessTime='" + lastAccessTime + '\'' +
-        ", favouriteOrder=" + favouriteOrder +
         ", lurk=" + lurk +
         ", url='" + url + '\'' +
         ", githubRoomType=" + githubRoomType +
@@ -88,6 +99,11 @@ public class RoomResponse {
         ", tags=" + tags +
         ", v=" + v +
         ", isRoomMember=" + isRoomMember +
+        ", avatarUrl='" + avatarUrl + '\'' +
+        ", groupId='" + groupId + '\'' +
+        ", isPublic=" + isPublic +
+        ", activity=" + activity +
+        ", isPremium=" + isPremium +
         '}';
   }
 }
