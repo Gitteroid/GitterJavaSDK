@@ -49,10 +49,6 @@ public class RxGitterApiClient {
     return api.getUserRepos(userId);
   }
 
-  public Observable<List<RoomResponse>> getUserChannels(String userId) {
-    return api.getUserChannels(userId);
-  }
-
   public Observable<List<UserResponse>> searchUsers(UserAccountType type, String searchTerm) {
     return api.searchUsers(type, searchTerm).map(new Func1<SearchUsersResponse, List<UserResponse>>() {
       @Override
@@ -82,10 +78,6 @@ public class RxGitterApiClient {
 
   public Observable<List<UserResponse>> getRoomUsers(String roomId) {
     return api.getRoomUsers(roomId);
-  }
-
-  public Observable<List<RoomResponse>> getRoomChannels(String roomId) {
-    return api.getRoomChannels(roomId);
   }
 
   public Observable<RoomResponse> joinRoom(String roomUri) {
