@@ -10,3 +10,7 @@
 - Add `avatarUrl`
 - Add `role`
 - Add `staff`
+
+**Rx,Async,Sync:**
+- Add `delete` room API
+- Remove channels API

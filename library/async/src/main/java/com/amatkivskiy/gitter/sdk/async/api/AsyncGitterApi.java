@@ -42,9 +42,6 @@ public interface AsyncGitterApi {
   @GET("/user/{userId}/repos")
   void getUserRepos(@Path("userId") String userId, Callback<List<RepoResponse>> callback);
 
-  @GET("/user/{userId}/channels")
-  void getUserChannels(@Path("userId") String userId, Callback<List<RoomResponse>> callback);
-
   @GET("/user")
   void searchUsers(
       @Query("type") UserAccountType type,
@@ -61,9 +58,6 @@ public interface AsyncGitterApi {
 
   @GET("/user/{userId}/rooms")
   void getUserRooms(@Path("userId") String userId, Callback<List<RoomResponse>> callback);
-
-  @GET("/rooms/{roomId}/channels")
-  void getRoomChannels(@Path("roomId") String roomId, Callback<List<RoomResponse>> callback);
 
   @POST("/rooms")
   @FormUrlEncoded

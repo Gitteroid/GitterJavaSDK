@@ -39,9 +39,6 @@ public interface RxGitterApi {
   @GET("/user/{userId}/repos")
   Observable<List<RepoResponse>> getUserRepos(@Path("userId") String userId);
 
-  @GET("/user/{userId}/channels")
-  Observable<List<RoomResponse>> getUserChannels(@Path("userId") String userId);
-
   @GET("/user")
   Observable<SearchUsersResponse> searchUsers(@Query("type") UserAccountType type, @Query("q") String searchTerm);
 
@@ -57,9 +54,6 @@ public interface RxGitterApi {
 
   @GET("/rooms/{roomId}/users")
   Observable<List<UserResponse>> getRoomUsers(@Path("roomId") String roomId);
-
-  @GET("/rooms/{roomId}/channels")
-  Observable<List<RoomResponse>> getRoomChannels(@Path("roomId") String roomId);
 
   @POST("/rooms")
   @FormUrlEncoded

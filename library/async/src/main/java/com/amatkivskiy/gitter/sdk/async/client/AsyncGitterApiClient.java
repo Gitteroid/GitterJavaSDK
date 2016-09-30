@@ -54,10 +54,6 @@ public class AsyncGitterApiClient {
     api.getUserRepos(userId, callback);
   }
 
-  public void getUserChannels(String userId, Callback<List<RoomResponse>> callback) {
-    api.getUserChannels(userId, callback);
-  }
-
   public void searchUsers(UserAccountType type, String searchTerm, final Callback<List<UserResponse>> callback) {
     api.searchUsers(type, searchTerm, new Callback<SearchUsersResponse>() {
       @Override
@@ -93,10 +89,6 @@ public class AsyncGitterApiClient {
 
   public void getCurrentUserRooms(Callback<List<RoomResponse>> callback) {
     api.getCurrentUserRooms(callback);
-  }
-
-  public void getRoomChannels(String roomId, Callback<List<RoomResponse>> callback) {
-    api.getRoomChannels(roomId, callback);
   }
 
   public void joinRoom(String roomUri, Callback<RoomResponse> callback) {
