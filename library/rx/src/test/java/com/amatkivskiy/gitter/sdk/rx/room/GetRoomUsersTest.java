@@ -5,9 +5,7 @@ import com.amatkivskiy.gitter.sdk.rx.TestBuilder;
 import com.amatkivskiy.gitter.sdk.rx.client.RxGitterApiClient;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import java.util.List;
 
@@ -29,9 +27,6 @@ import static org.junit.Assert.assertThat;
 
 public class GetRoomUsersTest {
   private MockWebServer mockWebServer;
-
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
 
   private RxGitterApiClient gitterApiClient;
 
