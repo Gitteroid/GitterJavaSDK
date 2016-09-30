@@ -79,6 +79,9 @@ public interface SyncGitterApi {
   @GET("/user/me/suggestedRooms")
   List<RoomResponse> getSuggestedRooms();
 
+  @DELETE("/rooms/{roomId}")
+  BooleanResponse deleteRoom(@Path("roomId") String roomId);
+
   // Messages API
   @POST("/user/{userId}/rooms/{roomId}/unreadItems")
   BooleanResponse markReadMessages(

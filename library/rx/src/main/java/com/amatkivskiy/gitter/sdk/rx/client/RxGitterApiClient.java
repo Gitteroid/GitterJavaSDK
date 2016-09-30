@@ -132,6 +132,10 @@ public class RxGitterApiClient {
     });
   }
 
+  public Observable<BooleanResponse> deleteRooom(String roomId) {
+    return api.deleteRoom(roomId);
+  }
+
   // Messages API
   public Observable<MessageResponse> sendMessage(String roomId, String text) {
     return api.sendMessage(roomId, text);
