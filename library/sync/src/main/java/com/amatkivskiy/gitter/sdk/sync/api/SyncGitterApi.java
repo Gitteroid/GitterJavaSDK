@@ -28,11 +28,9 @@ import retrofit.http.Query;
 import retrofit.http.QueryMap;
 
 public interface SyncGitterApi {
+  // User API
   @GET("/user")
   UserResponse getCurrentUser();
-
-  @GET("/user/{userId}/rooms")
-  RoomResponse getUserRooms(@Path("userId") String userId);
 
   @GET("/rooms")
   List<RoomResponse> getCurrentUserRooms();
@@ -46,27 +44,31 @@ public interface SyncGitterApi {
   @GET("/user/{userId}/channels")
   List<RoomResponse> getUserChannels(@Path("userId") String userId);
 
-  @GET("/rooms/{roomId}/users")
-  List<UserResponse> getRoomUsers(@Path("roomId") String roomId);
-
   @GET("/rooms/{roomId}/channels")
   List<RoomResponse> getRoomChannels(@Path("roomId") String roomId);
-
-  @POST("/rooms")
-  @FormUrlEncoded
-  RoomResponse joinRoom(@Field("uri") String roomUri);
-
-  @PUT("/rooms/{roomId}")
-  RoomResponse updateRoom(@Path("roomId") String roomId, @Body UpdateRoomRequestParam param);
-
-  @GET("/rooms")
-  SearchRoomsResponse searchRooms(@Query("q") String searchTerm);
 
   @GET("/user")
   SearchUsersResponse searchUsers(@Query("type") UserAccountType type,  @Query("q") String searchTerm);
 
   @GET("/user")
   SearchUsersResponse searchUsers(@Query("q") String searchTerm);
+
+  // Rooms API
+  @POST("/rooms")
+  @FormUrlEncoded
+  RoomResponse joinRoom(@Field("uri") String roomUri);
+
+  @GET("/rooms/{roomId}/users")
+  List<UserResponse> getRoomUsers(@Path("roomId") String roomId);
+
+  @GET("/user/{userId}/rooms")
+  RoomResponse getUserRooms(@Path("userId") String userId);
+
+  @PUT("/rooms/{roomId}")
+  RoomResponse updateRoom(@Path("roomId") String roomId, @Body UpdateRoomRequestParam param);
+
+  @GET("/rooms")
+  SearchRoomsResponse searchRooms(@Query("q") String searchTerm);
 
   @GET("/rooms")
   SearchRoomsResponse searchRooms(@Query("q") String searchTerm, @Query("limit") int limit);
@@ -77,6 +79,10 @@ public interface SyncGitterApi {
   @GET("/user/me/suggestedRooms")
   List<RoomResponse> getSuggestedRooms();
 
+  @DELETE("/rooms/{roomId}")
+  BooleanResponse deleteRoom(@Path("roomId") String roomId);
+
+  // Messages API
   @POST("/user/{userId}/rooms/{roomId}/unreadItems")
   BooleanResponse markReadMessages(
       @Path("userId") String userId,
