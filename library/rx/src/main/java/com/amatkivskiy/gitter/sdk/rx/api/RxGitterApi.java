@@ -29,14 +29,9 @@ import retrofit.http.QueryMap;
 import rx.Observable;
 
 public interface RxGitterApi {
+  // User API
   @GET("/user")
   Observable<UserResponse> getCurrentUser();
-
-  @GET("/user/{userId}/rooms")
-  Observable<List<RoomResponse>> getUserRooms(@Path("userId") String userId);
-
-  @GET("/rooms")
-  Observable<List<RoomResponse>> getCurrentUserRooms();
 
   @GET("/user/{userId}/orgs")
   Observable<List<OrgResponse>> getUserOrgs(@Path("userId") String userId);
@@ -47,6 +42,18 @@ public interface RxGitterApi {
   @GET("/user/{userId}/channels")
   Observable<List<RoomResponse>> getUserChannels(@Path("userId") String userId);
 
+  @GET("/user")
+  Observable<SearchUsersResponse> searchUsers(@Query("type") UserAccountType type, @Query("q") String searchTerm);
+
+  @GET("/user")
+  Observable<SearchUsersResponse> searchUsers(@Query("q") String searchTerm);
+
+  // Rooms API
+  @GET("/user/{userId}/rooms")
+  Observable<List<RoomResponse>> getUserRooms(@Path("userId") String userId);
+
+  @GET("/rooms")
+  Observable<List<RoomResponse>> getCurrentUserRooms();
 
   @GET("/rooms/{roomId}/users")
   Observable<List<UserResponse>> getRoomUsers(@Path("roomId") String roomId);
@@ -64,12 +71,6 @@ public interface RxGitterApi {
   @GET("/rooms")
   Observable<SearchRoomsResponse> searchRooms(@Query("q") String searchTerm);
 
-  @GET("/user")
-  Observable<SearchUsersResponse> searchUsers(@Query("type") UserAccountType type, @Query("q") String searchTerm);
-
-  @GET("/user")
-  Observable<SearchUsersResponse> searchUsers(@Query("q") String searchTerm);
-
   @GET("/rooms")
   Observable<SearchRoomsResponse> searchRooms(@Query("q") String searchTerm, @Query("limit") int limit);
 
@@ -79,6 +80,7 @@ public interface RxGitterApi {
   @GET("/user/me/suggestedRooms")
   Observable<List<RoomResponse>> getSuggestedRooms();
 
+  // Messages API
   @POST("/user/{userId}/rooms/{roomId}/unreadItems")
   Observable<BooleanResponse> markReadMessages(@Path("userId") String userId, @Path("roomId") String roomId,
                                       @Body UnreadRequestParam param);

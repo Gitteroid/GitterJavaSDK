@@ -36,16 +36,9 @@ public class RxGitterApiClient {
     this.api = api;
   }
 
-  public Observable<MessageResponse> sendMessage(String roomId, String text) {
-    return api.sendMessage(roomId, text);
-  }
-
+  // User API
   public Observable<UserResponse> getCurrentUser() {
     return api.getCurrentUser();
-  }
-
-  public Observable<List<RoomResponse>> getUserRooms(String userId) {
-    return api.getUserRooms(userId);
   }
 
   public Observable<List<OrgResponse>> getUserOrgs(String userId) {
@@ -58,6 +51,33 @@ public class RxGitterApiClient {
 
   public Observable<List<RoomResponse>> getUserChannels(String userId) {
     return api.getUserChannels(userId);
+  }
+
+  public Observable<List<UserResponse>> searchUsers(UserAccountType type, String searchTerm) {
+    return api.searchUsers(type, searchTerm).map(new Func1<SearchUsersResponse, List<UserResponse>>() {
+      @Override
+      public List<UserResponse> call(SearchUsersResponse searchUsersResponse) {
+        return searchUsersResponse.results;
+      }
+    });
+  }
+
+  public Observable<List<UserResponse>> searchUsers(String searchTerm) {
+    return api.searchUsers(searchTerm).map(new Func1<SearchUsersResponse, List<UserResponse>>() {
+      @Override
+      public List<UserResponse> call(SearchUsersResponse searchUsersResponse) {
+        return searchUsersResponse.results;
+      }
+    });
+  }
+
+  // Rooms API
+  public Observable<List<RoomResponse>> getUserRooms(String userId) {
+    return api.getUserRooms(userId);
+  }
+
+  public Observable<List<RoomResponse>> getCurrentUserRooms() {
+    return api.getCurrentUserRooms();
   }
 
   public Observable<List<UserResponse>> getRoomUsers(String roomId) {
@@ -112,26 +132,9 @@ public class RxGitterApiClient {
     });
   }
 
-  public Observable<List<UserResponse>> searchUsers(UserAccountType type, String searchTerm) {
-    return api.searchUsers(type, searchTerm).map(new Func1<SearchUsersResponse, List<UserResponse>>() {
-      @Override
-      public List<UserResponse> call(SearchUsersResponse searchUsersResponse) {
-        return searchUsersResponse.results;
-      }
-    });
-  }
-
-  public Observable<List<UserResponse>> searchUsers(String searchTerm) {
-    return api.searchUsers(searchTerm).map(new Func1<SearchUsersResponse, List<UserResponse>>() {
-      @Override
-      public List<UserResponse> call(SearchUsersResponse searchUsersResponse) {
-        return searchUsersResponse.results;
-      }
-    });
-  }
-
-  public Observable<List<RoomResponse>> getCurrentUserRooms() {
-    return api.getCurrentUserRooms();
+  // Messages API
+  public Observable<MessageResponse> sendMessage(String roomId, String text) {
+    return api.sendMessage(roomId, text);
   }
 
   public Observable<List<MessageResponse>> getRoomMessages(String roomId, ChatMessagesRequestParams params) {
