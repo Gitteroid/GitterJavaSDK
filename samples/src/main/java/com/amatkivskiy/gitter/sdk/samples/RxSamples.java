@@ -37,16 +37,28 @@ public class RxSamples {
 //    This is required only for authentication.
     GitterDeveloperCredentials.init(new SimpleGitterCredentialsProvider(OAUTH_KEY, OAUTH_SECRET, REDIRECT_URL));
 
-    getAccessTokenSample();
-    getUserSample();
-    getRoomChatMessages();
-    roomMessagesStreamSample();
-    leaveRoomSample();
-    searchRoomsSample();
-    searchUsersSample();
-    markMessagesRead();
-    getSuggestedRooms();
-    roomEventsStreamSample();
+//    getAccessTokenSample();
+//    getUserSample();
+//    getRoomChatMessages();
+//    roomMessagesStreamSample();
+//    leaveRoomSample();
+//    searchRoomsSample();
+//    searchUsersSample();
+//    markMessagesRead();
+//    getSuggestedRooms();
+//    roomEventsStreamSample();
+    testMethod();
+  }
+
+  private static void testMethod() {
+    RxGitterApiClient client = new RxGitterApiClient.Builder()
+        .withAccountToken("c2fc54dc5bc835317b7b29f389383611d8940987")
+        .build();
+
+    BooleanResponse result = client.deleteRooom("57edcee740f3a6eec068229e").toBlocking().first();
+    System.out.println(String.format("success : %s", result.success));
+
+    System.exit(0);
   }
 
   private static void roomEventsStreamSample() {
