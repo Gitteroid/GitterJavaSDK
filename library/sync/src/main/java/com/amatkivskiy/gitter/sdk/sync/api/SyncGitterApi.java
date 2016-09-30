@@ -41,12 +41,6 @@ public interface SyncGitterApi {
   @GET("/user/{userId}/repos")
   List<RepoResponse> getUserRepos(@Path("userId") String userId);
 
-  @GET("/user/{userId}/channels")
-  List<RoomResponse> getUserChannels(@Path("userId") String userId);
-
-  @GET("/rooms/{roomId}/channels")
-  List<RoomResponse> getRoomChannels(@Path("roomId") String roomId);
-
   @GET("/user")
   SearchUsersResponse searchUsers(@Query("type") UserAccountType type,  @Query("q") String searchTerm);
 

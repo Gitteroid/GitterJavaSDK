@@ -47,10 +47,6 @@ public class SyncGitterApiClient {
     return api.getUserRepos(userId);
   }
 
-  public List<RoomResponse> getUserChannels(String userId) {
-    return api.getUserChannels(userId);
-  }
-
   public List<UserResponse> searchUsers(UserAccountType type, String searchTerm) {
     SearchUsersResponse response = api.searchUsers(type, searchTerm);
     return response.results;
@@ -72,10 +68,6 @@ public class SyncGitterApiClient {
 
   public List<UserResponse> getRoomUsers(String roomId) {
     return api.getRoomUsers(roomId);
-  }
-
-  public List<RoomResponse> getRoomChannels(String roomId) {
-    return api.getRoomChannels(roomId);
   }
 
   public RoomResponse joinRoom(String roomUri) {
