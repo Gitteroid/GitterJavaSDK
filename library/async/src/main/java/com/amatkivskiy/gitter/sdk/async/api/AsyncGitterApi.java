@@ -29,11 +29,9 @@ import retrofit.http.Query;
 import retrofit.http.QueryMap;
 
 public interface AsyncGitterApi {
+  // User Api
   @GET("/user")
   void getCurrentUser(Callback<UserResponse> callback);
-
-  @GET("/user/{userId}/rooms")
-  void getUserRooms(@Path("userId") String userId, Callback<List<RoomResponse>> callback);
 
   @GET("/rooms")
   void getCurrentUserRooms(Callback<List<RoomResponse>> callback);
@@ -47,8 +45,22 @@ public interface AsyncGitterApi {
   @GET("/user/{userId}/channels")
   void getUserChannels(@Path("userId") String userId, Callback<List<RoomResponse>> callback);
 
+  @GET("/user")
+  void searchUsers(
+      @Query("type") UserAccountType type,
+      @Query("q") String searchTerm,
+      Callback<SearchUsersResponse> callback
+  );
+
+  @GET("/user")
+  void searchUsers(@Query("q") String searchTerm, Callback<SearchUsersResponse> callback);
+
+  // Rooms Api
   @GET("/rooms/{roomId}/users")
   void getRoomUsers(@Path("roomId") String roomId, Callback<List<UserResponse>> callback);
+
+  @GET("/user/{userId}/rooms")
+  void getUserRooms(@Path("userId") String userId, Callback<List<RoomResponse>> callback);
 
   @GET("/rooms/{roomId}/channels")
   void getRoomChannels(@Path("roomId") String roomId, Callback<List<RoomResponse>> callback);
@@ -64,16 +76,6 @@ public interface AsyncGitterApi {
   @GET("/rooms")
   void searchRooms(@Query("q") String searchTerm, Callback<SearchRoomsResponse> callback);
 
-  @GET("/user")
-  void searchUsers(
-      @Query("type") UserAccountType type,
-      @Query("q") String searchTerm,
-      Callback<SearchUsersResponse> callback
-  );
-
-  @GET("/user")
-  void searchUsers(@Query("q") String searchTerm, Callback<SearchUsersResponse> callback);
-
   @GET("/rooms")
   void searchRooms(@Query("q") String searchTerm, @Query("limit") int limit, Callback<SearchRoomsResponse> callback);
 
@@ -83,6 +85,7 @@ public interface AsyncGitterApi {
   @GET("/user/me/suggestedRooms")
   void getSuggestedRooms(Callback<List<RoomResponse>> callback);
 
+  // Messages API
   @POST("/user/{userId}/rooms/{roomId}/unreadItems")
   void markReadMessages(
       @Path("userId") String userId,

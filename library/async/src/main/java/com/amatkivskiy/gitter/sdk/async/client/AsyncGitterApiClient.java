@@ -37,10 +37,7 @@ public class AsyncGitterApiClient {
     this.api = api;
   }
 
-  public void sendMessage(String roomId, String text, Callback<MessageResponse> callback) {
-    api.sendMessage(roomId, text, callback);
-  }
-
+  // User API
   public void getCurrentUser(Callback<UserResponse> callback) {
     api.getCurrentUser(callback);
   }
@@ -61,8 +58,41 @@ public class AsyncGitterApiClient {
     api.getUserChannels(userId, callback);
   }
 
+  public void searchUsers(UserAccountType type, String searchTerm, final Callback<List<UserResponse>> callback) {
+    api.searchUsers(type, searchTerm, new Callback<SearchUsersResponse>() {
+      @Override
+      public void success(SearchUsersResponse searchUsersResponse, Response response) {
+        callback.success(searchUsersResponse.results, response);
+      }
+
+      @Override
+      public void failure(RetrofitError error) {
+        callback.failure(error);
+      }
+    });
+  }
+
+  public void searchUsers(String searchTerm, final Callback<List<UserResponse>> callback) {
+    api.searchUsers(searchTerm, new Callback<SearchUsersResponse>() {
+      @Override
+      public void success(SearchUsersResponse searchUsersResponse, Response response) {
+        callback.success(searchUsersResponse.results, response);
+      }
+
+      @Override
+      public void failure(RetrofitError error) {
+        callback.failure(error);
+      }
+    });
+  }
+
+  // Rooms API
   public void getRoomUsers(String roomId, Callback<List<UserResponse>> callback) {
     api.getRoomUsers(roomId, callback);
+  }
+
+  public void getCurrentUserRooms(Callback<List<RoomResponse>> callback) {
+    api.getCurrentUserRooms(callback);
   }
 
   public void getRoomChannels(String roomId, Callback<List<RoomResponse>> callback) {
@@ -124,38 +154,7 @@ public class AsyncGitterApiClient {
     });
   }
 
-  public void searchUsers(UserAccountType type, String searchTerm, final Callback<List<UserResponse>> callback) {
-    api.searchUsers(type, searchTerm, new Callback<SearchUsersResponse>() {
-      @Override
-      public void success(SearchUsersResponse searchUsersResponse, Response response) {
-        callback.success(searchUsersResponse.results, response);
-      }
-
-      @Override
-      public void failure(RetrofitError error) {
-        callback.failure(error);
-      }
-    });
-  }
-
-  public void searchUsers(String searchTerm, final Callback<List<UserResponse>> callback) {
-    api.searchUsers(searchTerm, new Callback<SearchUsersResponse>() {
-      @Override
-      public void success(SearchUsersResponse searchUsersResponse, Response response) {
-        callback.success(searchUsersResponse.results, response);
-      }
-
-      @Override
-      public void failure(RetrofitError error) {
-        callback.failure(error);
-      }
-    });
-  }
-
-  public void getCurrentUserRooms(Callback<List<RoomResponse>> callback) {
-    api.getCurrentUserRooms(callback);
-  }
-
+  // Messages API
   public void getRoomMessages(String roomId, ChatMessagesRequestParams params, Callback<List<MessageResponse>> callback) {
     api.getRoomMessages(roomId, convertChatMessagesParamsToMap(params), callback);
   }
@@ -178,6 +177,10 @@ public class AsyncGitterApiClient {
 
   public void getUnReadMessages(String userId, String roomId, Callback<UnReadMessagesResponse> callback) {
     api.getUnReadMessages(userId, roomId, callback);
+  }
+
+  public void sendMessage(String roomId, String text, Callback<MessageResponse> callback) {
+    api.sendMessage(roomId, text, callback);
   }
 
   public static class Builder extends GitterApiBuilder<Builder, AsyncGitterApiClient> {

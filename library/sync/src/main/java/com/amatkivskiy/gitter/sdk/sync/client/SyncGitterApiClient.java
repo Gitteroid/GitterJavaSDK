@@ -34,16 +34,9 @@ public class SyncGitterApiClient {
     this.api = api;
   }
 
-  public MessageResponse sendMessage(String roomId, String text) {
-    return api.sendMessage(roomId, text);
-  }
-
+  // User API
   public UserResponse getCurrentUser() {
     return api.getCurrentUser();
-  }
-
-  public RoomResponse getUserRooms(String userId) {
-    return api.getUserRooms(userId);
   }
 
   public List<OrgResponse> getUserOrgs(String userId) {
@@ -56,6 +49,25 @@ public class SyncGitterApiClient {
 
   public List<RoomResponse> getUserChannels(String userId) {
     return api.getUserChannels(userId);
+  }
+
+  public List<UserResponse> searchUsers(UserAccountType type, String searchTerm) {
+    SearchUsersResponse response = api.searchUsers(type, searchTerm);
+    return response.results;
+  }
+
+  public List<UserResponse> searchUsers(String searchTerm) {
+    SearchUsersResponse response = api.searchUsers(searchTerm);
+    return response.results;
+  }
+
+  public List<RoomResponse> getCurrentUserRooms() {
+    return api.getCurrentUserRooms();
+  }
+
+  // Rooms API
+  public RoomResponse getUserRooms(String userId) {
+    return api.getUserRooms(userId);
   }
 
   public List<UserResponse> getRoomUsers(String roomId) {
@@ -102,18 +114,9 @@ public class SyncGitterApiClient {
     return response.results;
   }
 
-  public List<UserResponse> searchUsers(UserAccountType type, String searchTerm) {
-    SearchUsersResponse response = api.searchUsers(type, searchTerm);
-    return response.results;
-  }
-
-  public List<UserResponse> searchUsers(String searchTerm) {
-    SearchUsersResponse response = api.searchUsers(searchTerm);
-    return response.results;
-  }
-
-  public List<RoomResponse> getCurrentUserRooms() {
-    return api.getCurrentUserRooms();
+  // Messages API
+  public MessageResponse sendMessage(String roomId, String text) {
+    return api.sendMessage(roomId, text);
   }
 
   public List<MessageResponse> getRoomMessages(String roomId, ChatMessagesRequestParams params) {
