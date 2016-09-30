@@ -85,6 +85,9 @@ public interface AsyncGitterApi {
   @GET("/user/me/suggestedRooms")
   void getSuggestedRooms(Callback<List<RoomResponse>> callback);
 
+  @DELETE("/rooms/{roomId}")
+  void deleteRoom(@Path("roomId") String roomId, Callback<BooleanResponse> callback);
+
   // Messages API
   @POST("/user/{userId}/rooms/{roomId}/unreadItems")
   void markReadMessages(

@@ -114,6 +114,10 @@ public class SyncGitterApiClient {
     return response.results;
   }
 
+  public BooleanResponse deleteRoom(String roomId) {
+    return api.deleteRoom(roomId);
+  }
+
   // Messages API
   public MessageResponse sendMessage(String roomId, String text) {
     return api.sendMessage(roomId, text);

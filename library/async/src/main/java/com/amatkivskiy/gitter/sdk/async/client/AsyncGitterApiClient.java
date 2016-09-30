@@ -154,6 +154,10 @@ public class AsyncGitterApiClient {
     });
   }
 
+  public void deleteRoom(String roomId, Callback<BooleanResponse> callback) {
+    api.deleteRoom(roomId, callback);
+  }
+
   // Messages API
   public void getRoomMessages(String roomId, ChatMessagesRequestParams params, Callback<List<MessageResponse>> callback) {
     api.getRoomMessages(roomId, convertChatMessagesParamsToMap(params), callback);
