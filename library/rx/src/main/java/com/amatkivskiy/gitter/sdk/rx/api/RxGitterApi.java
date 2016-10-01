@@ -46,6 +46,9 @@ public interface RxGitterApi {
   Observable<SearchUsersResponse> searchUsers(@Query("q") String searchTerm);
 
   // Rooms API
+  @GET("/rooms/{roomId}")
+  Observable<RoomResponse> getRoomById(@Path("roomId") String roomId);
+
   @GET("/user/{userId}/rooms")
   Observable<List<RoomResponse>> getUserRooms(@Path("userId") String userId);
 
@@ -55,9 +58,9 @@ public interface RxGitterApi {
   @GET("/rooms/{roomId}/users")
   Observable<List<UserResponse>> getRoomUsers(@Path("roomId") String roomId);
 
-  @POST("/rooms")
+  @POST("/user/{userId}/rooms")
   @FormUrlEncoded
-  Observable<RoomResponse> joinRoom(@Field("uri") String roomUri);
+  Observable<RoomResponse> joinRoom(@Path("userId") String userId, @Field("id") String roomId);
 
   @PUT("/rooms/{roomId}")
   Observable<RoomResponse> updateRoom(@Path("roomId") String roomId, @Body UpdateRoomRequestParam param);

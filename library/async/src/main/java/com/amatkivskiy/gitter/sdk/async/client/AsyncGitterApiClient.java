@@ -91,8 +91,8 @@ public class AsyncGitterApiClient {
     api.getCurrentUserRooms(callback);
   }
 
-  public void joinRoom(String roomUri, Callback<RoomResponse> callback) {
-    api.joinRoom(roomUri, callback);
+  public void joinRoom(String userId, String roomId, Callback<RoomResponse> callback) {
+    api.joinRoom(userId, roomId, callback);
   }
 
   public void updateRoom(String roomId, UpdateRoomRequestParam params,

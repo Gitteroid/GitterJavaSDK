@@ -14,3 +14,5 @@
 **Rx,Async,Sync:**
 - Add `delete` room API
 - Remove channels API
+- Fix `joinRoom` API
+- Add `getRoomById` API

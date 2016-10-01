@@ -68,6 +68,10 @@ public class RxGitterApiClient {
   }
 
   // Rooms API
+  public Observable<RoomResponse> getRoomById(String roomId) {
+    return api.getRoomById(roomId);
+  }
+
   public Observable<List<RoomResponse>> getUserRooms(String userId) {
     return api.getUserRooms(userId);
   }
@@ -80,8 +84,8 @@ public class RxGitterApiClient {
     return api.getRoomUsers(roomId);
   }
 
-  public Observable<RoomResponse> joinRoom(String roomUri) {
-    return api.joinRoom(roomUri);
+  public Observable<RoomResponse> joinRoom(String userId, String roomId) {
+    return api.joinRoom(userId, roomId);
   }
 
   public Observable<RoomResponse> updateRoom(String roomId, UpdateRoomRequestParam params) {

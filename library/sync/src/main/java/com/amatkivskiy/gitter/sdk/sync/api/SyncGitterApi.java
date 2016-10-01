@@ -48,9 +48,12 @@ public interface SyncGitterApi {
   SearchUsersResponse searchUsers(@Query("q") String searchTerm);
 
   // Rooms API
-  @POST("/rooms")
+  @GET("/rooms/{roomId}")
+  RoomResponse getRoomById(@Path("roomId") String roomId);
+
+  @POST("/user/{userId}/rooms")
   @FormUrlEncoded
-  RoomResponse joinRoom(@Field("uri") String roomUri);
+  RoomResponse joinRoom(@Path("userId") String userId, @Field("id") String roomId);
 
   @GET("/rooms/{roomId}/users")
   List<UserResponse> getRoomUsers(@Path("roomId") String roomId);
