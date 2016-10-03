@@ -16,14 +16,13 @@ import rx.observers.TestSubscriber;
 import static com.amatkivskiy.gitter.sdk.rx.TestUtils.assertErrorTypeResult;
 import static com.amatkivskiy.gitter.sdk.rx.TestUtils.assertSuccessfulResult;
 import static com.amatkivskiy.gitter.sdk.rx.TestUtils.createMockedResponse;
-import static com.amatkivskiy.gitter.sdk.rx.TestUtils.createStringMockedResponse;
 import static com.amatkivskiy.gitter.sdk.rx.TestUtils.getOnNextEvent;
 import static com.amatkivskiy.gitter.sdk.rx.TestUtils.getRequestUrl;
 import static com.amatkivskiy.gitter.sdk.rx.TestUtils.setupMockWebServer;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class JoinRoomTest {
+public class GetRoomByIdTest {
   private MockWebServer mockWebServer;
   private RxGitterApiClient gitterApiClient;
 
@@ -40,22 +39,21 @@ public class JoinRoomTest {
   }
 
   @Test
-  public void testJoinRoomResponseCorrect() throws Exception {
+  public void testGetRoomByIdResponseCorrect() throws Exception {
     // ARRANGE
     String roomId = "test_room_id";
-    String userId = "user_id";
-    this.mockWebServer.enqueue(createMockedResponse("room/join_room_response.json"));
+    this.mockWebServer.enqueue(createMockedResponse("room/get_room_by_id_response.json"));
     TestSubscriber<RoomResponse> testSubscriber = TestSubscriber.create();
 
     // ACT
-    this.gitterApiClient.joinRoom(userId, roomId).subscribe(testSubscriber);
+    this.gitterApiClient.getRoomById(roomId).subscribe(testSubscriber);
 
     // ASSERT
     // Assert RxGitterApiClient pass correct params in the request URL
     HttpUrl url = getRequestUrl(this.mockWebServer);
     // check number of path segments in url
-    assertThat(url.pathSegments().size(), is(5));
-    assertThat(url.pathSegments().get(3), is(userId));
+    assertThat(url.pathSegments().size(), is(4));
+    assertThat(url.pathSegments().get(3), is(roomId));
 
     // check received room
     assertSuccessfulResult(testSubscriber);
@@ -67,7 +65,7 @@ public class JoinRoomTest {
     assertThat(room.avatarUrl, is("https://avatars-01.gitter.im/group/i/57542c12c43b8c601976fa66"));
     assertThat(room.uri, is("gitterHQ/api"));
     assertThat(room.oneToOne, is(false));
-    assertThat(room.userCount, is(38));
+    assertThat(room.userCount, is(39));
     assertThat(room.unreadItems, is(0));
     assertThat(room.mentions, is(0));
     assertThat(room.lastAccessTime, is("2016-10-01T16:26:58.327Z"));
@@ -80,6 +78,7 @@ public class JoinRoomTest {
     assertThat(room.security, is("PUBLIC"));
     assertThat(room.isPremium, is(true));
     assertThat(room.noIndex, is(false));
+    assertThat(room.tags.size(), is(0));
 //    assertThat(room.permissions.admin, is(false));
     assertThat(room.isRoomMember, is(true));
     assertThat(room.groupId, is("57542c12c43b8c601976fa66"));
@@ -100,26 +99,12 @@ public class JoinRoomTest {
   }
 
   @Test
-  public void testNullUserIdFails() throws Exception {
-    // ARRANGE
-    TestSubscriber<RoomResponse> testSubscriber = TestSubscriber.create();
-
-    // ACT
-    this.gitterApiClient.joinRoom(null, "").subscribe(testSubscriber);
-
-    // ASSERT
-    assertErrorTypeResult(testSubscriber, RetrofitError.class);
-  }
-
-  @Test
   public void testNullRoomIdFails() throws Exception {
     // ARRANGE
-    this.mockWebServer.enqueue(createStringMockedResponse("{\"error\":\"Bad Request\"}")
-        .setResponseCode(400));
     TestSubscriber<RoomResponse> testSubscriber = TestSubscriber.create();
 
     // ACT
-    this.gitterApiClient.joinRoom("user_id", null).subscribe(testSubscriber);
+    this.gitterApiClient.getRoomById(null).subscribe(testSubscriber);
 
     // ASSERT
     assertErrorTypeResult(testSubscriber, RetrofitError.class);
