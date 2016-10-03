@@ -5,9 +5,7 @@ import com.amatkivskiy.gitter.sdk.rx.TestBuilder;
 import com.amatkivskiy.gitter.sdk.rx.client.RxGitterApiClient;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockWebServer;
@@ -26,10 +24,6 @@ import static org.junit.Assert.assertThat;
 
 public class DeleteRoomTest {
   private MockWebServer mockWebServer;
-
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
-
   private RxGitterApiClient gitterApiClient;
 
   @Before

@@ -70,8 +70,8 @@ public class SyncGitterApiClient {
     return api.getRoomUsers(roomId);
   }
 
-  public RoomResponse joinRoom(String roomUri) {
-    return api.joinRoom(roomUri);
+  public RoomResponse joinRoom(String userId, String roomId) {
+    return api.joinRoom(userId, roomId);
   }
 
   public RoomResponse updateRoom(String roomId, UpdateRoomRequestParam params) {

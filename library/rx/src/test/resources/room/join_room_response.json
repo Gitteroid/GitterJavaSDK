@@ -1,0 +1,42 @@
+{
+  "id": "5790a3a2c2f0db084a24004d",
+  "name": "gitterHQ/api",
+  "topic": "Gitter API and Libraries",
+  "avatarUrl": "https://avatars-01.gitter.im/group/i/57542c12c43b8c601976fa66",
+  "uri": "gitterHQ/api",
+  "oneToOne": false,
+  "userCount": 38,
+  "unreadItems": 0,
+  "mentions": 0,
+  "lastAccessTime": "2016-10-01T16:26:58.327Z",
+  "favourite": 2,
+  "lurk": true,
+  "activity": false,
+  "url": "/gitterHQ/api",
+  "githubType": "REPO_CHANNEL",
+  "associatedRepo": false,
+  "security": "PUBLIC",
+  "premium": true,
+  "noindex": false,
+  "permissions": {
+    "admin": false
+  },
+  "roomMember": true,
+  "groupId": "57542c12c43b8c601976fa66",
+  "group": {
+    "id": "57542c12c43b8c601976fa66",
+    "name": "gitterHQ",
+    "uri": "gitterHQ",
+    "backedBy": {
+      "type": "GH_ORG",
+      "linkPath": "gitterHQ"
+    },
+    "avatarUrl": "https://avatars-01.gitter.im/group/i/57542c12c43b8c601976fa66",
+    "forumId": "57e376e3c37b7aa04f4bd325"
+  },
+  "backend": {
+    "type": "GH_ORG",
+    "linkPath": "gitterHQ"
+  },
+  "public": true
+}
