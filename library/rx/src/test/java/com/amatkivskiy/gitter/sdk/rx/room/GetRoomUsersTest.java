@@ -27,7 +27,6 @@ import static org.junit.Assert.assertThat;
 
 public class GetRoomUsersTest {
   private MockWebServer mockWebServer;
-
   private RxGitterApiClient gitterApiClient;
 
   @Before
