@@ -15,6 +15,7 @@ import com.amatkivskiy.gitter.sdk.model.response.OrgResponse;
 import com.amatkivskiy.gitter.sdk.model.response.RepoResponse;
 import com.amatkivskiy.gitter.sdk.model.response.SearchUsersResponse;
 import com.amatkivskiy.gitter.sdk.model.response.UserResponse;
+import com.amatkivskiy.gitter.sdk.model.response.group.GroupResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.UnReadMessagesResponse;
 import com.amatkivskiy.gitter.sdk.model.response.room.RoomResponse;
@@ -23,6 +24,7 @@ import com.amatkivskiy.gitter.sdk.sync.api.SyncGitterApi;
 
 import java.util.List;
 
+import retrofit.Callback;
 import retrofit.converter.GsonConverter;
 
 import static com.amatkivskiy.gitter.sdk.util.RequestUtils.convertChatMessagesParamsToMap;
@@ -137,6 +139,23 @@ public class SyncGitterApiClient {
 
   public UnReadMessagesResponse getUnReadMessages(String userId, String roomId) {
     return api.getUnReadMessages(userId, roomId);
+  }
+
+  // Groups API
+  public List<GroupResponse> getCurrentUserGroups() {
+    return api.getCurrentUserGroups(null);
+  }
+
+  public List<GroupResponse> getCurrentUserAdminGroups() {
+    return api.getCurrentUserGroups("admin");
+  }
+
+  public GroupResponse getGroupById(String groupId) {
+    return api.getGroupById(groupId);
+  }
+
+  public List<RoomResponse> getGroupRooms(String groupId) {
+    return api.getGroupRooms(groupId);
   }
 
   public static class Builder extends GitterApiBuilder<Builder, SyncGitterApiClient> {

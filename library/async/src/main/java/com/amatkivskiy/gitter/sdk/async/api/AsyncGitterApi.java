@@ -8,6 +8,7 @@ import com.amatkivskiy.gitter.sdk.model.response.OrgResponse;
 import com.amatkivskiy.gitter.sdk.model.response.RepoResponse;
 import com.amatkivskiy.gitter.sdk.model.response.SearchUsersResponse;
 import com.amatkivskiy.gitter.sdk.model.response.UserResponse;
+import com.amatkivskiy.gitter.sdk.model.response.group.GroupResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.UnReadMessagesResponse;
 import com.amatkivskiy.gitter.sdk.model.response.room.RoomResponse;
@@ -128,4 +129,14 @@ public interface AsyncGitterApi {
                      @Path("chatMessageId") String chatMessageId,
                      @Field("text") String text,
                      Callback<MessageResponse> callback);
+
+  // Groups API
+  @GET("/groups")
+  void getCurrentUserGroups(@Query("type") String type, Callback<List<GroupResponse>> callback);
+
+  @GET("/groups/{groupId}")
+  void getGroupById(@Path("groupId") String groupId, Callback<GroupResponse> callback);
+
+  @GET("/groups/{groupId}/rooms")
+  void getGroupRooms(@Path("groupId") String groupId, Callback<List<RoomResponse>> callback);
 }

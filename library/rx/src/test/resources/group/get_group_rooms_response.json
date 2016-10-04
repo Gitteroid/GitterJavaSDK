@@ -1,0 +1,25 @@
+[
+  {
+    "id": "5790a3a2c2f0db084a24004d",
+    "name": "gitterHQ/api",
+    "topic": "Gitter API and Libraries",
+    "avatarUrl": "https://avatars-01.gitter.im/group/i/57542c12c43b8c601976fa66",
+    "uri": "gitterHQ/api",
+    "oneToOne": false,
+    "userCount": 40,
+    "unreadItems": 0,
+    "mentions": 0,
+    "lastAccessTime": "2016-10-03T16:39:14.302Z",
+    "favourite": 2,
+    "lurk": true,
+    "activity": false,
+    "url": "/gitterHQ/api",
+    "githubType": "REPO_CHANNEL",
+    "security": "PUBLIC",
+    "premium": true,
+    "noindex": false,
+    "roomMember": true,
+    "groupId": "57542c12c43b8c601976fa66",
+    "public": true
+  }
+]
