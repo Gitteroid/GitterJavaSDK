@@ -9,6 +9,7 @@ import com.amatkivskiy.gitter.sdk.model.error.GitterApiException;
 import com.amatkivskiy.gitter.sdk.model.response.AccessTokenResponse;
 import com.amatkivskiy.gitter.sdk.rx.api.RxGitterAuthenticateApi;
 
+import retrofit.ErrorHandler;
 import retrofit.RetrofitError;
 import rx.Observable;
 
@@ -49,20 +50,23 @@ public class RxGitterAuthenticationClient {
     @Override
     public RxGitterAuthenticationClient build() {
       restAdapterBuilder.setEndpoint(Constants.GitterEndpoints.GITTER_AUTHENTICATION_ENDPOINT);
-      restAdapterBuilder.setErrorHandler(cause -> {
-        Throwable returnThrowable = cause;
-        if (cause.getKind() == RetrofitError.Kind.HTTP) {
-          if (cause.getResponse() != null) {
-            GitterApiErrorResponse errorResponse = (GitterApiErrorResponse) cause.getBodyAs(GitterApiErrorResponse.class);
+      restAdapterBuilder.setErrorHandler(new ErrorHandler() {
+        @Override
+        public Throwable handleError(RetrofitError cause) {
+          Throwable returnThrowable = cause;
+          if (cause.getKind() == RetrofitError.Kind.HTTP) {
+            if (cause.getResponse() != null) {
+              GitterApiErrorResponse errorResponse = (GitterApiErrorResponse) cause.getBodyAs(GitterApiErrorResponse.class);
 
-            if (errorResponse != null) {
-              returnThrowable = new GitterApiException(errorResponse);
-              returnThrowable.setStackTrace(cause.getStackTrace());
+              if (errorResponse != null) {
+                returnThrowable = new GitterApiException(errorResponse);
+                returnThrowable.setStackTrace(cause.getStackTrace());
+              }
             }
           }
-        }
 
-        return returnThrowable;
+          return returnThrowable;
+        }
       });
 
       RxGitterAuthenticateApi api = restAdapterBuilder.build().create(RxGitterAuthenticateApi.class);
