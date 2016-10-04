@@ -27,6 +27,6 @@ publish {
 }
 
 dependencies {
-    compile 'com.github.amatkivskiy:gitter.sdk.core:1.5'
-//        compile project(':library:core')
+//    compile 'com.github.amatkivskiy:gitter.sdk.core:1.5'
+        compile project(':library:core')
 }
