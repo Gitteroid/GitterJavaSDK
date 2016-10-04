@@ -16,6 +16,7 @@ import com.amatkivskiy.gitter.sdk.model.response.OrgResponse;
 import com.amatkivskiy.gitter.sdk.model.response.RepoResponse;
 import com.amatkivskiy.gitter.sdk.model.response.SearchUsersResponse;
 import com.amatkivskiy.gitter.sdk.model.response.UserResponse;
+import com.amatkivskiy.gitter.sdk.model.response.group.GroupResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.UnReadMessagesResponse;
 import com.amatkivskiy.gitter.sdk.model.response.room.RoomResponse;
@@ -177,6 +178,23 @@ public class AsyncGitterApiClient {
 
   public void sendMessage(String roomId, String text, Callback<MessageResponse> callback) {
     api.sendMessage(roomId, text, callback);
+  }
+
+  // Groups API
+  public void getCurrentUserGroups(Callback<List<GroupResponse>> callback) {
+    api.getCurrentUserGroups(null, callback);
+  }
+
+  public void getCurrentUserAdminGroups(Callback<List<GroupResponse>> callback) {
+    api.getCurrentUserGroups("admin", callback);
+  }
+
+  public void getGroupById(String groupId, Callback<GroupResponse> callback) {
+    api.getGroupById(groupId, callback);
+  }
+
+  public void getGroupRooms(String groupId, Callback<List<RoomResponse>> callback) {
+    api.getGroupRooms(groupId, callback);
   }
 
   public static class Builder extends GitterApiBuilder<Builder, AsyncGitterApiClient> {

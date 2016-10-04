@@ -23,7 +23,7 @@ public class RoomResponse {
   @SerializedName("githubType") public final RoomType githubRoomType;
   @SerializedName("security") public final String security;
   @SerializedName("noindex") public final boolean noIndex;
-  @SerializedName("tags") public final List<String> tags = new ArrayList<String>();
+  @SerializedName("tags") public final List<String> tags = new ArrayList<>();
   @SerializedName("v") public final int v;
   @SerializedName("roomMember") public final boolean isRoomMember;
   @SerializedName("avatarUrl") public final String avatarUrl;

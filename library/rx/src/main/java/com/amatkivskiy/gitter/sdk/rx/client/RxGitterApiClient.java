@@ -15,6 +15,7 @@ import com.amatkivskiy.gitter.sdk.model.response.OrgResponse;
 import com.amatkivskiy.gitter.sdk.model.response.RepoResponse;
 import com.amatkivskiy.gitter.sdk.model.response.SearchUsersResponse;
 import com.amatkivskiy.gitter.sdk.model.response.UserResponse;
+import com.amatkivskiy.gitter.sdk.model.response.group.GroupResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.UnReadMessagesResponse;
 import com.amatkivskiy.gitter.sdk.model.response.room.RoomResponse;
@@ -159,6 +160,23 @@ public class RxGitterApiClient {
 
   public Observable<UnReadMessagesResponse> getUnReadMessages(String userId, String roomId) {
     return api.getUnReadMessages(userId, roomId);
+  }
+
+  // Groups API
+  public Observable<List<GroupResponse>> getCurrentUserGroups() {
+    return api.getCurrentUserGroups(null);
+  }
+
+  public Observable<List<GroupResponse>> getCurrentUserAdminGroups() {
+    return api.getCurrentUserGroups("admin");
+  }
+
+  public Observable<GroupResponse> getGroupById(String groupId) {
+    return api.getGroupById(groupId);
+  }
+
+  public Observable<List<RoomResponse>> getGroupRooms(String groupId) {
+    return api.getGroupRooms(groupId);
   }
 
   public static class Builder extends GitterApiBuilder<Builder, RxGitterApiClient> {

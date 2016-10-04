@@ -8,6 +8,7 @@ import com.amatkivskiy.gitter.sdk.model.response.OrgResponse;
 import com.amatkivskiy.gitter.sdk.model.response.RepoResponse;
 import com.amatkivskiy.gitter.sdk.model.response.SearchUsersResponse;
 import com.amatkivskiy.gitter.sdk.model.response.UserResponse;
+import com.amatkivskiy.gitter.sdk.model.response.group.GroupResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.UnReadMessagesResponse;
 import com.amatkivskiy.gitter.sdk.model.response.room.RoomResponse;
@@ -104,4 +105,14 @@ public interface SyncGitterApi {
   MessageResponse updateMessage(@Path("roomId") String roomId,
                      @Path("chatMessageId") String chatMessageId,
                      @Field("text") String text);
+
+  // Groups API
+  @GET("/groups")
+  List<GroupResponse> getCurrentUserGroups(@Query("type") String type);
+
+  @GET("/groups/{groupId}")
+  GroupResponse getGroupById(@Path("groupId") String groupId);
+
+  @GET("/groups/{groupId}/rooms")
+  List<RoomResponse> getGroupRooms(@Path("groupId") String groupId);
 }
