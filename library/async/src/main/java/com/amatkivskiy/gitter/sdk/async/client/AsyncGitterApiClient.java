@@ -1,5 +1,6 @@
 package com.amatkivskiy.gitter.sdk.async.client;
 
+import com.amatkivskiy.gitter.sdk.model.request.RoomUsersRequestParams;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -86,6 +87,10 @@ public class AsyncGitterApiClient {
   // Rooms API
   public void getRoomUsers(String roomId, Callback<List<UserResponse>> callback) {
     api.getRoomUsers(roomId, callback);
+  }
+
+  public void getRoomUsers(String roomId, RoomUsersRequestParams params, Callback<List<UserResponse>> callback) {
+    api.getRoomUsers(roomId, params.searchQuery, params.skipCount, params.limit, callback);
   }
 
   public void getCurrentUserRooms(Callback<List<RoomResponse>> callback) {

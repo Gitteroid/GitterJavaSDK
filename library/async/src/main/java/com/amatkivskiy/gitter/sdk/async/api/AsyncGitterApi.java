@@ -1,5 +1,6 @@
 package com.amatkivskiy.gitter.sdk.async.api;
 
+import com.amatkivskiy.gitter.sdk.model.request.RoomUsersRequestParams;
 import com.amatkivskiy.gitter.sdk.model.request.UnreadRequestParam;
 import com.amatkivskiy.gitter.sdk.model.request.UpdateRoomRequestParam;
 import com.amatkivskiy.gitter.sdk.model.request.UserAccountType;
@@ -64,6 +65,15 @@ public interface AsyncGitterApi {
 
   @GET("/rooms/{roomId}/users")
   void getRoomUsers(@Path("roomId") String roomId, Callback<List<UserResponse>> callback);
+
+  @GET("/rooms/{roomId}/users")
+  void getRoomUsers(
+          @Path("roomId") String roomId,
+          @Path("q") String searchQuery,
+          @Path("skip") int skipCount,
+          @Path("limit") int limit,
+          Callback<List<UserResponse>> callback
+  );
 
   @GET("/user/{userId}/rooms")
   void getUserRooms(@Path("userId") String userId, Callback<List<RoomResponse>> callback);

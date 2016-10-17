@@ -1,5 +1,6 @@
 package com.amatkivskiy.gitter.sdk.sync.client;
 
+import com.amatkivskiy.gitter.sdk.model.request.RoomUsersRequestParams;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -70,6 +71,10 @@ public class SyncGitterApiClient {
 
   public List<UserResponse> getRoomUsers(String roomId) {
     return api.getRoomUsers(roomId);
+  }
+
+  public List<UserResponse> getRoomUsers(String roomId, RoomUsersRequestParams params) {
+    return api.getRoomUsers(roomId, params.searchQuery, params.skipCount, params.limit);
   }
 
   public RoomResponse joinRoom(String userId, String roomId) {
