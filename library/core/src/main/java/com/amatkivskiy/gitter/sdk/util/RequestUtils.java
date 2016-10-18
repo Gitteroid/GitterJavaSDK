@@ -2,18 +2,15 @@ package com.amatkivskiy.gitter.sdk.util;
 
 import com.amatkivskiy.gitter.sdk.Constants;
 import com.amatkivskiy.gitter.sdk.model.request.ChatMessagesRequestParams;
+import com.amatkivskiy.gitter.sdk.model.request.BasicRequestParams;
 
 import java.util.HashMap;
 
 public class RequestUtils {
-  public static HashMap<String, String> convertChatMessagesParamsToMap(
-      ChatMessagesRequestParams params) {
-    HashMap<String, String> options = new HashMap<>();
-    if (params != null) {
-      if (params.limit != null) {
-        options.put(Constants.GitterRequestParams.LIMIT_PARAM, String.valueOf(params.limit.intValue()));
-      }
+  public static HashMap<String, String> convertChatMessagesParamsToMap(ChatMessagesRequestParams params) {
+    HashMap<String, String> options = convertBasicRequestParamsToMap(params);
 
+    if (params != null) {
       if (params.afterId != null) {
         options.put(Constants.GitterRequestParams.AFTER_ID_PARAM, params.afterId);
       }
@@ -22,12 +19,23 @@ public class RequestUtils {
         options.put(Constants.GitterRequestParams.BEFORE_ID_PARAM, params.beforeId);
       }
 
-      if (params.skipCount != null) {
-        options.put(Constants.GitterRequestParams.SKIP_PARAM, String.valueOf(params.skipCount.intValue()));
-      }
-
       if (params.aroundId != null) {
         options.put(Constants.GitterRequestParams.AROUND_ID_PARAM, params.aroundId);
+      }
+    }
+
+    return options;
+  }
+
+  public static HashMap<String, String> convertBasicRequestParamsToMap(BasicRequestParams params) {
+    HashMap<String, String> options = new HashMap<>();
+    if (params != null) {
+      if (params.limit != null) {
+        options.put(Constants.GitterRequestParams.LIMIT_PARAM, String.valueOf(params.limit.intValue()));
+      }
+
+      if (params.skipCount != null) {
+        options.put(Constants.GitterRequestParams.SKIP_PARAM, String.valueOf(params.skipCount.intValue()));
       }
 
       if (params.searchQuery != null) {
