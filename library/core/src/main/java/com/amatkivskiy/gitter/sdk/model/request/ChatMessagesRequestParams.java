@@ -1,21 +1,16 @@
 package com.amatkivskiy.gitter.sdk.model.request;
 
-public class ChatMessagesRequestParams {
-  public final Integer skipCount;
+public class ChatMessagesRequestParams extends BasicRequestParams {
   public final String beforeId;
   public final String afterId;
   public final String aroundId;
-  public final String searchQuery;
-  public final Integer limit;
 
   private ChatMessagesRequestParams(Integer skipCount, String beforeId, String afterId,
                                     String aroundId, String searchQuery, Integer limit) {
-    this.skipCount = skipCount;
+    super(skipCount, searchQuery, limit);
     this.beforeId = beforeId;
     this.afterId = afterId;
     this.aroundId = aroundId;
-    this.searchQuery = searchQuery;
-    this.limit = limit;
   }
 
   public static class ChatMessagesRequestParamsBuilder {
