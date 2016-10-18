@@ -1,0 +1,25 @@
+{
+  "user": {
+    "id": "554b2e8a15522ed4b3e00c38",
+    "username": "amatkivskiy",
+    "displayName": "Andriy Matkivskiy",
+    "url": "/amatkivskiy",
+    "avatarUrl": "https://avatars-04.gitter.im/gh/uv/3/amatkivskiy",
+    "avatarUrlSmall": "https://avatars1.githubusercontent.com/u/3864884?v=3&s=60",
+    "avatarUrlMedium": "https://avatars1.githubusercontent.com/u/3864884?v=3&s=128",
+    "v": 1,
+    "gv": "3"
+  },
+  "bannedBy": {
+    "id": "554b2e8a15522ed4b3e00c38",
+    "username": "amatkivskiy",
+    "displayName": "Andriy Matkivskiy",
+    "url": "/amatkivskiy",
+    "avatarUrl": "https://avatars-04.gitter.im/gh/uv/3/amatkivskiy",
+    "avatarUrlSmall": "https://avatars1.githubusercontent.com/u/3864884?v=3&s=60",
+    "avatarUrlMedium": "https://avatars1.githubusercontent.com/u/3864884?v=3&s=128",
+    "v": 9,
+    "gv": "3"
+  },
+  "dateBanned": "2016-10-05T10:26:45.630Z"
+}
