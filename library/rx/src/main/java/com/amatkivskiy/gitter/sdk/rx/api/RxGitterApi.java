@@ -8,6 +8,7 @@ import com.amatkivskiy.gitter.sdk.model.response.OrgResponse;
 import com.amatkivskiy.gitter.sdk.model.response.RepoResponse;
 import com.amatkivskiy.gitter.sdk.model.response.SearchUsersResponse;
 import com.amatkivskiy.gitter.sdk.model.response.UserResponse;
+import com.amatkivskiy.gitter.sdk.model.response.ban.BanResponse;
 import com.amatkivskiy.gitter.sdk.model.response.group.GroupResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.UnReadMessagesResponse;
@@ -84,7 +85,7 @@ public interface RxGitterApi {
   // Messages API
   @POST("/user/{userId}/rooms/{roomId}/unreadItems")
   Observable<BooleanResponse> markReadMessages(@Path("userId") String userId, @Path("roomId") String roomId,
-                                      @Body UnreadRequestParam param);
+                                               @Body UnreadRequestParam param);
 
   @GET("/user/{userId}/rooms/{roomId}/unreadItems")
   Observable<UnReadMessagesResponse> getUnReadMessages(@Path("userId") String userId, @Path("roomId") String roomId);
@@ -121,4 +122,12 @@ public interface RxGitterApi {
 
   @GET("/groups/{groupId}/rooms")
   Observable<List<RoomResponse>> getGroupRooms(@Path("groupId") String groupId);
+
+  // Ban API
+  @GET("/rooms/{roomId}/bans")
+  Observable<List<BanResponse>> getBannedUsers(@Path("roomId") String roomId);
+
+  @FormUrlEncoded
+  @POST("/rooms/{roomId}/bans")
+  Observable<BanResponse> banUser(@Path("roomId") String roomId, @Field("username") String username);
 }
