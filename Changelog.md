@@ -16,3 +16,6 @@
 - Remove channels API
 - Fix `joinRoom` API
 - Add `getRoomById` API
+- Add `getBannedusers` API
+- Add `banUser` API
+- Add `unBanUser` API

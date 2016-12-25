@@ -16,6 +16,7 @@ import com.amatkivskiy.gitter.sdk.model.response.OrgResponse;
 import com.amatkivskiy.gitter.sdk.model.response.RepoResponse;
 import com.amatkivskiy.gitter.sdk.model.response.SearchUsersResponse;
 import com.amatkivskiy.gitter.sdk.model.response.UserResponse;
+import com.amatkivskiy.gitter.sdk.model.response.ban.BanResponse;
 import com.amatkivskiy.gitter.sdk.model.response.group.GroupResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.UnReadMessagesResponse;
@@ -195,6 +196,27 @@ public class AsyncGitterApiClient {
 
   public void getGroupRooms(String groupId, Callback<List<RoomResponse>> callback) {
     api.getGroupRooms(groupId, callback);
+  }
+
+  // Ban API
+  public void getBannedUsers(String roomId, Callback<List<BanResponse>> callback) {
+    api.getBannedUsers(roomId, callback);
+  }
+
+  /**
+   * Ban user of the specific room. Be careful when banning user in the private room:
+   * BanResponse.user and BanResponse.bannedBy will be null.
+   *
+   * @param roomId   id of the room.
+   * @param username name of the user.
+   * @param callback callback for the request.
+   */
+  public void banUser(String roomId, String username, Callback<BanResponse> callback) {
+    api.banUser(roomId, username, callback);
+  }
+
+  public void unBanUser(String roomId, String username, Callback<BooleanResponse> callback) {
+    api.unBanUser(roomId, username, callback);
   }
 
   public static class Builder extends GitterApiBuilder<Builder, AsyncGitterApiClient> {

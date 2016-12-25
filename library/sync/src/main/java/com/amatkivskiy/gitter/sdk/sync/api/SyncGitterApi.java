@@ -8,6 +8,7 @@ import com.amatkivskiy.gitter.sdk.model.response.OrgResponse;
 import com.amatkivskiy.gitter.sdk.model.response.RepoResponse;
 import com.amatkivskiy.gitter.sdk.model.response.SearchUsersResponse;
 import com.amatkivskiy.gitter.sdk.model.response.UserResponse;
+import com.amatkivskiy.gitter.sdk.model.response.ban.BanResponse;
 import com.amatkivskiy.gitter.sdk.model.response.group.GroupResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.UnReadMessagesResponse;
@@ -115,4 +116,15 @@ public interface SyncGitterApi {
 
   @GET("/groups/{groupId}/rooms")
   List<RoomResponse> getGroupRooms(@Path("groupId") String groupId);
+
+  // Ban API
+  @GET("/rooms/{roomId}/bans")
+  List<BanResponse> getBannedUsers(@Path("roomId") String roomId);
+
+  @FormUrlEncoded
+  @POST("/rooms/{roomId}/bans")
+  BanResponse banUser(@Path("roomId") String roomId, @Field("username") String username);
+
+  @DELETE("/rooms/{roomId}/bans/{username}")
+  BooleanResponse unBanUser(@Path("roomId") String roomId, @Path("username") String username);
 }

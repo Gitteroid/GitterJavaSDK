@@ -15,6 +15,7 @@ import com.amatkivskiy.gitter.sdk.model.response.OrgResponse;
 import com.amatkivskiy.gitter.sdk.model.response.RepoResponse;
 import com.amatkivskiy.gitter.sdk.model.response.SearchUsersResponse;
 import com.amatkivskiy.gitter.sdk.model.response.UserResponse;
+import com.amatkivskiy.gitter.sdk.model.response.ban.BanResponse;
 import com.amatkivskiy.gitter.sdk.model.response.group.GroupResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.UnReadMessagesResponse;
@@ -24,7 +25,6 @@ import com.amatkivskiy.gitter.sdk.sync.api.SyncGitterApi;
 
 import java.util.List;
 
-import retrofit.Callback;
 import retrofit.converter.GsonConverter;
 
 import static com.amatkivskiy.gitter.sdk.util.RequestUtils.convertChatMessagesParamsToMap;
@@ -156,6 +156,26 @@ public class SyncGitterApiClient {
 
   public List<RoomResponse> getGroupRooms(String groupId) {
     return api.getGroupRooms(groupId);
+  }
+
+  // Ban API
+  public List<BanResponse> getBannedUsers(String roomId) {
+    return api.getBannedUsers(roomId);
+  }
+
+  /**
+   * Ban user of the specific room. Be careful when banning user in the private room:
+   * BanResponse.user and BanResponse.bannedBy will be null.
+   *
+   * @param roomId   id of the room.
+   * @param username name of the user.
+   */
+  public BanResponse banUser(String roomId, String username) {
+    return api.banUser(roomId, username);
+  }
+
+  public BooleanResponse unBanUser(String roomId, String username) {
+    return api.unBanUser(roomId, username);
   }
 
   public static class Builder extends GitterApiBuilder<Builder, SyncGitterApiClient> {
