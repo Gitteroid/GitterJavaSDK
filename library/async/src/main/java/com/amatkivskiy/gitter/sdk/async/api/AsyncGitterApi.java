@@ -149,4 +149,8 @@ public interface AsyncGitterApi {
   @POST("/rooms/{roomId}/bans")
   void banUser(@Path("roomId") String roomId, @Field("username") String username,
                Callback<BanResponse> callback);
+
+  @DELETE("/rooms/{roomId}/bans/{username}")
+  void unBanUser(@Path("roomId") String roomId, @Path("username") String username,
+                 Callback<BooleanResponse> callback);
 }

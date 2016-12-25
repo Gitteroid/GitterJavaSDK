@@ -196,6 +196,10 @@ public class RxGitterApiClient {
     return api.banUser(roomId, username);
   }
 
+  public Observable<BooleanResponse> unBanUser(String roomId, String username) {
+    return api.unBanUser(roomId, username);
+  }
+
   public static class Builder extends GitterApiBuilder<Builder, RxGitterApiClient> {
 
     protected String getFullEndpointUrl() {

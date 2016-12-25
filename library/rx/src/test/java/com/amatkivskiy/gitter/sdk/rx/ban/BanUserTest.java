@@ -1,5 +1,6 @@
 package com.amatkivskiy.gitter.sdk.rx.ban;
 
+import com.amatkivskiy.gitter.sdk.model.response.BooleanResponse;
 import com.amatkivskiy.gitter.sdk.model.response.ban.BanResponse;
 import com.amatkivskiy.gitter.sdk.rx.TestBuilder;
 import com.amatkivskiy.gitter.sdk.rx.client.RxGitterApiClient;
@@ -117,5 +118,34 @@ public class BanUserTest {
     assertThat(response.user, is(nullValue()));
     assertThat(response.bannedBy, is(nullValue()));
     assertThat(response.dateBanned, is(nullValue()));
+  }
+
+  @Test
+  public void testUnBanRoomUserCorrect() throws Exception {
+    // ARRANGE
+    String roomId = "test_room_id";
+    String userName = "amatkivskiy";
+    this.mockWebServer.enqueue(createStringMockedResponse("{\"success\":true}"));
+    TestSubscriber<BooleanResponse> testSubscriber = TestSubscriber.create();
+
+    // ACT
+    this.gitterApiClient.unBanUser(roomId, userName).subscribe(testSubscriber);
+
+    // ASSERT
+    // Assert RxGitterApiClient pass correct params in the request URL
+    HttpUrl url = getRequestUrl(this.mockWebServer);
+    // check number of path segments in url
+    assertThat(url.pathSegments().size(), is(6));
+    // get room id path segment
+    assertThat(url.pathSegments().get(3), is(roomId));
+    assertThat(url.pathSegments().get(4), is("bans"));
+    assertThat(url.pathSegments().get(5), is(userName));
+
+    // check received result
+    assertSuccessfulResult(testSubscriber);
+    BooleanResponse response = getOnNextEvent(testSubscriber);
+
+    assertThat(response, is(notNullValue()));
+    assertThat(response.success, is(true));
   }
 }

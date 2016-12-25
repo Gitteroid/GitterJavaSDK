@@ -199,7 +199,7 @@ public class AsyncGitterApiClient {
   }
 
   // Ban API
-  void getBannedUsers(String roomId, Callback<List<BanResponse>> callback) {
+  public void getBannedUsers(String roomId, Callback<List<BanResponse>> callback) {
     api.getBannedUsers(roomId, callback);
   }
 
@@ -211,8 +211,12 @@ public class AsyncGitterApiClient {
    * @param username name of the user.
    * @param callback callback for the request.
    */
-  void banUser(String roomId, String username, Callback<BanResponse> callback) {
+  public void banUser(String roomId, String username, Callback<BanResponse> callback) {
     api.banUser(roomId, username, callback);
+  }
+
+  public void unBanUser(String roomId, String username, Callback<BooleanResponse> callback) {
+    api.unBanUser(roomId, username, callback);
   }
 
   public static class Builder extends GitterApiBuilder<Builder, AsyncGitterApiClient> {

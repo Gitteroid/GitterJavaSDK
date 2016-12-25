@@ -174,6 +174,10 @@ public class SyncGitterApiClient {
     return api.banUser(roomId, username);
   }
 
+  public BooleanResponse unBanUser(String roomId, String username) {
+    return api.unBanUser(roomId, username);
+  }
+
   public static class Builder extends GitterApiBuilder<Builder, SyncGitterApiClient> {
 
     protected String getFullEndpointUrl() {
