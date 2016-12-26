@@ -2,7 +2,8 @@ package com.amatkivskiy.gitter.sdk.async.faye.client;
 
 import com.amatkivskiy.gitter.sdk.async.faye.interfaces.DisconnectionListener;
 import com.amatkivskiy.gitter.sdk.async.faye.interfaces.FailListener;
-import com.squareup.okhttp.OkHttpClient;
+
+import okhttp3.OkHttpClient;
 
 public class AsyncGitterFayeClientBuilder {
   private String accountToken;
