@@ -14,6 +14,8 @@ import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.UnReadMessagesResponse;
 import com.amatkivskiy.gitter.sdk.model.response.room.RoomResponse;
 import com.amatkivskiy.gitter.sdk.model.response.room.SearchRoomsResponse;
+import com.amatkivskiy.gitter.sdk.model.response.room.welcome.WelcomeMessageContainer;
+import com.amatkivskiy.gitter.sdk.model.response.room.welcome.WelcomeResponse;
 
 import java.util.List;
 import java.util.Map;
@@ -153,4 +155,13 @@ public interface AsyncGitterApi {
   @DELETE("/rooms/{roomId}/bans/{username}")
   void unBanUser(@Path("roomId") String roomId, @Path("username") String username,
                  Callback<BooleanResponse> callback);
+
+  // Welcome API
+  @GET("/rooms/{roomId}/meta/welcome-message")
+  void getRoomWelcome(@Path("roomId") String roomId, Callback<WelcomeResponse> callback);
+
+  @FormUrlEncoded
+  @PUT("/rooms/{roomId}/meta/welcome-message")
+  void setRoomWelcome(@Path("roomId") String roomId, @Field("welcomeMessage") String message,
+                      Callback<WelcomeMessageContainer> callback);
 }
