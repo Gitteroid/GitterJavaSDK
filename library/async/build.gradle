@@ -18,7 +18,7 @@ repositories {
 publish {
     groupId = 'com.github.amatkivskiy'
     artifactId = 'gitter.sdk.async'
-    publishVersion = '1.5.1'
+    publishVersion = '1.6.0'
     desc = 'Gitter.im Java SDK that facilitates communication with Gitter API and Gitter Faye API'
     licences = ['MIT']
     website = 'https://github.com/Gitteroid/GitterJavaSDK'

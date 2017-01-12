@@ -39,7 +39,7 @@ repositories {
 }
 
 dependencies {
-      compile 'com.github.amatkivskiy:gitter.sdk.rx:1.5.1'
+      compile 'com.github.amatkivskiy:gitter.sdk.rx:1.6.0'
 }
 ```
 
@@ -50,7 +50,7 @@ repositories {
 }
 
 dependencies {
-      compile 'com.github.amatkivskiy:gitter.sdk.async:1.5.1'
+      compile 'com.github.amatkivskiy:gitter.sdk.async:1.6.0'
 }
 ```
 
@@ -61,35 +61,61 @@ repositories {
 }
 
 dependencies {
-      compile 'com.github.amatkivskiy:gitter.sdk.sync:1.5.1'
+      compile 'com.github.amatkivskiy:gitter.sdk.sync:1.6.0'
 }
 ```
 
 ###<a name="ReleaseNotes">**Release notes**
+- **1.6.0** (12.01.2017)
+    - *RoomResponse:*
+        - Remove `favouriteOrder`
+        - Add `avatarUrl`
+        - Add `groupId`
+        - Add `public`
+        - Add `activity`
+        - Add `premium`
+
+    - *UserResponse:*
+        - Add `avatarUrl`
+        - Add `role`
+        - Add `staff`
+
+    - *Rx,Async,Sync:*
+        - Add `delete` room API
+        - Remove channels API
+        - Fix `joinRoom` API
+        - Add `getRoomById` API
+        - Add `getBannedusers` API
+        - Add `banUser` API
+        - Add `unBanUser` API
+        - Add Welcome API support
+
+    - *Faye*
+        - Update OkHttp to version 3.5.0
 - **1.5.1** (07.05.2016)
-	- Updated `RoomRepsonse` data structure.
-	- Added `aroundId` and `q` params for chat messages request.
-	- Added `Update room` request.
-	- Fixed `Issue` data structure type.
-	- Faye: added ability to set custom OkHttpClient.
-	- Faye: changed `onSubscribed()` params, no it passes messages snapshots.
+    - Updated `RoomRepsonse` data structure.
+    - Added `aroundId` and `q` params for chat messages request.
+    - Added `Update room` request.
+    - Fixed `Issue` data structure type.
+    - Faye: added ability to set custom OkHttpClient.
+    - Faye: changed `onSubscribed()` params, no it passes messages snapshots.
 - **1.5** (14.01.2016)
-	- Added faye api support.
-	- Added room events streaming api support.
+    - Added faye api support.
+    - Added room events streaming api support.
 - **1.4**
-	- Refactored library structure
-	- Added async api support.
-	- Added async api samples.
-	- Added sync api support.
-	- Added sync api samples.
+    - Refactored library structure
+    - Added async api support.
+    - Added async api samples.
+    - Added sync api support.
+    - Added sync api samples.
 - **1.2.1**
-	- Added ability to retrieve unread messages.
+    - Added ability to retrieve unread messages.
 - **1.2.0**
-	- Added ability to search users
-	- Added ability to search rooms
-	- Added ability to leave room
+    - Added ability to search users
+    - Added ability to search rooms
+    - Added ability to leave room
 - **1.1.0**
-	- Added room messages streaming API.
+    - Added room messages streaming API.
 
 ###<a name="Features">**Features**
 
@@ -479,7 +505,7 @@ You can see some code samples [here](https://github.com/Gitteroid/GitterJavaSDK/
 ```
 The MIT License (MIT)
 
-Copyright (c) 2016 
+Copyright (c) 2017 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
