@@ -1,26 +1,12 @@
 apply plugin: 'java'
 apply plugin: 'com.novoda.bintray-release'
 
-version '1.5'
-
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.novoda:bintray-release:0.3.4'
-    }
-}
-
-repositories {
-    jcenter()
-    maven { url "https://dl.bintray.com/amatkivskiy/maven/"}
-}
+version '1.6.0'
 
 publish {
     groupId = 'com.github.amatkivskiy'
     artifactId = 'gitter.sdk.core'
-    publishVersion = '1.5'
+    publishVersion = '1.6.0'
     desc = 'Gitter.im RxJava SDK that facilitates communication with Gitter API'
     licences = ['MIT']
     website = 'https://github.com/Gitteroid/GitterJavaSDK'

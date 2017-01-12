@@ -3,20 +3,6 @@ apply plugin: 'com.novoda.bintray-release'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
 
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.novoda:bintray-release:0.3.4'
-    }
-}
-
-repositories {
-    jcenter()
-    maven { url "https://dl.bintray.com/amatkivskiy/maven/"}
-}
-
 jacocoTestReport {
     reports {
         xml.enabled = true // coveralls plugin depends on xml format report
