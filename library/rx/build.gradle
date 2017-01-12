@@ -3,6 +3,9 @@ apply plugin: 'com.novoda.bintray-release'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
 
+targetCompatibility = '1.7'
+sourceCompatibility = '1.7'
+
 buildscript {
     repositories {
         jcenter()
