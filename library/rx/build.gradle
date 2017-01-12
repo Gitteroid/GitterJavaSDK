@@ -1,5 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'jacoco'
+apply plugin: 'com.github.kt3k.coveralls'
 
 buildscript {
     repositories {
@@ -15,6 +17,13 @@ repositories {
     maven { url "https://dl.bintray.com/amatkivskiy/maven/"}
 }
 
+jacocoTestReport {
+    reports {
+        xml.enabled = true // coveralls plugin depends on xml format report
+        html.enabled = true
+    }
+}
+
 publish {
     groupId = 'com.github.amatkivskiy'
     artifactId = 'gitter.sdk.rx'
@@ -27,7 +36,12 @@ publish {
 }
 
 dependencies {
-    compile 'com.github.amatkivskiy:gitter.sdk.core:1.5'
-//    compile project(':library:core')
-    compile 'io.reactivex:rxjava:1.0.10'
+//    compile 'com.github.amatkivskiy:gitter.sdk.core:1.5'
+    compile project(':library:core')
+    compile 'io.reactivex:rxjava:1.1.0'
+
+    testCompile 'org.mockito:mockito-core:2.1.0-RC.1'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.hamcrest:hamcrest-core:1.3'
+    testCompile 'com.squareup.okhttp3:mockwebserver:3.2.0'
 }

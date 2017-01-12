@@ -1,0 +1,32 @@
+[
+  {
+    "id": "57542c36c43b8c6019771056",
+    "name": "Gitteroid",
+    "uri": "Gitteroid",
+    "backedBy": {
+      "type": "GH_ORG",
+      "linkPath": "Gitteroid"
+    },
+    "avatarUrl": "https://avatars-04.gitter.im/group/i/57542c36c43b8c6019771056"
+  },
+  {
+    "id": "57542c12c43b8c601976fa66",
+    "name": "gitterHQ",
+    "uri": "gitterHQ",
+    "backedBy": {
+      "type": "GH_ORG",
+      "linkPath": "gitterHQ"
+    },
+    "avatarUrl": "https://avatars-01.gitter.im/group/i/57542c12c43b8c601976fa66"
+  },
+  {
+    "id": "57542cdfc43b8c60197775df",
+    "name": "dou-ua",
+    "uri": "dou-ua",
+    "backedBy": {
+      "type": "GH_USER",
+      "linkPath": "dou-ua"
+    },
+    "avatarUrl": "https://avatars-05.gitter.im/group/i/57542cdfc43b8c60197775df"
+  }
+]

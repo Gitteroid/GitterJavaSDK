@@ -15,10 +15,14 @@ import com.amatkivskiy.gitter.sdk.model.response.OrgResponse;
 import com.amatkivskiy.gitter.sdk.model.response.RepoResponse;
 import com.amatkivskiy.gitter.sdk.model.response.SearchUsersResponse;
 import com.amatkivskiy.gitter.sdk.model.response.UserResponse;
+import com.amatkivskiy.gitter.sdk.model.response.ban.BanResponse;
+import com.amatkivskiy.gitter.sdk.model.response.group.GroupResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.UnReadMessagesResponse;
 import com.amatkivskiy.gitter.sdk.model.response.room.RoomResponse;
 import com.amatkivskiy.gitter.sdk.model.response.room.SearchRoomsResponse;
+import com.amatkivskiy.gitter.sdk.model.response.room.welcome.WelcomeMessageContainer;
+import com.amatkivskiy.gitter.sdk.model.response.room.welcome.WelcomeResponse;
 import com.amatkivskiy.gitter.sdk.rx.api.RxGitterApi;
 
 import java.util.List;
@@ -36,16 +40,9 @@ public class RxGitterApiClient {
     this.api = api;
   }
 
-  public Observable<MessageResponse> sendMessage(String roomId, String text) {
-    return api.sendMessage(roomId, text);
-  }
-
+  // User API
   public Observable<UserResponse> getCurrentUser() {
     return api.getCurrentUser();
-  }
-
-  public Observable<List<RoomResponse>> getUserRooms(String userId) {
-    return api.getUserRooms(userId);
   }
 
   public Observable<List<OrgResponse>> getUserOrgs(String userId) {
@@ -56,20 +53,43 @@ public class RxGitterApiClient {
     return api.getUserRepos(userId);
   }
 
-  public Observable<List<RoomResponse>> getUserChannels(String userId) {
-    return api.getUserChannels(userId);
+  public Observable<List<UserResponse>> searchUsers(UserAccountType type, String searchTerm) {
+    return api.searchUsers(type, searchTerm).map(new Func1<SearchUsersResponse, List<UserResponse>>() {
+      @Override
+      public List<UserResponse> call(SearchUsersResponse searchUsersResponse) {
+        return searchUsersResponse.results;
+      }
+    });
+  }
+
+  public Observable<List<UserResponse>> searchUsers(String searchTerm) {
+    return api.searchUsers(searchTerm).map(new Func1<SearchUsersResponse, List<UserResponse>>() {
+      @Override
+      public List<UserResponse> call(SearchUsersResponse searchUsersResponse) {
+        return searchUsersResponse.results;
+      }
+    });
+  }
+
+  // Rooms API
+  public Observable<RoomResponse> getRoomById(String roomId) {
+    return api.getRoomById(roomId);
+  }
+
+  public Observable<List<RoomResponse>> getUserRooms(String userId) {
+    return api.getUserRooms(userId);
+  }
+
+  public Observable<List<RoomResponse>> getCurrentUserRooms() {
+    return api.getCurrentUserRooms();
   }
 
   public Observable<List<UserResponse>> getRoomUsers(String roomId) {
     return api.getRoomUsers(roomId);
   }
 
-  public Observable<List<RoomResponse>> getRoomChannels(String roomId) {
-    return api.getRoomChannels(roomId);
-  }
-
-  public Observable<RoomResponse> joinRoom(String roomUri) {
-    return api.joinRoom(roomUri);
+  public Observable<RoomResponse> joinRoom(String userId, String roomId) {
+    return api.joinRoom(userId, roomId);
   }
 
   public Observable<RoomResponse> updateRoom(String roomId, UpdateRoomRequestParam params) {
@@ -112,33 +132,20 @@ public class RxGitterApiClient {
     });
   }
 
-  public Observable<List<UserResponse>> searchUsers(UserAccountType type, String searchTerm) {
-    return api.searchUsers(type, searchTerm).map(new Func1<SearchUsersResponse, List<UserResponse>>() {
-      @Override
-      public List<UserResponse> call(SearchUsersResponse searchUsersResponse) {
-        return searchUsersResponse.results;
-      }
-    });
+  public Observable<BooleanResponse> deleteRooom(String roomId) {
+    return api.deleteRoom(roomId);
   }
 
-  public Observable<List<UserResponse>> searchUsers(String searchTerm) {
-    return api.searchUsers(searchTerm).map(new Func1<SearchUsersResponse, List<UserResponse>>() {
-      @Override
-      public List<UserResponse> call(SearchUsersResponse searchUsersResponse) {
-        return searchUsersResponse.results;
-      }
-    });
-  }
-
-  public Observable<List<RoomResponse>> getCurrentUserRooms() {
-    return api.getCurrentUserRooms();
+  // Messages API
+  public Observable<MessageResponse> sendMessage(String roomId, String text) {
+    return api.sendMessage(roomId, text);
   }
 
   public Observable<List<MessageResponse>> getRoomMessages(String roomId, ChatMessagesRequestParams params) {
     return api.getRoomMessages(roomId, convertChatMessagesParamsToMap(params));
   }
 
-  public Observable<MessageResponse> getRoomMessageById( String roomId, String messageId) {
+  public Observable<MessageResponse> getRoomMessageById(String roomId, String messageId) {
     return api.getRoomMessageById(roomId, messageId);
   }
 
@@ -156,6 +163,52 @@ public class RxGitterApiClient {
 
   public Observable<UnReadMessagesResponse> getUnReadMessages(String userId, String roomId) {
     return api.getUnReadMessages(userId, roomId);
+  }
+
+  // Groups API
+  public Observable<List<GroupResponse>> getCurrentUserGroups() {
+    return api.getCurrentUserGroups(null);
+  }
+
+  public Observable<List<GroupResponse>> getCurrentUserAdminGroups() {
+    return api.getCurrentUserGroups("admin");
+  }
+
+  public Observable<GroupResponse> getGroupById(String groupId) {
+    return api.getGroupById(groupId);
+  }
+
+  public Observable<List<RoomResponse>> getGroupRooms(String groupId) {
+    return api.getGroupRooms(groupId);
+  }
+
+  // Ban API
+  public Observable<List<BanResponse>> getBannedUsers(String roomId) {
+    return api.getBannedUsers(roomId);
+  }
+
+  /**
+   * Ban user of the specific room. Be careful when banning user in the private room:
+   * BanResponse.user and BanResponse.bannedBy will be null.
+   *
+   * @param roomId   id of the room.
+   * @param username name of the user.
+   */
+  public Observable<BanResponse> banUser(String roomId, String username) {
+    return api.banUser(roomId, username);
+  }
+
+  public Observable<BooleanResponse> unBanUser(String roomId, String username) {
+    return api.unBanUser(roomId, username);
+  }
+
+  // Welcome API
+  public Observable<WelcomeResponse> getRoomWelcome(String roomId) {
+    return api.getRoomWelcome(roomId);
+  }
+
+  public Observable<WelcomeMessageContainer> setRoomWelcome(String roomId, String message){
+    return api.setRoomWelcome(roomId, message);
   }
 
   public static class Builder extends GitterApiBuilder<Builder, RxGitterApiClient> {

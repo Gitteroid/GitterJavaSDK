@@ -16,10 +16,14 @@ import com.amatkivskiy.gitter.sdk.model.response.OrgResponse;
 import com.amatkivskiy.gitter.sdk.model.response.RepoResponse;
 import com.amatkivskiy.gitter.sdk.model.response.SearchUsersResponse;
 import com.amatkivskiy.gitter.sdk.model.response.UserResponse;
+import com.amatkivskiy.gitter.sdk.model.response.ban.BanResponse;
+import com.amatkivskiy.gitter.sdk.model.response.group.GroupResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.UnReadMessagesResponse;
 import com.amatkivskiy.gitter.sdk.model.response.room.RoomResponse;
 import com.amatkivskiy.gitter.sdk.model.response.room.SearchRoomsResponse;
+import com.amatkivskiy.gitter.sdk.model.response.room.welcome.WelcomeMessageContainer;
+import com.amatkivskiy.gitter.sdk.model.response.room.welcome.WelcomeResponse;
 
 import java.util.List;
 
@@ -37,10 +41,7 @@ public class AsyncGitterApiClient {
     this.api = api;
   }
 
-  public void sendMessage(String roomId, String text, Callback<MessageResponse> callback) {
-    api.sendMessage(roomId, text, callback);
-  }
-
+  // User API
   public void getCurrentUser(Callback<UserResponse> callback) {
     api.getCurrentUser(callback);
   }
@@ -57,20 +58,45 @@ public class AsyncGitterApiClient {
     api.getUserRepos(userId, callback);
   }
 
-  public void getUserChannels(String userId, Callback<List<RoomResponse>> callback) {
-    api.getUserChannels(userId, callback);
+  public void searchUsers(UserAccountType type, String searchTerm, final Callback<List<UserResponse>> callback) {
+    api.searchUsers(type, searchTerm, new Callback<SearchUsersResponse>() {
+      @Override
+      public void success(SearchUsersResponse searchUsersResponse, Response response) {
+        callback.success(searchUsersResponse.results, response);
+      }
+
+      @Override
+      public void failure(RetrofitError error) {
+        callback.failure(error);
+      }
+    });
   }
 
+  public void searchUsers(String searchTerm, final Callback<List<UserResponse>> callback) {
+    api.searchUsers(searchTerm, new Callback<SearchUsersResponse>() {
+      @Override
+      public void success(SearchUsersResponse searchUsersResponse, Response response) {
+        callback.success(searchUsersResponse.results, response);
+      }
+
+      @Override
+      public void failure(RetrofitError error) {
+        callback.failure(error);
+      }
+    });
+  }
+
+  // Rooms API
   public void getRoomUsers(String roomId, Callback<List<UserResponse>> callback) {
     api.getRoomUsers(roomId, callback);
   }
 
-  public void getRoomChannels(String roomId, Callback<List<RoomResponse>> callback) {
-    api.getRoomChannels(roomId, callback);
+  public void getCurrentUserRooms(Callback<List<RoomResponse>> callback) {
+    api.getCurrentUserRooms(callback);
   }
 
-  public void joinRoom(String roomUri, Callback<RoomResponse> callback) {
-    api.joinRoom(roomUri, callback);
+  public void joinRoom(String userId, String roomId, Callback<RoomResponse> callback) {
+    api.joinRoom(userId, roomId, callback);
   }
 
   public void updateRoom(String roomId, UpdateRoomRequestParam params,
@@ -124,38 +150,11 @@ public class AsyncGitterApiClient {
     });
   }
 
-  public void searchUsers(UserAccountType type, String searchTerm, final Callback<List<UserResponse>> callback) {
-    api.searchUsers(type, searchTerm, new Callback<SearchUsersResponse>() {
-      @Override
-      public void success(SearchUsersResponse searchUsersResponse, Response response) {
-        callback.success(searchUsersResponse.results, response);
-      }
-
-      @Override
-      public void failure(RetrofitError error) {
-        callback.failure(error);
-      }
-    });
+  public void deleteRoom(String roomId, Callback<BooleanResponse> callback) {
+    api.deleteRoom(roomId, callback);
   }
 
-  public void searchUsers(String searchTerm, final Callback<List<UserResponse>> callback) {
-    api.searchUsers(searchTerm, new Callback<SearchUsersResponse>() {
-      @Override
-      public void success(SearchUsersResponse searchUsersResponse, Response response) {
-        callback.success(searchUsersResponse.results, response);
-      }
-
-      @Override
-      public void failure(RetrofitError error) {
-        callback.failure(error);
-      }
-    });
-  }
-
-  public void getCurrentUserRooms(Callback<List<RoomResponse>> callback) {
-    api.getCurrentUserRooms(callback);
-  }
-
+  // Messages API
   public void getRoomMessages(String roomId, ChatMessagesRequestParams params, Callback<List<MessageResponse>> callback) {
     api.getRoomMessages(roomId, convertChatMessagesParamsToMap(params), callback);
   }
@@ -178,6 +177,57 @@ public class AsyncGitterApiClient {
 
   public void getUnReadMessages(String userId, String roomId, Callback<UnReadMessagesResponse> callback) {
     api.getUnReadMessages(userId, roomId, callback);
+  }
+
+  public void sendMessage(String roomId, String text, Callback<MessageResponse> callback) {
+    api.sendMessage(roomId, text, callback);
+  }
+
+  // Groups API
+  public void getCurrentUserGroups(Callback<List<GroupResponse>> callback) {
+    api.getCurrentUserGroups(null, callback);
+  }
+
+  public void getCurrentUserAdminGroups(Callback<List<GroupResponse>> callback) {
+    api.getCurrentUserGroups("admin", callback);
+  }
+
+  public void getGroupById(String groupId, Callback<GroupResponse> callback) {
+    api.getGroupById(groupId, callback);
+  }
+
+  public void getGroupRooms(String groupId, Callback<List<RoomResponse>> callback) {
+    api.getGroupRooms(groupId, callback);
+  }
+
+  // Ban API
+  public void getBannedUsers(String roomId, Callback<List<BanResponse>> callback) {
+    api.getBannedUsers(roomId, callback);
+  }
+
+  /**
+   * Ban user of the specific room. Be careful when banning user in the private room:
+   * BanResponse.user and BanResponse.bannedBy will be null.
+   *
+   * @param roomId   id of the room.
+   * @param username name of the user.
+   * @param callback callback for the request.
+   */
+  public void banUser(String roomId, String username, Callback<BanResponse> callback) {
+    api.banUser(roomId, username, callback);
+  }
+
+  public void unBanUser(String roomId, String username, Callback<BooleanResponse> callback) {
+    api.unBanUser(roomId, username, callback);
+  }
+
+  // Welcome API
+  public void getRoomWelcome(String roomId, Callback<WelcomeResponse> callback) {
+    api.getRoomWelcome(roomId, callback);
+  }
+
+  public void setRoomWelcome(String roomId, String message, Callback<WelcomeMessageContainer> callback) {
+    api.setRoomWelcome(roomId, message, callback);
   }
 
   public static class Builder extends GitterApiBuilder<Builder, AsyncGitterApiClient> {

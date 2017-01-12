@@ -8,10 +8,14 @@ import com.amatkivskiy.gitter.sdk.model.response.OrgResponse;
 import com.amatkivskiy.gitter.sdk.model.response.RepoResponse;
 import com.amatkivskiy.gitter.sdk.model.response.SearchUsersResponse;
 import com.amatkivskiy.gitter.sdk.model.response.UserResponse;
+import com.amatkivskiy.gitter.sdk.model.response.ban.BanResponse;
+import com.amatkivskiy.gitter.sdk.model.response.group.GroupResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.UnReadMessagesResponse;
 import com.amatkivskiy.gitter.sdk.model.response.room.RoomResponse;
 import com.amatkivskiy.gitter.sdk.model.response.room.SearchRoomsResponse;
+import com.amatkivskiy.gitter.sdk.model.response.room.welcome.WelcomeMessageContainer;
+import com.amatkivskiy.gitter.sdk.model.response.room.welcome.WelcomeResponse;
 
 import java.util.List;
 import java.util.Map;
@@ -29,11 +33,9 @@ import retrofit.http.Query;
 import retrofit.http.QueryMap;
 
 public interface AsyncGitterApi {
+  // User Api
   @GET("/user")
   void getCurrentUser(Callback<UserResponse> callback);
-
-  @GET("/user/{userId}/rooms")
-  void getUserRooms(@Path("userId") String userId, Callback<List<RoomResponse>> callback);
 
   @GET("/rooms")
   void getCurrentUserRooms(Callback<List<RoomResponse>> callback);
@@ -43,26 +45,6 @@ public interface AsyncGitterApi {
 
   @GET("/user/{userId}/repos")
   void getUserRepos(@Path("userId") String userId, Callback<List<RepoResponse>> callback);
-
-  @GET("/user/{userId}/channels")
-  void getUserChannels(@Path("userId") String userId, Callback<List<RoomResponse>> callback);
-
-  @GET("/rooms/{roomId}/users")
-  void getRoomUsers(@Path("roomId") String roomId, Callback<List<UserResponse>> callback);
-
-  @GET("/rooms/{roomId}/channels")
-  void getRoomChannels(@Path("roomId") String roomId, Callback<List<RoomResponse>> callback);
-
-  @POST("/rooms")
-  @FormUrlEncoded
-  void joinRoom(@Field("uri") String roomUri, Callback<RoomResponse> callback);
-
-  @PUT("/rooms/{roomId}")
-  void updateRoom(@Path("roomId") String roomId, @Body UpdateRoomRequestParam param,
-                  Callback<RoomResponse> callback);
-
-  @GET("/rooms")
-  void searchRooms(@Query("q") String searchTerm, Callback<SearchRoomsResponse> callback);
 
   @GET("/user")
   void searchUsers(
@@ -74,6 +56,28 @@ public interface AsyncGitterApi {
   @GET("/user")
   void searchUsers(@Query("q") String searchTerm, Callback<SearchUsersResponse> callback);
 
+  // Rooms Api
+  @GET("/rooms/{roomId}")
+  void getRoomById(@Path("roomId") String roomId, Callback<RoomResponse> callback);
+
+  @POST("/user/{userId}/rooms")
+  @FormUrlEncoded
+  void joinRoom(@Path("userId") String userId, @Field("id") String roomId,
+                Callback<RoomResponse> callback);
+
+  @GET("/rooms/{roomId}/users")
+  void getRoomUsers(@Path("roomId") String roomId, Callback<List<UserResponse>> callback);
+
+  @GET("/user/{userId}/rooms")
+  void getUserRooms(@Path("userId") String userId, Callback<List<RoomResponse>> callback);
+
+  @PUT("/rooms/{roomId}")
+  void updateRoom(@Path("roomId") String roomId, @Body UpdateRoomRequestParam param,
+                  Callback<RoomResponse> callback);
+
+  @GET("/rooms")
+  void searchRooms(@Query("q") String searchTerm, Callback<SearchRoomsResponse> callback);
+
   @GET("/rooms")
   void searchRooms(@Query("q") String searchTerm, @Query("limit") int limit, Callback<SearchRoomsResponse> callback);
 
@@ -83,6 +87,10 @@ public interface AsyncGitterApi {
   @GET("/user/me/suggestedRooms")
   void getSuggestedRooms(Callback<List<RoomResponse>> callback);
 
+  @DELETE("/rooms/{roomId}")
+  void deleteRoom(@Path("roomId") String roomId, Callback<BooleanResponse> callback);
+
+  // Messages API
   @POST("/user/{userId}/rooms/{roomId}/unreadItems")
   void markReadMessages(
       @Path("userId") String userId,
@@ -124,4 +132,36 @@ public interface AsyncGitterApi {
                      @Path("chatMessageId") String chatMessageId,
                      @Field("text") String text,
                      Callback<MessageResponse> callback);
+
+  // Groups API
+  @GET("/groups")
+  void getCurrentUserGroups(@Query("type") String type, Callback<List<GroupResponse>> callback);
+
+  @GET("/groups/{groupId}")
+  void getGroupById(@Path("groupId") String groupId, Callback<GroupResponse> callback);
+
+  @GET("/groups/{groupId}/rooms")
+  void getGroupRooms(@Path("groupId") String groupId, Callback<List<RoomResponse>> callback);
+
+  // Ban API
+  @GET("/rooms/{roomId}/bans")
+  void getBannedUsers(@Path("roomId") String roomId, Callback<List<BanResponse>> callback);
+
+  @FormUrlEncoded
+  @POST("/rooms/{roomId}/bans")
+  void banUser(@Path("roomId") String roomId, @Field("username") String username,
+               Callback<BanResponse> callback);
+
+  @DELETE("/rooms/{roomId}/bans/{username}")
+  void unBanUser(@Path("roomId") String roomId, @Path("username") String username,
+                 Callback<BooleanResponse> callback);
+
+  // Welcome API
+  @GET("/rooms/{roomId}/meta/welcome-message")
+  void getRoomWelcome(@Path("roomId") String roomId, Callback<WelcomeResponse> callback);
+
+  @FormUrlEncoded
+  @PUT("/rooms/{roomId}/meta/welcome-message")
+  void setRoomWelcome(@Path("roomId") String roomId, @Field("welcomeMessage") String message,
+                      Callback<WelcomeMessageContainer> callback);
 }
