@@ -21,6 +21,8 @@ import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
 import com.amatkivskiy.gitter.sdk.model.response.message.UnReadMessagesResponse;
 import com.amatkivskiy.gitter.sdk.model.response.room.RoomResponse;
 import com.amatkivskiy.gitter.sdk.model.response.room.SearchRoomsResponse;
+import com.amatkivskiy.gitter.sdk.model.response.room.welcome.WelcomeMessageContainer;
+import com.amatkivskiy.gitter.sdk.model.response.room.welcome.WelcomeResponse;
 import com.amatkivskiy.gitter.sdk.rx.api.RxGitterApi;
 
 import java.util.List;
@@ -198,6 +200,15 @@ public class RxGitterApiClient {
 
   public Observable<BooleanResponse> unBanUser(String roomId, String username) {
     return api.unBanUser(roomId, username);
+  }
+
+  // Welcome API
+  public Observable<WelcomeResponse> getRoomWelcome(String roomId) {
+    return api.getRoomWelcome(roomId);
+  }
+
+  public Observable<WelcomeMessageContainer> setRoomWelcome(String roomId, String message){
+    return api.setRoomWelcome(roomId, message);
   }
 
   public static class Builder extends GitterApiBuilder<Builder, RxGitterApiClient> {
