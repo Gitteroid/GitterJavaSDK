@@ -15,9 +15,10 @@ import com.amatkivskiy.gitter.sdk.async.faye.model.MessageEvent;
 import com.amatkivskiy.gitter.sdk.async.faye.model.UserEvent;
 import com.amatkivskiy.gitter.sdk.async.faye.model.UserPresenceEvent;
 import com.amatkivskiy.gitter.sdk.model.response.message.MessageResponse;
-import com.squareup.okhttp.OkHttpClient;
 
 import java.util.List;
+
+import okhttp3.OkHttpClient;
 
 public class FayeSamples {
   private static final String ACCOUNT_TOKEN = "account_token";
