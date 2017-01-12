@@ -1,5 +1,6 @@
 package com.amatkivskiy.gitter.sdk.rx.client;
 
+import com.amatkivskiy.gitter.sdk.model.request.RoomUsersRequestParams;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -86,6 +87,10 @@ public class RxGitterApiClient {
 
   public Observable<List<UserResponse>> getRoomUsers(String roomId) {
     return api.getRoomUsers(roomId);
+  }
+
+  public Observable<List<UserResponse>> getRoomUsers(String roomId, RoomUsersRequestParams params) {
+    return api.getRoomUsers(roomId, params.searchQuery, params.skipCount, params.limit);
   }
 
   public Observable<RoomResponse> joinRoom(String userId, String roomId) {

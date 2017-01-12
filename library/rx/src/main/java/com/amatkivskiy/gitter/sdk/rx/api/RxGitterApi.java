@@ -62,6 +62,14 @@ public interface RxGitterApi {
   @GET("/rooms/{roomId}/users")
   Observable<List<UserResponse>> getRoomUsers(@Path("roomId") String roomId);
 
+  @GET("/rooms/{roomId}/users")
+  Observable<List<UserResponse>> getRoomUsers(
+          @Path("roomId") String roomId,
+          @Query("q") String searchQuery,
+          @Query("skip") int skipCount,
+          @Query("limit") int limit
+  );
+
   @POST("/user/{userId}/rooms")
   @FormUrlEncoded
   Observable<RoomResponse> joinRoom(@Path("userId") String userId, @Field("id") String roomId);
