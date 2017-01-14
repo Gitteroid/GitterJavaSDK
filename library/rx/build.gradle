@@ -38,8 +38,8 @@ publish {
 }
 
 dependencies {
-//    compile 'com.github.amatkivskiy:gitter.sdk.core:1.5'
-    compile project(':library:core')
+    compile 'com.github.amatkivskiy:gitter.sdk.core:1.6.0'
+//    compile project(':library:core')
     compile 'io.reactivex:rxjava:1.1.0'
 
     testCompile 'org.mockito:mockito-core:2.1.0-RC.1'
