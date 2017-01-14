@@ -1,6 +1,22 @@
 apply plugin: 'java'
 apply plugin: 'com.novoda.bintray-release'
 
+// custom tasks for creating source/javadoc jars
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+// add javadoc/source jar tasks as artifacts
+artifacts {
+    archives sourcesJar, javadocJar
+}
+
 publish {
     groupId = 'com.github.amatkivskiy'
     artifactId = 'gitter.sdk.async'
