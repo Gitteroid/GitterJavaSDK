@@ -9,7 +9,7 @@ public class UpdateRoomRequestParam {
 
   /**
    * Parameters required for the update room request.
-   * @see <a href="\https://developer.gitter.im/docs/rooms-resource#update-room">Room schema Gitter Doc</a>
+   * @see <a href="https://developer.gitter.im/docs/rooms-resource#update-room">Room schema Gitter Doc</a>
    * @param topic Room topic.
    * @param noIndex Whether the room is indexed by search engines.
    * @param tags Tags that define the room. Values should be coma separated like "tag1, tag2, tag3".

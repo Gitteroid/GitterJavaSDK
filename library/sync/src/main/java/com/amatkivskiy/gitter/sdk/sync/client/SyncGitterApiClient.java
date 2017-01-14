@@ -171,6 +171,7 @@ public class SyncGitterApiClient {
    *
    * @param roomId   id of the room.
    * @param username name of the user.
+   * @return ban request response
    */
   public BanResponse banUser(String roomId, String username) {
     return api.banUser(roomId, username);

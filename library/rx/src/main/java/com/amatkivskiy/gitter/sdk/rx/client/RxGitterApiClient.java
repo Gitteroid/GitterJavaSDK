@@ -193,6 +193,7 @@ public class RxGitterApiClient {
    *
    * @param roomId   id of the room.
    * @param username name of the user.
+   * @return Observable that emits ban request response
    */
   public Observable<BanResponse> banUser(String roomId, String username) {
     return api.banUser(roomId, username);
@@ -207,7 +208,7 @@ public class RxGitterApiClient {
     return api.getRoomWelcome(roomId);
   }
 
-  public Observable<WelcomeMessageContainer> setRoomWelcome(String roomId, String message){
+  public Observable<WelcomeMessageContainer> setRoomWelcome(String roomId, String message) {
     return api.setRoomWelcome(roomId, message);
   }
 

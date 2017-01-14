@@ -109,7 +109,7 @@ public class AsyncGitterApiClient {
    *
    * @param roomId Id of the room.
    * @param userId Id of the user to remove.
-   * @return true if successful.
+   * @param callback callback for request.
    */
   public void leaveRoom(String roomId, String userId, Callback<BooleanResponse> callback) {
     api.leaveRoom(roomId, userId, callback);
@@ -129,9 +129,6 @@ public class AsyncGitterApiClient {
     });
   }
 
-  /**
-   * @return suggested rooms for the current user.
-   */
   public void getSuggestedRooms(Callback<List<RoomResponse>> callback) {
     api.getSuggestedRooms(callback);
   }
