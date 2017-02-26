@@ -32,6 +32,6 @@ dependencies {
 //    compile project(':library:core')
     compile 'com.github.amatkivskiy:gitter.sdk.core:1.6.0'
 
-    compile 'com.squareup.okio:okio:1.6.0'
+    compile 'com.squareup.okio:okio:1.11.0'
     compile 'com.squareup.okhttp3:okhttp:3.5.0'
 }
