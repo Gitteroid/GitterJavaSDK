@@ -29,7 +29,7 @@ artifacts {
 publish {
     groupId = 'com.github.amatkivskiy'
     artifactId = 'gitter.sdk.rx'
-    publishVersion = '1.6.0'
+    publishVersion = '1.6.1'
     desc = 'Gitter.im RxJava SDK that facilitates communication with Gitter API'
     licences = ['MIT']
     website = 'https://github.com/Gitteroid/GitterJavaSDK'
@@ -38,9 +38,9 @@ publish {
 }
 
 dependencies {
-//    compile 'com.github.amatkivskiy:gitter.sdk.core:1.6.0'
-    compile project(':library:core')
-    compile 'io.reactivex:rxjava:1.1.0'
+    compile 'com.github.amatkivskiy:gitter.sdk.core:1.6.0'
+//    compile project(':library:core')
+    compile 'io.reactivex:rxjava:1.3.4'
 
     testCompile 'org.mockito:mockito-core:2.1.0-RC.1'
     testCompile 'junit:junit:4.12'

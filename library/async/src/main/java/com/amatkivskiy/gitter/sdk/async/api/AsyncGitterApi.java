@@ -57,6 +57,10 @@ public interface AsyncGitterApi {
   void searchUsers(@Query("q") String searchTerm, Callback<SearchUsersResponse> callback);
 
   // Rooms Api
+  @POST("/rooms")
+  @FormUrlEncoded
+  void getRoomIdByUri(@Field("uri") String uri, Callback<RoomResponse> callback);
+
   @GET("/rooms/{roomId}")
   void getRoomById(@Path("roomId") String roomId, Callback<RoomResponse> callback);
 

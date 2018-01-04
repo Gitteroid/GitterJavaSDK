@@ -20,7 +20,7 @@ artifacts {
 publish {
     groupId = 'com.github.amatkivskiy'
     artifactId = 'gitter.sdk.async'
-    publishVersion = '1.6.0'
+    publishVersion = '1.6.1'
     desc = 'Gitter.im Java SDK that facilitates communication with Gitter API and Gitter Faye API'
     licences = ['MIT']
     website = 'https://github.com/Gitteroid/GitterJavaSDK'
@@ -32,6 +32,6 @@ dependencies {
     compile project(':library:core')
 //    compile 'com.github.amatkivskiy:gitter.sdk.core:1.6.0'
 
-    compile 'com.squareup.okio:okio:1.6.0'
-    compile 'com.squareup.okhttp3:okhttp:3.5.0'
+    compile 'com.squareup.okio:okio:1.13.0'
+    compile 'com.squareup.okhttp3:okhttp:3.9.1'
 }

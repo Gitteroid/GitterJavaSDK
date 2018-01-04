@@ -20,7 +20,7 @@ artifacts {
 publish {
     groupId = 'com.github.amatkivskiy'
     artifactId = 'gitter.sdk.sync'
-    publishVersion = '1.6.0'
+    publishVersion = '1.6.1'
     desc = 'Gitter.im Java SDK that facilitates communication with Gitter API'
     licences = ['MIT']
     website = 'https://github.com/Gitteroid/GitterJavaSDK'

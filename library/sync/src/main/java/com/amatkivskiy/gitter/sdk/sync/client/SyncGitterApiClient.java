@@ -66,6 +66,10 @@ public class SyncGitterApiClient {
   }
 
   // Rooms API
+  public RoomResponse getRoomIdByUri(String uri) {
+    return api.getRoomIdByUri(uri);
+  }
+
   public RoomResponse getUserRooms(String userId) {
     return api.getUserRooms(userId);
   }
