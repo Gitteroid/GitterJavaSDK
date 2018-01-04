@@ -72,6 +72,10 @@ public class RxGitterApiClient {
   }
 
   // Rooms API
+  public Observable<RoomResponse> getRoomIdByUri(String uri) {
+    return api.getRoomIdByUri(uri);
+  }
+
   public Observable<RoomResponse> getRoomById(String roomId) {
     return api.getRoomById(roomId);
   }

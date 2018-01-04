@@ -50,6 +50,10 @@ public interface RxGitterApi {
   Observable<SearchUsersResponse> searchUsers(@Query("q") String searchTerm);
 
   // Rooms API
+  @POST("/rooms")
+  @FormUrlEncoded
+  Observable<RoomResponse> getRoomIdByUri(@Field("uri") String uri);
+
   @GET("/rooms/{roomId}")
   Observable<RoomResponse> getRoomById(@Path("roomId") String roomId);
 

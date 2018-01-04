@@ -9,8 +9,5 @@ dependencies {
     compile project(':library:async')
     compile project(':library:sync')
 
-    compile 'com.squareup.okio:okio:1.6.0'
     compile 'com.squareup.okhttp:okhttp:2.5.0'
-    compile 'com.squareup.okhttp:okhttp-ws:2.5.0'
-    compile 'com.appunite:websockets-rxjava:3.0.0'
 }
