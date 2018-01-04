@@ -29,7 +29,7 @@ It provides three approaches to work with API:
 - [Faye](#Faye)
 - [Samples](#Samples)
 
-###<a name="Setup">**Setup**
+### <a name="Setup">**Setup**
 Add gradle dependency:
 
 For RxJava:
@@ -39,7 +39,7 @@ repositories {
 }
 
 dependencies {
-      compile 'com.github.amatkivskiy:gitter.sdk.rx:1.6.0'
+      compile 'com.github.amatkivskiy:gitter.sdk.rx:1.6.1'
 }
 ```
 
@@ -50,7 +50,7 @@ repositories {
 }
 
 dependencies {
-      compile 'com.github.amatkivskiy:gitter.sdk.async:1.6.0'
+      compile 'com.github.amatkivskiy:gitter.sdk.async:1.6.1'
 }
 ```
 
@@ -61,11 +61,16 @@ repositories {
 }
 
 dependencies {
-      compile 'com.github.amatkivskiy:gitter.sdk.sync:1.6.0'
+      compile 'com.github.amatkivskiy:gitter.sdk.sync:1.6.1'
 }
 ```
 
-###<a name="ReleaseNotes">**Release notes**
+### <a name="ReleaseNotes">**Release notes**
+- **1.6.1** (04.01.2018)
+    - *Rx,Async,Sync:*
+        - Add `getRoomIdByUri` to room API
+	- Update dependencies used in the SDK
+	
 - **1.6.0** (12.01.2017)
     - *RoomResponse:*
         - Remove `favouriteOrder`
@@ -117,7 +122,7 @@ dependencies {
 - **1.1.0**
     - Added room messages streaming API.
 
-###<a name="Features">**Features**
+### <a name="Features">**Features**
 
 - Authentication
 
@@ -153,7 +158,7 @@ dependencies {
 - Room user presence events
 - Room user managment events
 
-###<a name="Description">**Description**
+### <a name="Description">**Description**
 
 **Authentication**
 Please read [Authentication](https://developer.gitter.im/docs/authentication) article on **Gitter Developer**  before.
@@ -344,7 +349,7 @@ List<RoomResponse> rooms = client.getUserChannels("user_id");
 System.out.println("Received " + rooms.size() + " rooms");
 ```
 
-###<a name="Streaming">**How to get streaming data from Gitter Streaming API**
+### <a name="Streaming">**How to get streaming data from Gitter Streaming API**
 
 ### :heavy_exclamation_mark: Please don't set any log level for *RxGitterStreamingApiClient* as it blocks the stream.
 :heavy_exclamation_mark: If you get `java.net.SocketTimeoutException: Read timed out` try to encrease `ReadTimeout` in your `retrofit.client.Client` and spicify this client for `GutterApiClient` (`withClient()`).
@@ -382,7 +387,7 @@ client.getRoomEventsStream(roomId).subscribe(new Action1<RoomEvent>() {
 });
 ```
 
-###<a name="Faye">**How to work with Gitter Faye API**
+### <a name="Faye">**How to work with Gitter Faye API**
 
 1 Setup ```AsyncGitterFayeClient```:
 
@@ -494,7 +499,7 @@ client.disconnect();
 
 Thats all =).
 
-###<a name="Samples">**Samples**
+### <a name="Samples">**Samples**
 
 You can see some code samples [here](https://github.com/Gitteroid/GitterJavaSDK/tree/master/samples/src/main/java/com/amatkivskiy/gitter/sdk/samples)
 
